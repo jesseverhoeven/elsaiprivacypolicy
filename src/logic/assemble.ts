@@ -14,9 +14,10 @@ import {
 import { DATA_CATEGORY_DEFS, LEGAL_BASIS_DEFS } from '../data/picklists';
 
 function contactBullets(a: Answers): string[] {
+  const emails = [a.controller.email, ...a.extraEmails.filter((e) => e.trim())].filter(Boolean);
   const lines = [
     `Address: ${a.controller.address}`,
-    `E-mail: ${a.controller.email}`,
+    `E-mail: ${emails.join(', ')}`,
   ];
   if (a.controller.phone.trim()) lines.push(`Phone: ${a.controller.phone}`);
   if (a.controllerKind === 'joint' && a.jointController.name.trim()) {
@@ -32,9 +33,19 @@ function enabledCategoryBullets(a: Answers): string[] {
     .filter((c) => c.enabled)
     .map((c) => {
       const def = DATA_CATEGORY_DEFS.find((d) => d.id === c.id);
-      const label = def?.label ?? c.id;
+      const label = c.customLabel ?? def?.label ?? c.id;
       return c.items.trim() ? `${label} (${c.items.trim()})` : label;
     });
+}
+
+/** (Sub)processors appear among the data recipients — never as controllers. */
+function recipientBullets(a: Answers): string[] {
+  const processorLines = a.usesProcessors
+    ? a.processors
+        .filter((p) => p.name.trim())
+        .map((p) => `${p.name} (data ${p.kind === 'subprocessor' ? 'sub-processor' : 'processor'}${p.contact.trim() ? `; contact: ${p.contact.trim()}` : ''})`)
+    : [];
+  return [...a.recipientsInternal, ...a.recipientsExternal, ...processorLines];
 }
 
 const BASIS_ORDER: LegalBasis[] = ['contract', 'consent', 'legitimateInterest', 'legalObligation'];
@@ -52,12 +63,30 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
      2026-07-10): the published policy is read by data subjects, who should not see
      generator provenance. Template version + date go into DOCX metadata instead. */
 
-  /* ---------- Title ---------- */
+  /* ---------- Title + last-updated line ---------- */
   push({
     id: 'title', kind: 'title',
     text: `Privacy Policy – ${a.activityTitle || '…'}`,
     locked: true,
     source: 'Annex 4 title (highlighted word "Template" replaced by the event name, user decision 2026-07-10)',
+  });
+  push({
+    id: 'last-updated', kind: 'paragraph',
+    text: `Last updated: ${a.policyDate} · Version ${a.version}`,
+    locked: true, source: 'Annex 4 version line · LeCercle layout ("Last updated")',
+  });
+
+  /* ---------- Table of contents (LeCercle layout enhancement) ---------- */
+  const tocEntries = [
+    'Summary', 'Who we are', 'Personal data we process', 'Purposes of the Processing', 'Your rights',
+    'More details',
+    '1 - About us', '2 - Personal Data Collection', '3 - Legal Basis and Purposes', '4 - Data Retention',
+    '5 - Data Transfers & Sharing', '6 - Data Security', '7 - Your Rights',
+    '8 - Changes to this Privacy Policy', '9 - Contact Us',
+  ];
+  push({
+    id: 'toc', kind: 'toc', entries: tocEntries, locked: true,
+    source: 'LeCercle Supporters policy layout (table of contents)', deviation: 'lecercle-enhancement',
   });
 
   /* ---------- Summary Section ---------- */
@@ -86,20 +115,10 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({ id: 'sum-rights-i', kind: 'paragraph', text: SUMMARY.rightsIntro, locked: true, source: `${SRC.A4_SUMMARY} · ${SRC.HB_42}: “Leave section as it is”` });
   push({ id: 'sum-rights', kind: 'bullets', bullets: SUMMARY.rightsBullets, locked: true, source: `${SRC.A4_SUMMARY} · ${SRC.HB_42}: “Leave section as it is”` });
 
-  push({ id: 'sum-more-h', kind: 'heading2', text: SUMMARY.moreDetailsHeading, locked: true, source: SRC.A4_SUMMARY });
-
   /* ---------- Detailed Section ---------- */
-  push({
-    id: 'det-h', kind: 'heading1',
-    text: `Privacy Policy for ${a.activityTitle || '…'}`,
-    locked: false, source: 'Annex 4 Detailed heading · user decision B (audience/event placeholder)',
-    deviation: 'heading names the event instead of the template’s example audience',
-  });
-  push({
-    id: 'det-version', kind: 'paragraph',
-    text: `Version ${a.version} - ${a.policyDate}`,
-    locked: true, source: 'Annex 4 “Version 0 - 00.00.0000” placeholder',
-  });
+  // "More details" alone bridges to the detailed part — the event title is not repeated
+  // here (user feedback 2026-07-10: it duplicated the main title).
+  push({ id: 'sum-more-h', kind: 'heading1', text: SUMMARY.moreDetailsHeading, locked: true, source: SRC.A4_SUMMARY });
 
   /* 1 - About us */
   push({ id: 's1-h', kind: 'heading2', text: S1_ABOUT_US.heading, locked: true, source: SRC.A4_S1 });
@@ -170,35 +189,46 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     push({ id: 's2b-ind', kind: 'bullets', bullets: a.indirectSources, locked: false, source: `${SRC.A4_S2} · ROPA Column K` });
   }
 
-  /* 3 - Legal Basis and Purposes */
+  /* 3 - Legal Basis and Purposes — intro + optional ADM statement first, then the
+     basis/purposes TABLE (user request 2026-07-10; wording stays verbatim, only the
+     presentation is tabular). Bases without Annex 4 lead-in wording are never
+     rendered — surfaced as advice instead (F5). */
   push({ id: 's3-h', kind: 'heading2', text: S3_LEGAL_BASIS.heading, locked: true, source: SRC.A4_S3 });
   push({ id: 's3-intro', kind: 'paragraph', text: S3_LEGAL_BASIS.intro, locked: true, source: SRC.A4_S3 });
-  for (const basis of BASIS_ORDER) {
+  if (a.includeNoAutomatedDecisions) {
+    push({
+      id: 's3-noadm', kind: 'paragraph', text: S3_LEGAL_BASIS.noAutomatedDecisions, locked: false,
+      source: `${SRC.BRIEF_12} item 12 (GDPR Art. 13(2)(f))`, deviation: 'brief-item-12 (optional statement, not in Annex 4)',
+    });
+  }
+  const basisRows = BASIS_ORDER.flatMap((basis) => {
     const purposes = a.purposes.filter((p) => p.enabled && p.basis === basis);
-    if (purposes.length === 0) continue;
+    if (purposes.length === 0) return [];
     const leadIn =
       basis === 'contract' ? (isParticipants ? S3_LEGAL_BASIS.contractParticipants : S3_LEGAL_BASIS.contractVolunteers) :
       basis === 'consent' ? S3_LEGAL_BASIS.consent :
       basis === 'legitimateInterest' ? S3_LEGAL_BASIS.legitimateInterest :
       S3_LEGAL_BASIS.legalObligation;
-    // Split "<Basis name>: <lead-in…>" so the basis name renders as an orange
-    // label with a list marker (visual styling only — wording stays verbatim).
     const filled = fill(leadIn, g);
     const sep = filled.indexOf(':');
+    return [{ label: filled.slice(0, sep), lead: filled.slice(sep + 1).trim(), purposes: purposes.map((p) => p.text) }];
+  });
+  push({
+    id: 's3-table', kind: 'basisTable', rows: basisRows, locked: false,
+    source: `${SRC.A4_S3} (verbatim lead-ins) · ${SRC.HB_42} (Column C per L–R) · tabular presentation per user decision 2026-07-10`,
+  });
+  if (a.purposes.some((p) => p.enabled && p.basis === 'consent')) {
     push({
-      id: `s3-${basis}`, kind: 'basisLead',
-      label: filled.slice(0, sep), text: filled.slice(sep + 1).trim(),
-      locked: true,
-      source: `${SRC.A4_S3} · ${SRC.HB_42} (Column C per L–R)`,
-      deviation: basis === 'contract' ? audDev : undefined,
+      id: 's3-withdraw', kind: 'paragraph',
+      text: fill(S3_LEGAL_BASIS.consentWithdrawal, { controllerEmail: a.controller.email }),
+      locked: true, source: 'LeCercle Supporters policy §3 (approved wording)', deviation: 'lecercle-enhancement',
     });
-    push({ id: `s3-${basis}-list`, kind: 'bullets', bullets: purposes.map((p) => p.text), locked: false, source: `${SRC.A4_S3} “[purpose]” · ROPA Column C` });
   }
-  // Bases without Annex 4 lead-in wording are never rendered — surfaced as advice instead (F5).
-  if (a.includeNoAutomatedDecisions) {
+  if (a.purposes.some((p) => p.enabled && p.basis === 'legitimateInterest')) {
     push({
-      id: 's3-noadm', kind: 'paragraph', text: S3_LEGAL_BASIS.noAutomatedDecisions, locked: false,
-      source: `${SRC.BRIEF_12} item 12 (GDPR Art. 13(2)(f))`, deviation: 'brief-item-12 (optional statement, not in Annex 4)',
+      id: 's3-object', kind: 'paragraph',
+      text: fill(S3_LEGAL_BASIS.legitimateInterestObjection, { controllerEmail: a.controller.email }),
+      locked: true, source: 'LeCercle Supporters policy §3 (approved wording)', deviation: 'lecercle-enhancement',
     });
   }
 
@@ -213,7 +243,7 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({ id: 's5a-li', kind: 'paragraph', text: S5_TRANSFERS.recipientsListIntro, locked: true, source: SRC.A4_S5 });
   push({
     id: 's5a-list', kind: 'bullets',
-    bullets: [...a.recipientsInternal, ...a.recipientsExternal],
+    bullets: recipientBullets(a),
     locked: false,
     source: `${SRC.A4_S5} “[insert third parties]” · ${SRC.HB_42} (Columns Z–AC; controllers themselves are not listed)`,
   });
@@ -278,7 +308,7 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     bullets: [
       `the European Law Students’ Association (ELSA) ${a.controller.name}`,
       a.controller.address,
-      a.controller.email,
+      [a.controller.email, ...a.extraEmails.filter((e) => e.trim())].filter(Boolean).join(', '),
       ...(isJoint && a.jointController.name.trim()
         ? [`${a.jointController.name}${a.jointController.address ? `, ${a.jointController.address}` : ''}${a.jointController.email ? `, ${a.jointController.email}` : ''}`]
         : []),

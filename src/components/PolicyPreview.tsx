@@ -1,4 +1,5 @@
 import type { PolicyBlock } from '../types';
+import logoUrl from '../assets/elsa-logo.png';
 
 export interface BlockEdits {
   [blockId: string]: { removed?: boolean; bullets?: string[]; text?: string };
@@ -26,6 +27,7 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
 
   return (
     <div className="policy">
+      <img src={logoUrl} alt="ELSA — The European Law Students’ Association" className="policy-logo" />
       {blocks.map((b) => {
         const e = edits[b.id] ?? {};
         if (e.removed) return null;
@@ -41,12 +43,40 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
         );
 
         switch (b.kind) {
-          case 'basisLead':
+          case 'toc':
             return (
-              <div key={b.id}>
-                <p className="policy-p basis-lead">
-                  <span className="basis-label">▸ {b.label}:</span> {text}
-                </p>
+              <div key={b.id} className="policy-toc">
+                <h3 className="policy-h2">Contents</h3>
+                <ul>
+                  {(b.entries ?? []).map((e, i) => (
+                    <li key={i} className={/^\d/.test(e) || e === 'Summary' || e === 'More details' ? 'toc-top' : 'toc-sub'}>{e}</li>
+                  ))}
+                </ul>
+                {sourceTag}
+              </div>
+            );
+          case 'basisTable':
+            return (
+              <div key={b.id} className="basis-table-wrap">
+                <table className="basis-table">
+                  <thead>
+                    <tr><th>Legal basis</th><th>Purposes</th></tr>
+                  </thead>
+                  <tbody>
+                    {(b.rows ?? []).map((row, i) => (
+                      <tr key={i}>
+                        <td>
+                          <span className="basis-name">{row.label}</span>
+                          <span className="basis-leadtext">{row.lead}</span>
+                        </td>
+                        <td>
+                          <ul>{row.purposes.map((p, j) => <li key={j}>{p}</li>)}</ul>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {editable && <p className="hint">Purposes are edited in the previous step (“Complete &amp; check”).</p>}
                 {sourceTag}
               </div>
             );
@@ -55,17 +85,7 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
           case 'title':
             return <div key={b.id}><h1 className="policy-title">{text}</h1>{sourceTag}</div>;
           case 'heading1':
-            return (
-              <div key={b.id} className="policy-h-wrap">
-                {editable && !b.locked && b.id === 'det-h' ? (
-                  <input
-                    className="policy-h1-input" value={text} aria-label="Detailed section heading"
-                    onChange={(ev) => patch(b.id, { text: ev.target.value })}
-                  />
-                ) : <h2 className="policy-h1">{text}</h2>}
-                {sourceTag}
-              </div>
-            );
+            return <div key={b.id} className="policy-h-wrap"><h2 className="policy-h1">{text}</h2>{sourceTag}</div>;
           case 'heading2':
             return <div key={b.id} className="policy-h-wrap"><h3 className="policy-h2">{text}</h3>{sourceTag}</div>;
           case 'heading3':

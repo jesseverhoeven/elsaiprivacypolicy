@@ -58,8 +58,8 @@ export const LEGAL_DISCLAIMER =
   'kind, express or implied, including but not limited to warranties of accuracy, completeness, merchantability, ' +
   'fitness for a particular purpose or non-infringement. The Tool generates draft documents by mechanically combining ' +
   'user input with pre-approved template text; its output does not constitute legal advice, and no lawyer–client or ' +
-  'other advisory relationship is created by its use. To the fullest extent permitted by applicable law, neither the ' +
-  'author/creator of the Tool, nor the European Law Students’ Association (ELSA), ELSA International, any ELSA ' +
+  'other advisory relationship is created by its use. To the fullest extent permitted by applicable law, neither ' +
+  'Jesse Verhoeven, the author and developer of the Tool, nor the European Law Students’ Association (ELSA), ELSA International, any ELSA ' +
   'National or Local Group, nor any of their respective officers, members, employees or volunteers accepts any ' +
   'liability or responsibility for any loss or damage of any kind — whether direct, indirect, incidental or ' +
   'consequential — arising from or in connection with the use of the Tool, reliance on its output, or the publication ' +
@@ -177,6 +177,12 @@ export const S3_LEGAL_BASIS = {
   /** deviation: brief-item-12 — optional statement, GDPR Art. 13(2)(f); Handbook notes ADM generally does not apply to ELSA. */
   noAutomatedDecisions:
     'No automated decision-making, including profiling, within the meaning of Article 22 GDPR takes place in the context of the processing activities described in this Privacy Policy.',
+  /** deviation: lecercle-enhancement — shown when consent is a basis (approved LeCercle wording). */
+  consentWithdrawal:
+    'You may withdraw your consent at any time by contacting {{controllerEmail}}. The withdrawal of consent does not affect the lawfulness of processing carried out before the withdrawal.',
+  /** deviation: lecercle-enhancement — shown when legitimate interest is a basis (approved LeCercle wording). */
+  legitimateInterestObjection:
+    'You may object to processing carried out on the basis of our legitimate interests at any time, on grounds relating to your particular situation, by contacting {{controllerEmail}}.',
 };
 
 export const S4_RETENTION = {
@@ -194,14 +200,19 @@ export const S5_TRANSFERS = {
     'We collaborate with third-party service providers to support the functioning of our services, as well as with administrative, regulatory and public authorities when there is a legal or administrative obligation we are bound to regarding the sharing of your personal data ("data recipients"). Our service providers assist in various activities, such as facilitating payments and providing IT infrastructure. They are granted access to your personal data solely to the extent required to carry out these tasks.',
   recipientsListIntro: 'Types of data recipients who may access your personal data:',
   thirdCountryHeading: 'Third-Country and International Organisation Transfers',
-  /** Verbatim — conditional section, only when data leaves the EEA / goes to international organisations. */
+  /**
+   * deviation: lecercle-enhancement — wording follows the approved amended LeCercle Supporters
+   * policy (03.05.2026): "data recipients" instead of "service providers", the doubled
+   * "adhere to" fixed, and the EU–US Data Privacy Framework added to the adequacy bullet.
+   * Conditional section: only when data leaves the EEA / goes to international organisations.
+   */
   tcIntro:
-    'It’s worth noting that we engage service providers located in third countries, which are regions outside the EU. These third countries may not offer a level of data protection equivalent to that of the EU.',
+    'It’s worth noting that we engage data recipients located in third countries, which are regions outside the EU. These third countries may not offer a level of data protection equivalent to that of the EU.',
   tcSafeguards:
-    'To ensure the security of your personal data during international transfers, we adhere to our contractual obligations and adhere to the applicable data protection regulations. These safeguards encompass:',
+    'To ensure the security of your personal data during international transfers, we adhere to our contractual obligations and the applicable data protection regulations. These safeguards encompass:',
   tcSafeguardBullets: [
-    'Transferring data to countries that have received an adequacy decision by the European Commission.',
-    'Implementing standard contractual clauses provided by the European Commission, per Commission Implementing Decision (EU) 2021/914 of 4 June 2021, as well as supplementary measures for the transfer where we deem those measures as necessary to ensure an essentially equivalent level of protection to that of the EU.',
+    'Transferring data to countries that have received an adequacy decision by the European Commission, including, where applicable, transfers to entities certified under the EU–US Data Privacy Framework.',
+    'Implementing standard contractual clauses provided by the European Commission, per Commission Implementing Decision (EU) 2021/914 of 4 June 2021, as well as supplementary measures for the transfer, where we deem those measures as necessary to ensure an essentially equivalent level of protection to that of the EU.',
   ],
   tcCountriesIntro:
     'We and/or our service providers transfer your personal data and process it in various third countries. These countries include:',

@@ -1,5 +1,9 @@
 import type { Answers } from './types';
-import { DATA_CATEGORY_DEFS, PURPOSE_SUGGESTIONS, SOURCE_OPTIONS, INTERNAL_RECIPIENT_OPTIONS, EXTERNAL_RECIPIENT_OPTIONS, DATA_SUBJECT_OPTIONS } from './data/picklists';
+import {
+  DATA_CATEGORY_DEFS, PURPOSE_SUGGESTIONS, SOURCE_OPTIONS,
+  INTERNAL_RECIPIENT_OPTIONS, EXTERNAL_RECIPIENT_OPTIONS, DATA_SUBJECT_OPTIONS,
+} from './data/picklists';
+import { presetById } from './data/presets';
 import type { AnalysisResult } from './logic/analyze';
 
 export function defaultAnswers(): Answers {
@@ -9,7 +13,10 @@ export function defaultAnswers(): Answers {
     audience: 'participants',
     controllerKind: 'controller',
     controller: { name: '', address: '', email: '', phone: '' },
+    extraEmails: [],
     jointController: { name: '', address: '', email: '', phone: '' },
+    usesProcessors: false,
+    processors: [],
     soleControllerPurposes: '',
     controllerCountry: '',
     dpoContact: '',
@@ -20,22 +27,68 @@ export function defaultAnswers(): Answers {
     indirectSources: [],
     purposes: PURPOSE_SUGGESTIONS.map((p, i) => ({ id: `p${i}`, text: p.text, basis: p.basis, enabled: false })),
     recipientsInternal: [],
-    recipientsExternal: [],
-    transfersOutsideEEA: null,
-    thirdCountries: [],
+    // Standard ELSA infrastructure (Google Workspace/Gmail, IT providers) is pre-ticked —
+    // practically always involved; officers can untick (user request 2026-07-10).
+    recipientsExternal: EXTERNAL_RECIPIENT_OPTIONS.filter((r) => r.defaultOn).map((r) => r.label),
+    // Google/US infrastructure means data typically leaves the EEA — standardised default,
+    // reviewable in step "Complete & check".
+    transfersOutsideEEA: true,
+    thirdCountries: ['The United States of America'],
     internationalOrgs: [],
     sccContactEmail: '',
-    noticeDays: 7,
+    noticeDays: 14,
     minorsInvolved: false,
     includeNoAutomatedDecisions: true,
     explicitConsentConfirmed: false,
     policyDate: today,
     version: '1.0',
     jotformLink: '',
+    presetId: null,
+    changeNotes: '',
   };
 }
 
-/** Merge deterministic analysis into answers — analysis only pre-fills; the officer reviews everything in step 2. */
+/**
+ * Apply a preset event (approved past policy) over the defaults.
+ * Returns the prefilled answers plus the set of "marks" — values that came from
+ * the preset, shown in orange in the questionnaire so officers can spot them.
+ */
+export function applyPreset(id: string): { answers: Answers; marks: Set<string> } {
+  const preset = presetById(id);
+  const answers = defaultAnswers();
+  const marks = new Set<string>();
+  if (!preset) return { answers, marks };
+
+  Object.assign(answers, structuredClone(preset.prefill));
+  answers.presetId = preset.id;
+
+  for (const key of Object.keys(preset.prefill)) marks.add(`field:${key}`);
+  for (const ds of preset.prefill.dataSubjects ?? []) marks.add(`ds:${ds}`);
+  for (const r of preset.prefill.recipientsInternal ?? []) marks.add(`ri:${r}`);
+  for (const r of preset.prefill.recipientsExternal ?? []) marks.add(`re:${r}`);
+
+  for (const cat of preset.categories) {
+    const entry = answers.dataCategories.find((c) => c.id === cat.id);
+    if (entry) { entry.enabled = true; entry.items = cat.items; marks.add(`cat:${cat.id}`); }
+  }
+  for (const custom of preset.customCategories) {
+    const id = `custom:${custom.label}`;
+    answers.dataCategories.push({ id, customLabel: custom.label, items: custom.items, enabled: true });
+    marks.add(`cat:${id}`);
+  }
+  for (const p of preset.purposes) {
+    const existing = answers.purposes.find((x) => x.text === p.text);
+    if (existing) { existing.enabled = true; existing.basis = p.basis; marks.add(`purpose:${existing.id}`); }
+    else {
+      const idp = `c-preset-${answers.purposes.length}`;
+      answers.purposes.push({ id: idp, text: p.text, basis: p.basis, enabled: true });
+      marks.add(`purpose:${idp}`);
+    }
+  }
+  return { answers, marks };
+}
+
+/** Merge deterministic analysis into answers — analysis only pre-fills; the officer reviews everything. */
 export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
   const next: Answers = structuredClone(a);
 
@@ -57,6 +110,11 @@ export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
   for (const id of r.sourceIds) {
     const label = SOURCE_OPTIONS.find((s) => s.id === id)?.label;
     if (label && !next.directSources.includes(label)) next.directSources.push(label);
+    // A form source implies the form platform is a recipient
+    if (id === 'jotform' || id === 'google-form' || id === 'website-form') {
+      const platform = EXTERNAL_RECIPIENT_OPTIONS.find((o) => o.id === 'form-platforms')!.label;
+      if (!next.recipientsExternal.includes(platform)) next.recipientsExternal.push(platform);
+    }
   }
   for (const id of r.internalRecipientIds) {
     const label = INTERNAL_RECIPIENT_OPTIONS.find((s) => s.id === id)?.label;
@@ -72,10 +130,60 @@ export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
   }
   if (r.thirdCountries.length > 0) {
     next.transfersOutsideEEA = true;
-    for (const c of r.thirdCountries) if (!next.thirdCountries.includes(c)) next.thirdCountries.push(c);
+    for (const c of r.thirdCountries) {
+      const canonical = c === 'United States' ? 'The United States of America' : c;
+      if (!next.thirdCountries.includes(canonical)) next.thirdCountries.push(canonical);
+    }
   }
   if (r.minorsSignal) next.minorsInvolved = true;
   if (!next.sccContactEmail && next.controller.email) next.sccContactEmail = next.controller.email;
 
   return next;
+}
+
+/* ------------------------------------------------------------------ */
+/* Session persistence — sessionStorage only (this browser tab, this   */
+/* session); nothing ever leaves the device. Lets officers move back   */
+/* and forth between steps without losing input (user request).        */
+/* ------------------------------------------------------------------ */
+
+const SESSION_KEY = 'elsaiprivacypolicy-session';
+
+export interface IntakeState {
+  files: { name: string; chars: number; text: string; error?: string }[];
+  jotformLink: string;
+  pasted: string;
+  manual: string;
+}
+
+export function emptyIntake(): IntakeState {
+  return { files: [], jotformLink: '', pasted: '', manual: '' };
+}
+
+export interface SessionState {
+  step: number;
+  answers: Answers;
+  edits: Record<string, unknown>;
+  intake: IntakeState;
+  presetMarks: string[];
+}
+
+export function saveSession(s: SessionState): void {
+  try { sessionStorage.setItem(SESSION_KEY, JSON.stringify(s)); } catch { /* storage full/blocked — session persistence is best-effort */ }
+}
+
+export function loadSession(): SessionState | null {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const s = JSON.parse(raw) as SessionState;
+    if (!s.answers) return null;
+    return { ...s, answers: { ...defaultAnswers(), ...s.answers }, intake: { ...emptyIntake(), ...s.intake } };
+  } catch {
+    return null;
+  }
+}
+
+export function clearSession(): void {
+  try { sessionStorage.removeItem(SESSION_KEY); } catch { /* ignore */ }
 }

@@ -34,12 +34,26 @@ export interface AnalysisResult {
 const EMAIL_RE = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g;
 const PHONE_RE = /(?:\+|00)\d[\d\s().-]{7,18}\d/g;
 const JOTFORM_RE = /https?:\/\/(?:[\w-]+\.)?jotform\.com\/[^\s"'<>)]+/gi;
-const ELSA_GROUP_RE = /ELSA\s+(?!International\b)([A-ZÀ-Þ][A-Za-zÀ-ž'-]+(?:\s+[A-ZÀ-Þ][A-Za-zÀ-ž'-]+){0,3})/g;
+const ELSA_GROUP_RE = /ELSA\s+([A-ZÀ-Þ][A-Za-zÀ-ž'-]+(?:\s+[A-ZÀ-Þ][A-Za-zÀ-ž'-]+){0,3})/g;
 
 /** Words that end an "ELSA <place>" capture — avoids swallowing sentence tails. */
 const GROUP_STOPWORDS = new Set(['The', 'A', 'An', 'Is', 'Will', 'And', 'Or', 'For', 'To', 'Team', 'Board', 'Privacy', 'Data']);
 
-const EVENT_TITLE_RE = /\b(?:NCM|ICM|KAM|SAM|National Council Meeting|International Council Meeting|Summer Law School|Winter Law School|Law School|Moot Court|EMC2|Delegation|Study Visit|Institutional Visit|Legal Research Group|Conference|Workshop|Webinar|Gala|Training|Summer School)\b[^.\n]{0,60}/i;
+/**
+ * Event-name words that must never be mistaken for a group name — "ELSA Winter Law
+ * School" is an event, not a controller (user feedback 2026-07-10: derive controller
+ * and event title from the text as reliably as possible).
+ */
+const GROUP_EVENT_WORDS = new Set([
+  'Law', 'Schools', 'School', 'Winter', 'Summer', 'Conference', 'Conferences', 'Moot', 'Court',
+  'Delegation', 'Delegations', 'Study', 'Visit', 'Visits', 'Webinar', 'Gala', 'Training',
+  'Competition', 'Competitions', 'Day', 'Week', 'Weekend', 'Event', 'Events', 'NCM', 'ICM',
+  'Officers', 'Officer', 'Member', 'Members', 'Alumni', 'Seminar', 'Seminars', 'Negotiation',
+]);
+
+/** Event title: optional leading capitalised words + a known event keyword + optional year. */
+const EVENT_TITLE_RE =
+  /\b((?:[A-ZÀ-Þ][\w&’'-]*\s+){0,3}(?:NCM|ICM|KAM|SAM|National Council Meeting|International Council Meeting|Summer Law School|Winter Law School|Law School|Moot Court(?: Competition)?|EMC2|Delegation|Study Visit|Institutional Visit|Legal Research Group|Conference|Workshop|Webinar|Gala|Training|Summer School|Negotiation Competition)(?:\s+\d{4})?)/;
 
 const VOLUNTEER_WORDS = ['volunteer', 'officer', 'board member', 'recruit', 'team member', 'director of', 'vice president'];
 const PARTICIPANT_WORDS = ['participant', 'attendee', 'delegate', 'registration', 'sign up', 'signup', 'ticket', 'guest', 'applicant'];
@@ -68,12 +82,22 @@ export function analyzeText(raw: string): AnalysisResult {
 
   const groupNames: string[] = [];
   for (const m of text.matchAll(ELSA_GROUP_RE)) {
-    const words = m[1].split(/\s+/).filter((w) => !GROUP_STOPWORDS.has(w));
-    if (words.length > 0) groupNames.push(words.join(' '));
+    const words: string[] = [];
+    for (const w of m[1].split(/\s+/)) {
+      if (GROUP_STOPWORDS.has(w) || GROUP_EVENT_WORDS.has(w)) break; // stop at event/sentence words
+      words.push(w);
+      if (w === 'International') break; // "ELSA International" is a valid controller by itself
+    }
+    if (words.length > 0 && !groupNames.includes(words.join(' '))) groupNames.push(words.join(' '));
+  }
+  // Prefer "International" if explicitly present (common controller for EI events)
+  if (groupNames.includes('International')) {
+    groupNames.splice(groupNames.indexOf('International'), 1);
+    groupNames.unshift('International');
   }
 
   const titleMatch = text.match(EVENT_TITLE_RE);
-  const activityTitleGuess = titleMatch ? titleMatch[0].trim() : '';
+  const activityTitleGuess = titleMatch ? titleMatch[1].trim().replace(/^(?:the|a|an)\s+/i, 'the ') : '';
 
   const volunteerHit = findKeyword(lower, VOLUNTEER_WORDS);
   const participantHit = findKeyword(lower, PARTICIPANT_WORDS);

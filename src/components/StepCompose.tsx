@@ -15,7 +15,7 @@ export function StepCompose({ blocks, edits, setEdits, onBack, onContinue }: Pro
 
   return (
     <section className="step">
-      <h2>Step 3 · Your privacy policy — trim it like paper</h2>
+      <h2>Step 4 · Your privacy policy — trim it like paper</h2>
       <p className="lead">
         This is the full policy in the exact ELSA template structure. Lists that came from <b>your</b> answers can be
         rewritten, re-ordered (↑ ↓) or cut (✕) — cut items can be restored. The standardised legal sections are fixed and

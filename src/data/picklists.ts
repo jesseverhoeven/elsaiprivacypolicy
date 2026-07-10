@@ -95,6 +95,31 @@ export const DATA_CATEGORY_DEFS: DataCategoryDef[] = [
     defaultItems: 'photographs and video recordings taken during the event', special: false,
     keywords: ['photo', 'picture', 'video', 'recording', 'social media post', 'livestream'],
   },
+  {
+    id: 'communication-data', label: 'Communication data',
+    defaultItems: 'e.g. messages, inquiries, requests or other information you provide when contacting us', special: false,
+    keywords: ['inquir', 'messages you send', 'correspondence', 'contact us about'],
+  },
+  {
+    id: 'billing-contribution', label: 'Billing and contribution information',
+    defaultItems: 'selected contribution model, amount, frequency, subscription status and payment-related information', special: false,
+    keywords: ['contribution', 'subscription', 'billing', 'recurring payment', 'donation'],
+  },
+  {
+    id: 'religious-beliefs', label: 'Religious or philosophical beliefs', special: true,
+    defaultItems: 'e.g. religious dietary requirements, prayer room needs',
+    keywords: ['religio', 'prayer', 'philosophical belief', 'faith'],
+  },
+  {
+    id: 'political-opinions', label: 'Political opinions', special: true,
+    defaultItems: 'e.g. political affiliations expressed in the context of the activity',
+    keywords: ['political opinion', 'political affiliation', 'political party'],
+  },
+  {
+    id: 'trade-union', label: 'Trade-union membership', special: true,
+    defaultItems: 'e.g. membership of a trade union or professional association',
+    keywords: ['trade union'],
+  },
 ];
 
 /** HB Ch. 3.4.2 — specific data sources. */
@@ -108,22 +133,53 @@ export const SOURCE_OPTIONS: { id: string; label: string; keywords: string[] }[]
   { id: 'paper-form', label: 'Paper form', keywords: ['paper form', 'on paper', 'sign-up sheet'] },
 ];
 
+/** ELSA International's eight areas (officers.elsa.org) — shown to clarify "within ELSA" recipients. */
+export const ELSA_INTERNATIONAL_AREAS = [
+  'Board Management, External Relations & Expansion (BEE)',
+  'Internal Management (IM)',
+  'Financial Management (FM)',
+  'Marketing (MKT)',
+  'Academic Activities (AA)',
+  'Competitions (C)',
+  'Professional Development (PD)',
+  'Seminars & Conferences (S&C)',
+] as const;
+
+/** Quick-fill contact for ELSA International as controller (user request 2026-07-10). */
+export const ELSA_INTERNATIONAL_CONTACT = {
+  name: 'International',
+  address: 'Boulevard Général Jacques 239, Brussels B-1050, Belgium',
+  email: 'elsa@elsa.org',
+  phone: '+32 2 646 2626',
+} as const;
+
 /** HB Ch. 3.4.4 — transfers within ELSA. */
-export const INTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: string[] }[] = [
-  { id: 'own-board', label: 'Our own National/Local Board', keywords: ['national board', 'local board', 'the board'] },
-  { id: 'own-team', label: 'Our own National/Local Team', keywords: ['national team', 'local team'] },
-  { id: 'own-council', label: 'Our own National/Local Council', keywords: ['council'] },
-  { id: 'local-groups', label: 'Our Local Groups', keywords: ['local groups'] },
-  { id: 'elsa-international', label: 'ELSA International', keywords: ['elsa international'] },
-  { id: 'other-groups', label: 'Other National/Local Groups', keywords: ['other national group', 'other local group'] },
+export const INTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: string[]; hint?: string }[] = [
+  { id: 'own-board', label: 'ELSA National/Local Board', keywords: ['national board', 'local board', 'the board'] },
+  { id: 'own-team', label: 'ELSA National/Local Team', keywords: ['national team', 'local team'] },
+  { id: 'own-council', label: 'ELSA National/Local Council', keywords: ['council'] },
+  { id: 'local-groups', label: 'ELSA Local Groups', keywords: ['local groups'] },
+  {
+    id: 'elsa-international', label: 'ELSA International', keywords: ['elsa international'],
+    hint: `Areas: ${ELSA_INTERNATIONAL_AREAS.join(' · ')}`,
+  },
+  { id: 'other-groups', label: 'Other ELSA National/Local Groups', keywords: ['other national group', 'other local group'] },
   { id: 'organising-committees', label: 'Organising Committees', keywords: ['organising committee', 'organizing committee', ' oc '] },
 ];
 
-/** HB Ch. 3.4.4 — third parties outside ELSA. */
-export const EXTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: string[] }[] = [
-  { id: 'cloud-providers', label: 'Cloud Software Providers (Google, Microsoft, cloud service providers, mailing providers)', keywords: ['google drive', 'google workspace', 'microsoft', 'onedrive', 'dropbox', 'mailchimp', 'cloud'] },
+/**
+ * HB Ch. 3.4.4 — third parties outside ELSA.
+ * `defaultOn` = pre-ticked standard ELSA infrastructure (Google Workspace/Gmail, IT providers) —
+ * practically always involved when ELSA processes data digitally (user request 2026-07-10).
+ * Labels for cloud/forms/payment/messaging follow the approved LeCercle Supporters policy wording.
+ */
+export const EXTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: string[]; defaultOn?: boolean }[] = [
+  { id: 'cloud-providers', label: 'Cloud Server Providers (e.g. Google Workspace/Gmail, Microsoft)', defaultOn: true, keywords: ['google drive', 'google workspace', 'gmail', 'microsoft', 'onedrive', 'dropbox', 'mailchimp', 'cloud'] },
+  { id: 'it-providers', label: 'IT Software Providers', defaultOn: true, keywords: ['software provider', 'it provider', 'platform provider', 'website'] },
+  { id: 'form-platforms', label: 'Online form and registration platforms (e.g. JotForm, Google Forms)', keywords: ['jotform', 'google form', 'registration platform', 'typeform'] },
+  { id: 'payment-providers', label: 'Payment service providers (for processing payments)', keywords: ['payment provider', 'paypal', 'stripe', 'mollie', 'bank transfer'] },
+  { id: 'messaging-platforms', label: 'Messaging platforms (e.g. WhatsApp / Meta Platforms Ireland Ltd)', keywords: ['whatsapp', 'telegram', 'signal group', 'messenger'] },
   { id: 'meeting-platforms', label: 'Online Meeting Platforms (Google Meet, ClickMeeting, Zoom…)', keywords: ['zoom', 'google meet', 'clickmeeting', 'teams meeting', 'webex'] },
-  { id: 'it-providers', label: 'IT Software Providers', keywords: ['software provider', 'it provider', 'platform provider'] },
   { id: 'public-agencies', label: 'Public agencies and institutions (e.g. tax authorities)', keywords: ['tax authorit', 'public agency', 'municipality', 'ministry'] },
   { id: 'partner-organisations', label: 'Partner organisations engaged in the performance of our tasks', keywords: ['partner organisation', 'partner organization', 'law firm', 'sponsor'] },
   { id: 'auditors-payroll', label: 'Auditors and payroll tax auditors', keywords: ['auditor'] },
@@ -145,24 +201,49 @@ export const LEGAL_BASIS_DEFS: { id: LegalBasis; label: string; annex4LeadIn: bo
   { id: 'vitalInterests', label: 'Vital Interests', annex4LeadIn: false },
 ];
 
-/** A4 Summary "Purposes of the Processing" — template example purposes with sensible default bases. */
-export const PURPOSE_SUGGESTIONS: { text: string; basis: LegalBasis; keywords: string[] }[] = [
-  { text: 'Identify you', basis: 'contract', keywords: ['identify', 'registration', 'register'] },
-  { text: 'To contact you', basis: 'contract', keywords: ['contact you', 'send you', 'inform you', 'newsletter'] },
-  { text: 'Register your participation in the event', basis: 'contract', keywords: ['register', 'sign up', 'signup', 'application'] },
-  { text: 'Organise the academic and social programme', basis: 'contract', keywords: ['programme', 'program', 'workshop', 'agenda', 'schedule'] },
-  { text: 'To provide meals adapted to dietary restrictions and allergies', basis: 'consent', keywords: ['dietary', 'allerg', 'meal', 'food'] },
-  { text: 'To provide accommodation', basis: 'contract', keywords: ['accommodation', 'hotel', 'hostel', 'room'] },
-  { text: 'To organise transport and pick-ups', basis: 'contract', keywords: ['transport', 'pick-up', 'pickup', 'flight', 'shuttle'] },
-  { text: 'Publish your photos on our website and social media pages', basis: 'consent', keywords: ['photo', 'picture', 'social media', 'video'] },
-  { text: 'To transfer your personal data to international organisations with whom we collaborate', basis: 'consent', keywords: ['council of europe', 'international organisation'] },
-  { text: 'Identify qualifications and previous experiences', basis: 'contract', keywords: ['qualification', 'experience', 'cv', 'motivation letter'] },
-  { text: 'Manage our human resources', basis: 'legitimateInterest', keywords: ['human resources', 'recruit', 'volunteer management'] },
-  { text: 'Answer inquiries and provide support', basis: 'legitimateInterest', keywords: ['inquir', 'support', 'question'] },
-  { text: 'To maintain and improve our events', basis: 'legitimateInterest', keywords: ['improve', 'feedback', 'evaluation'] },
-  { text: 'Notify you about changes to our Privacy Policy', basis: 'legalObligation', keywords: [] },
-  { text: 'Comply with applicable legislation', basis: 'legalObligation', keywords: ['legislation', 'legal requirement', 'law'] },
-  { text: 'The legal enforcement of claims and rights', basis: 'legalObligation', keywords: ['claims'] },
+/** Purpose groups — help officers find the right purposes faster (user request 2026-07-10). */
+export const PURPOSE_GROUPS = [
+  'Registration & communication',
+  'Event logistics',
+  'Media & publicity',
+  'Finance & administration',
+  'Community & network',
+  'Compliance & legal',
+] as const;
+export type PurposeGroup = (typeof PURPOSE_GROUPS)[number];
+
+/**
+ * A4 Summary "Purposes of the Processing" + approved LeCercle Supporters purposes,
+ * with sensible default bases, grouped for easier decision-making.
+ */
+export const PURPOSE_SUGGESTIONS: { text: string; basis: LegalBasis; group: PurposeGroup; keywords: string[] }[] = [
+  { text: 'Identify you', basis: 'contract', group: 'Registration & communication', keywords: ['identify'] },
+  { text: 'Register and manage your participation in the event', basis: 'contract', group: 'Registration & communication', keywords: ['register', 'sign up', 'signup', 'application', 'registration'] },
+  { text: 'To contact you', basis: 'contract', group: 'Registration & communication', keywords: ['contact you', 'send you', 'inform you'] },
+  { text: 'To communicate with you regarding your participation, requests or inquiries', basis: 'contract', group: 'Registration & communication', keywords: ['inquir', 'question', 'support'] },
+  { text: 'Identify qualifications and previous experiences', basis: 'contract', group: 'Registration & communication', keywords: ['qualification', 'experience', 'cv', 'motivation letter'] },
+
+  { text: 'Organise the academic and social programme', basis: 'contract', group: 'Event logistics', keywords: ['programme', 'program', 'workshop', 'agenda', 'schedule'] },
+  { text: 'To provide meals adapted to dietary restrictions and allergies', basis: 'consent', group: 'Event logistics', keywords: ['dietary', 'allerg', 'meal', 'food'] },
+  { text: 'To provide accommodation', basis: 'contract', group: 'Event logistics', keywords: ['accommodation', 'hotel', 'hostel', 'room'] },
+  { text: 'To organise transport and pick-ups', basis: 'contract', group: 'Event logistics', keywords: ['transport', 'pick-up', 'pickup', 'flight', 'shuttle'] },
+  { text: 'To contact your emergency contact in case of emergency', basis: 'vitalInterests', group: 'Event logistics', keywords: ['emergency'] },
+
+  { text: 'Publish your photos on our website and social media pages', basis: 'consent', group: 'Media & publicity', keywords: ['photo', 'picture', 'social media', 'video'] },
+  { text: 'To share relevant information about ELSA, its projects, activities or opportunities', basis: 'legitimateInterest', group: 'Media & publicity', keywords: ['newsletter', 'promote', 'opportunities'] },
+
+  { text: 'To process and manage payments, including related administrative matters', basis: 'contract', group: 'Finance & administration', keywords: ['payment', 'fee', 'iban', 'invoice', 'contribution'] },
+  { text: 'To keep records of participants and their registrations', basis: 'legitimateInterest', group: 'Finance & administration', keywords: ['records', 'administration'] },
+  { text: 'Manage our human resources', basis: 'legitimateInterest', group: 'Finance & administration', keywords: ['human resources', 'recruit', 'volunteer management'] },
+
+  { text: 'To transfer your personal data to international organisations with whom we collaborate', basis: 'consent', group: 'Community & network', keywords: ['council of europe', 'international organisation'] },
+  { text: 'To send you an invitation link to a group chat, where you have requested this', basis: 'consent', group: 'Community & network', keywords: ['whatsapp', 'group chat', 'invitation link'] },
+  { text: 'To maintain and improve our events', basis: 'legitimateInterest', group: 'Community & network', keywords: ['improve', 'feedback', 'evaluation'] },
+  { text: 'To keep our forms, platforms and systems secure and functioning properly', basis: 'legitimateInterest', group: 'Community & network', keywords: ['secure', 'security of our'] },
+
+  { text: 'Notify you about changes to our Privacy Policy', basis: 'legalObligation', group: 'Compliance & legal', keywords: [] },
+  { text: 'Comply with applicable legal, tax, accounting or regulatory obligations', basis: 'legalObligation', group: 'Compliance & legal', keywords: ['legislation', 'legal requirement', 'tax', 'accounting'] },
+  { text: 'To establish, exercise or defend legal claims and protect the rights and interests of ELSA', basis: 'legalObligation', group: 'Compliance & legal', keywords: ['claims'] },
 ];
 
 /** HB Ch. 4.3.2 — consent-banner checklist (shown with the Art. 9 safeguard and in follow-up advice). */

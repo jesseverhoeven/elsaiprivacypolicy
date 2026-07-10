@@ -79,12 +79,19 @@ ok('no generator notice inside the policy document (user decision 2026-07-10)',
   !blocks.some((b) => b.kind === 'notice'));
 ok('policy starts with "Privacy Policy – <event>" title',
   blocks[0].kind === 'title' && blocks[0].text === 'Privacy Policy – the Summer Law School 2026');
+ok('table of contents present (LeCercle layout)', blocks.some((b) => b.kind === 'toc'));
+ok('event title not repeated as a detailed-section heading',
+  !blocks.some((b) => b.kind !== 'title' && (b.text ?? '').startsWith('Privacy Policy for')));
 
-// The orange basis-label styling must not alter the verbatim lead-in wording.
-const contractLead = blocks.find((b) => b.id === 's3-contract')!;
-ok('basis lead-in wording preserved after label/style split',
-  `${contractLead.label}: ${contractLead.text}` ===
+// The basis/purposes table must not alter the verbatim lead-in wording.
+const table = blocks.find((b) => b.kind === 'basisTable')!;
+const contractRow = table.rows!.find((r) => r.label.startsWith('Contractual'))!;
+ok('basis lead-in wording preserved inside the table',
+  `${contractRow.label}: ${contractRow.lead}` ===
   fill(S3_LEGAL_BASIS.contractParticipants, { activityTitle: answers.activityTitle, groupName: answers.controller.name, address: answers.controller.address }));
+ok('no generator branding inside the policy blocks',
+  !blocks.some((b) => JSON.stringify(b.text ?? '').toLowerCase().includes('elsaiprivacypolicy')));
+ok('notice period defaults to 14 days', defaultAnswers().noticeDays === 14);
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

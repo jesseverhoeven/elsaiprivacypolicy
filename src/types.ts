@@ -20,11 +20,20 @@ export interface ControllerContact {
   phone: string;
 }
 
+/** A (sub)processor engaged by the controller — clearly distinct from a (joint) controller. */
+export interface ProcessorEntry {
+  name: string;
+  kind: 'processor' | 'subprocessor';
+  contact: string; // e-mail / address / other contact info
+}
+
 export interface DataCategorySelection {
   id: string;
   /** Exact data items shown in parentheses/bullets — editable per event. */
   items: string;
   enabled: boolean;
+  /** Officer-added categories (id starts with "custom:"): the display label. */
+  customLabel?: string;
 }
 
 export interface Purpose {
@@ -39,7 +48,12 @@ export interface Answers {
   audience: Audience;
   controllerKind: 'controller' | 'joint';
   controller: ControllerContact;
+  /** Additional controller e-mail addresses shown alongside the primary one. */
+  extraEmails: string[];
   jointController: ControllerContact;
+  /** (Sub)processors — listed as data recipients, never as controllers. */
+  usesProcessors: boolean;
+  processors: ProcessorEntry[];
   /** Joint-controller case: purposes for which the group acts as sole controller (Ch. 4.2 "About us (if applicable)"). */
   soleControllerPurposes: string;
   controllerCountry: string; // ISO code, for supervisory-authority advice
@@ -65,15 +79,28 @@ export interface Answers {
   version: string;
   /** JotForm link kept for the officer's reference (not fetched — see README). */
   jotformLink: string;
+  /** Preset event this policy started from (e.g. 'lecercle'), or null for a new event. */
+  presetId: string | null;
+  /** Officer's notes on what changed vs the preset's previous edition. */
+  changeNotes: string;
+}
+
+/** One row of the §3 legal-basis table: basis name, verbatim lead-in, purposes. */
+export interface BasisRow {
+  label: string;
+  lead: string;
+  purposes: string[];
 }
 
 /** One rendered block of the assembled policy. */
 export interface PolicyBlock {
   id: string;
-  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice' | 'basisLead';
+  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice' | 'toc' | 'basisTable';
   text?: string;
-  /** basisLead only: the legal-basis name rendered as an orange label (visual styling; wording unchanged). */
-  label?: string;
+  /** basisTable only: one row per legal basis (visual styling; wording unchanged). */
+  rows?: BasisRow[];
+  /** toc only: the section titles listed in the table of contents. */
+  entries?: string[];
   bullets?: string[];
   /** Fixed text can never be edited/removed at runtime. */
   locked: boolean;
