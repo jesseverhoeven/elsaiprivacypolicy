@@ -70,8 +70,10 @@ export interface Answers {
 /** One rendered block of the assembled policy. */
 export interface PolicyBlock {
   id: string;
-  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice';
+  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice' | 'basisLead';
   text?: string;
+  /** basisLead only: the legal-basis name rendered as an orange label (visual styling; wording unchanged). */
+  label?: string;
   bullets?: string[];
   /** Fixed text can never be edited/removed at runtime. */
   locked: boolean;

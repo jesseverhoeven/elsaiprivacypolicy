@@ -181,8 +181,14 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
       basis === 'consent' ? S3_LEGAL_BASIS.consent :
       basis === 'legitimateInterest' ? S3_LEGAL_BASIS.legitimateInterest :
       S3_LEGAL_BASIS.legalObligation;
+    // Split "<Basis name>: <lead-in…>" so the basis name renders as an orange
+    // label with a list marker (visual styling only — wording stays verbatim).
+    const filled = fill(leadIn, g);
+    const sep = filled.indexOf(':');
     push({
-      id: `s3-${basis}`, kind: 'paragraph', text: fill(leadIn, g), locked: true,
+      id: `s3-${basis}`, kind: 'basisLead',
+      label: filled.slice(0, sep), text: filled.slice(sep + 1).trim(),
+      locked: true,
       source: `${SRC.A4_S3} · ${SRC.HB_42} (Column C per L–R)`,
       deviation: basis === 'contract' ? audDev : undefined,
     });

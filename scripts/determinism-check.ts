@@ -9,7 +9,7 @@
 import { assemblePolicy } from '../src/logic/assemble';
 import { analyzeText } from '../src/logic/analyze';
 import { defaultAnswers, mergeAnalysis } from '../src/state';
-import { S4_RETENTION, S6_SECURITY, SUMMARY } from '../src/data/clauses';
+import { S3_LEGAL_BASIS, S4_RETENTION, S6_SECURITY, SUMMARY, fill } from '../src/data/clauses';
 
 const SAMPLE = `ELSA Leuven organises the Summer Law School 2026 in July for 40 international participants.
 We register them via JotForm https://form.jotform.com/261234567890 (name, e-mail address, phone,
@@ -79,6 +79,12 @@ ok('no generator notice inside the policy document (user decision 2026-07-10)',
   !blocks.some((b) => b.kind === 'notice'));
 ok('policy starts with "Privacy Policy – <event>" title',
   blocks[0].kind === 'title' && blocks[0].text === 'Privacy Policy – the Summer Law School 2026');
+
+// The orange basis-label styling must not alter the verbatim lead-in wording.
+const contractLead = blocks.find((b) => b.id === 's3-contract')!;
+ok('basis lead-in wording preserved after label/style split',
+  `${contractLead.label}: ${contractLead.text}` ===
+  fill(S3_LEGAL_BASIS.contractParticipants, { activityTitle: answers.activityTitle, groupName: answers.controller.name, address: answers.controller.address }));
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

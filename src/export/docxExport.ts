@@ -48,6 +48,16 @@ function blockToParagraphs(b: PolicyBlock): Paragraph[] {
         alignment: AlignmentType.JUSTIFIED,
         children: [new TextRun({ text: t, size: 22, color: INK })],
       }));
+    case 'basisLead':
+      return [new Paragraph({
+        spacing: { before: 160, after: 100 },
+        alignment: AlignmentType.JUSTIFIED,
+        border: { left: { color: ORANGE, style: BorderStyle.SINGLE, size: 18, space: 8 } },
+        children: [
+          new TextRun({ text: `▸ ${b.label ?? ''}: `, bold: true, size: 22, color: ORANGE }),
+          new TextRun({ text: b.text ?? '', size: 22, color: INK }),
+        ],
+      })];
     case 'notice':
       return [new Paragraph({
         spacing: { before: 200, after: 200 },

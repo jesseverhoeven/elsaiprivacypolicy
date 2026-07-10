@@ -27,6 +27,12 @@ export function blocksToHtml(blocks: PolicyBlock[]): string {
       case 'heading3':
         parts.push(`<h3 style="color:#F5913F;font-family:Georgia,serif;">${esc(b.text ?? '')}</h3>`);
         break;
+      case 'basisLead':
+        parts.push(
+          `<p style="text-align:justify;border-left:3px solid #F5913F;padding-left:10px;">` +
+          `<b style="color:#F5913F;">▸ ${esc(b.label ?? '')}:</b> ${esc(b.text ?? '')}</p>`,
+        );
+        break;
       case 'bullets':
         parts.push(`<ul>${(b.bullets ?? []).map((t) => `<li style="text-align:justify;">${esc(t)}</li>`).join('')}</ul>`);
         break;
@@ -44,7 +50,8 @@ export function blocksToPlainText(blocks: PolicyBlock[]): string {
   const parts: string[] = [];
   for (const b of blocks) {
     if (b.removed) continue;
-    if (b.kind === 'bullets') parts.push((b.bullets ?? []).map((t) => `  • ${t}`).join('\n'));
+    if (b.kind === 'basisLead') parts.push(`${b.label}: ${b.text}`);
+    else if (b.kind === 'bullets') parts.push((b.bullets ?? []).map((t) => `  • ${t}`).join('\n'));
     else if (b.kind.startsWith('heading') || b.kind === 'title') parts.push(`\n${(b.text ?? '').toUpperCase()}\n`);
     else parts.push(b.text ?? '');
   }

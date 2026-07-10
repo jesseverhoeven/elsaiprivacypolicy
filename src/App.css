@@ -157,6 +157,9 @@ textarea { resize: vertical; }
 }
 .policy-notice p { margin: 0; }
 
+.basis-lead { border-left: 3px solid var(--orange); padding-left: 0.7rem; margin-top: 1rem; }
+.basis-label { color: var(--orange); font-weight: 700; }
+
 .source-tag {
   display: block; font-family: "Segoe UI", system-ui, sans-serif; font-size: 0.72rem;
   color: var(--ink-soft); background: var(--ground-alt); border-left: 3px solid var(--navy-soft);

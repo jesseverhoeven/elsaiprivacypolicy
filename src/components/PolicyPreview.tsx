@@ -41,6 +41,15 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
         );
 
         switch (b.kind) {
+          case 'basisLead':
+            return (
+              <div key={b.id}>
+                <p className="policy-p basis-lead">
+                  <span className="basis-label">▸ {b.label}:</span> {text}
+                </p>
+                {sourceTag}
+              </div>
+            );
           case 'notice':
             return <div className="policy-notice" key={b.id}><p>{text}</p>{sourceTag}</div>;
           case 'title':
