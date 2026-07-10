@@ -1,0 +1,35 @@
+/* ELSA theme tokens — navy #0A3087 and orange #F5913F sampled from the
+   Data Protection Handbook artwork; white ground per ELSA style. */
+:root {
+  --navy: #0A3087;
+  --navy-deep: #071F5C;
+  --navy-soft: #E9EEFA;
+  --orange: #F5913F;
+  --orange-soft: #FDEBDA;
+  --ink: #1A2233;
+  --ink-soft: #4A5468;
+  --ground: #FFFFFF;
+  --ground-alt: #F4F6FB;
+  --line: #D9DFEC;
+  --ok: #2E7D4F;
+  --warn: #B54848;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ground-alt);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#root { min-height: 100vh; }
+
+button { font: inherit; cursor: pointer; }
+input, select, textarea { font: inherit; color: inherit; }
+
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; }
