@@ -45,6 +45,7 @@ function blockToParagraphs(b: PolicyBlock): Paragraph[] {
       return (b.bullets ?? []).map((t) => new Paragraph({
         bullet: { level: 0 },
         spacing: { after: 60 },
+        alignment: AlignmentType.JUSTIFIED,
         children: [new TextRun({ text: t, size: 22, color: INK })],
       }));
     case 'notice':
@@ -59,6 +60,7 @@ function blockToParagraphs(b: PolicyBlock): Paragraph[] {
     default:
       return [new Paragraph({
         spacing: { after: 120 },
+        alignment: AlignmentType.JUSTIFIED,
         children: [new TextRun({ text: b.text ?? '', size: 22, color: INK })],
       })];
   }

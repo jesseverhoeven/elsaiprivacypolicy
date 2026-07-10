@@ -28,13 +28,13 @@ export function blocksToHtml(blocks: PolicyBlock[]): string {
         parts.push(`<h3 style="color:#F5913F;font-family:Georgia,serif;">${esc(b.text ?? '')}</h3>`);
         break;
       case 'bullets':
-        parts.push(`<ul>${(b.bullets ?? []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>`);
+        parts.push(`<ul>${(b.bullets ?? []).map((t) => `<li style="text-align:justify;">${esc(t)}</li>`).join('')}</ul>`);
         break;
       case 'notice':
         parts.push(`<p style="font-style:italic;font-size:0.85em;border-top:1px solid #F5913F;border-bottom:1px solid #F5913F;padding:6px 0;">${esc(b.text ?? '')}</p>`);
         break;
       default:
-        parts.push(`<p>${esc(b.text ?? '')}</p>`);
+        parts.push(`<p style="text-align:justify;">${esc(b.text ?? '')}</p>`);
     }
   }
   return `<div style="font-family:Calibri,Arial,sans-serif;color:#1A2233;">${parts.join('\n')}</div>`;

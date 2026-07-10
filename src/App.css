@@ -147,9 +147,9 @@ textarea { resize: vertical; }
 }
 .policy-h2 { color: var(--navy); font-size: 1.18rem; margin: 1.4rem 0 0.5rem; }
 .policy-h3 { color: var(--orange); font-size: 1.02rem; margin: 1rem 0 0.4rem; }
-.policy-p { margin: 0.5rem 0; max-width: 75ch; }
+.policy-p { margin: 0.5rem 0; max-width: 75ch; text-align: justify; }
 .policy-ul { margin: 0.4rem 0; padding-left: 1.4rem; max-width: 75ch; }
-.policy-ul li { margin: 0.25rem 0; }
+.policy-ul li { margin: 0.25rem 0; text-align: justify; }
 .policy-notice {
   border-top: 2px solid var(--orange); border-bottom: 2px solid var(--orange);
   background: var(--orange-soft); font-style: italic; font-size: 0.85rem;

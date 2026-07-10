@@ -77,7 +77,8 @@ ok('fixed blocks are locked (>25 locked blocks)', lockedIds > 25, String(lockedI
 ok('every block carries a source reference', blocks.every((b) => b.source.length > 0));
 ok('no generator notice inside the policy document (user decision 2026-07-10)',
   !blocks.some((b) => b.kind === 'notice'));
-ok('policy starts with the title', blocks[0].kind === 'title' && blocks[0].text === 'Privacy Policy');
+ok('policy starts with "Privacy Policy – <event>" title',
+  blocks[0].kind === 'title' && blocks[0].text === 'Privacy Policy – the Summer Law School 2026');
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

@@ -53,7 +53,12 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
      generator provenance. Template version + date go into DOCX metadata instead. */
 
   /* ---------- Title ---------- */
-  push({ id: 'title', kind: 'title', text: 'Privacy Policy', locked: true, source: 'Annex 4 title (highlighted word "Template" removed)' });
+  push({
+    id: 'title', kind: 'title',
+    text: `Privacy Policy – ${a.activityTitle || '…'}`,
+    locked: true,
+    source: 'Annex 4 title (highlighted word "Template" replaced by the event name, user decision 2026-07-10)',
+  });
 
   /* ---------- Summary Section ---------- */
   push({ id: 'sum-h', kind: 'heading1', text: 'Summary', locked: true, source: SRC.A4_SUMMARY });
