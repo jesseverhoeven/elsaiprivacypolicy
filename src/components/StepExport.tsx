@@ -3,6 +3,7 @@ import type { Answers, PolicyBlock } from '../types';
 import { buildAdvice } from '../logic/gaps';
 import { copyForGoogleDocs } from '../export/clipboard';
 import { PolicyPreview } from './PolicyPreview';
+import logoUrl from '../assets/elsa-logo.png';
 
 interface Props {
   answers: Answers;
@@ -104,14 +105,30 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
         <button onClick={onStartOver}>Start a new policy</button>
       </div>
 
-      {/* Print-only rendering of the final policy (PDF export path). The footer with
-          the controller's contact details repeats on every printed page (LeCercle layout). */}
+      {/* Print-only rendering (PDF export path). A table's thead/tfoot repeat on every
+          printed page, giving the LeCercle layout — logo top-right, contact footer —
+          without ever overlapping the body text. */}
       <div className="print-only">
-        <div className="print-footer" aria-hidden="true">
-          <b>{docxContact.controllerName}</b>&nbsp;&nbsp; e-mail: {docxContact.email}
-          {docxContact.phone ? <>&nbsp;&nbsp; tel.: {docxContact.phone}</> : null}
-        </div>
-        <PolicyPreview blocks={finalBlocks} edits={{}} editable={false} showSources={false} />
+        <table className="print-frame">
+          <thead>
+            <tr><td>
+              <img src={logoUrl} alt="" className="print-logo" />
+            </td></tr>
+          </thead>
+          <tfoot>
+            <tr><td>
+              <div className="print-footer">
+                <b>{docxContact.controllerName}</b>&nbsp;&nbsp; e-mail: {docxContact.email}
+                {docxContact.phone ? <>&nbsp;&nbsp; tel.: {docxContact.phone}</> : null}
+              </div>
+            </td></tr>
+          </tfoot>
+          <tbody>
+            <tr><td>
+              <PolicyPreview blocks={finalBlocks} edits={{}} editable={false} showSources={false} />
+            </td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
   );

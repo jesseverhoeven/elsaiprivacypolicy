@@ -7,7 +7,7 @@ import {
   ELSA_INTERNATIONAL_CONTACT,
 } from '../data/picklists';
 import { SUPERVISORY_AUTHORITIES } from '../data/supervisoryAuthorities';
-import { presetById } from '../data/presets';
+import { presetById, type AttentionSection } from '../data/presets';
 import { findGaps, specialCategoriesSelected } from '../logic/gaps';
 import type { AnalysisResult } from '../logic/analyze';
 
@@ -63,8 +63,72 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
   const [recipientError, setRecipientError] = useState('');
   const preset = presetById(answers.presetId);
 
-  /** Orange marking for values pre-filled from the chosen preset (approved past policy). */
+  /** Orange marking for values pre-filled from the chosen preset (previous approved policy). */
   const mk = (key: string) => (presetMarks.has(key) ? ' from-preset' : '');
+
+  /** Hover tooltip: the "pay attention" text from the previous policy for this section. */
+  const tip = (section: AttentionSection): string | undefined => {
+    const pts = preset?.attentionPoints.filter((p) => p.section === section) ?? [];
+    return pts.length > 0 ? `⚠ From the previous policy: ${pts.map((p) => p.text).join(' ')}` : undefined;
+  };
+
+  /**
+   * Inline notes next to the relevant question (user decision 2026-07-10):
+   * orange = attention points from the approved policy ("still applicable?");
+   * green = corroborated by the information the officer provided in step 1.
+   */
+  function SectionNote({ section, showAttention = false }: { section: AttentionSection; showAttention?: boolean }) {
+    // Preset attention points live in hover tooltips on the orange fields (user
+    // decision 2026-07-11); visible boxes here are only the green/orange checks
+    // against the information the officer provided — plus 'general' at Final details.
+    const points = showAttention ? (preset?.attentionPoints.filter((p) => p.section === section) ?? []) : [];
+    const checks: { status: 'ok' | 'warn'; text: string }[] = [];
+    if (analysis) {
+      if (section === 'controller' && analysis.groupNames.length > 0) {
+        const found = analysis.groupNames[0];
+        const match = answers.controller.name.toLowerCase().includes(found.toLowerCase())
+          || found.toLowerCase().includes(answers.controller.name.toLowerCase());
+        checks.push(match
+          ? { status: 'ok', text: `Checked against the information you provided — it also names ELSA ${found} as organiser.` }
+          : { status: 'warn', text: `Your information mentions ELSA ${found}, but the pre-filled controller is ELSA ${answers.controller.name} — double-check who the controller is.` });
+      }
+      if (section === 'categories' && analysis.dataCategoryIds.length > 0) {
+        const missing = analysis.dataCategoryIds.filter((id) => !answers.dataCategories.some((c) => c.id === id && c.enabled));
+        checks.push(missing.length === 0
+          ? { status: 'ok', text: 'Checked against the information you provided — every data category it mentions is ticked.' }
+          : { status: 'warn', text: `Your information also mentions: ${missing.map((id) => DATA_CATEGORY_DEFS.find((d) => d.id === id)?.label ?? id).join(', ')} — tick them if collected.` });
+      }
+      if (section === 'recipients' && analysis.externalRecipientIds.length > 0) {
+        const labels = analysis.externalRecipientIds
+          .map((id) => EXTERNAL_RECIPIENT_OPTIONS.find((o) => o.id === id)?.label)
+          .filter((l): l is string => !!l);
+        const missing = labels.filter((l) => !answers.recipientsExternal.includes(l));
+        checks.push(missing.length === 0
+          ? { status: 'ok', text: 'Checked against the information you provided — the recipients it mentions are selected.' }
+          : { status: 'warn', text: `Your information also suggests: ${missing.join('; ')} — select them if data is shared with them.` });
+      }
+      if (section === 'transfers' && analysis.thirdCountries.length > 0) {
+        const missing = analysis.thirdCountries.filter((c) =>
+          !answers.thirdCountries.some((t) => t.toLowerCase().includes(c.toLowerCase()) || c.toLowerCase().includes(t.toLowerCase().replace(/^the /, ''))));
+        checks.push(missing.length === 0
+          ? { status: 'ok', text: 'Checked against the information you provided — the countries it mentions are listed.' }
+          : { status: 'warn', text: `Your information mentions ${missing.join(', ')} — add them if data goes there.` });
+      }
+    }
+    if (points.length === 0 && checks.length === 0) return null;
+    return (
+      <div className="section-notes">
+        {points.map((p, i) => (
+          <p className="note-attention" key={`a${i}`} role="note">⚠ <b>From the previous policy:</b> {p.text}</p>
+        ))}
+        {checks.map((c, i) => (
+          <p className={c.status === 'ok' ? 'note-verified' : 'note-attention'} key={`c${i}`} role="note">
+            {c.status === 'ok' ? '✓ ' : '⚠ '}{c.text}
+          </p>
+        ))}
+      </div>
+    );
+  }
 
   /** Handbook Ch. 4.2: the controllers themselves (incl. their Board/Team/OC) are never listed as recipients. */
   function controllerMatchReason(label: string): string | null {
@@ -72,14 +136,31 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
     const names = [answers.controller.name, answers.jointController.name].filter((n) => n.trim().length > 2);
     for (const n of names) {
       if (l.includes(n.toLowerCase())) {
-        return `“${label}” matches the (joint) controller “${n}” — controllers themselves are not listed as recipients (Handbook Ch. 4.2).`;
+        // ELSA group names are stored without the "ELSA" prefix — show the full name.
+        const display = /^elsa\b|organising|organizing/i.test(n) ? n : `ELSA ${n}`;
+        return `“${label}” matches the (joint) controller “${display}”. The (joint) controllers themselves — including ` +
+          'their own Board, Team or OC — are never listed as recipients (Handbook Ch. 4.2), so this option is blocked automatically.';
       }
     }
     if (answers.controllerKind === 'joint' && /organising committee|organizing committee|\boc\b/i.test(answers.jointController.name)
       && /organising committee/i.test(label)) {
-      return 'Your Organising Committee is a joint controller here — controllers themselves are not listed as recipients (Handbook Ch. 4.2).';
+      return 'Your Organising Committee is a joint controller here. The (joint) controllers themselves — including their ' +
+        'own Board, Team or OC — are never listed as recipients (Handbook Ch. 4.2), so this option is blocked automatically.';
     }
     return null;
+  }
+
+  const elsaIntlFilled =
+    answers.controller.name === ELSA_INTERNATIONAL_CONTACT.name &&
+    answers.controller.email === ELSA_INTERNATIONAL_CONTACT.email;
+
+  /** Custom purposes join an existing theme where the text matches its keywords; otherwise "Added / new purposes". */
+  function groupForCustomPurpose(text: string): string {
+    const t = text.toLowerCase();
+    for (const s of PURPOSE_SUGGESTIONS) {
+      if (s.keywords.some((k) => t.includes(k))) return s.group;
+    }
+    return 'Added / new purposes';
   }
 
   const detected = analysis
@@ -98,24 +179,20 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
   return (
     <section className="step">
-      <h2>Step 3 · Review what was found, add what’s missing</h2>
+      <h2>Step 2 · Complete &amp; check</h2>
       {detected.length > 0 && (
         <p className="lead">From your information the tool recognised: {detected.join(' · ')}. Everything below is a
           suggestion — please review each field; the tool proposes, you decide.
-          {preset && <> Values marked <span className="from-preset-example">orange</span> come from the approved {preset.name} policy.</>}
+          {preset && <> Values marked <span className="from-preset-example">orange</span> come from the approved {preset.name} policy;
+          the ⚠ boxes next to each question tell you what typically changes between editions.</>}
         </p>
       )}
-
-      {preset && (
-        <div className="card attention" role="note">
-          <h3>⚠ Attention — you started from {preset.name}</h3>
-          {answers.changeNotes.trim() && (
-            <p><b>You noted these changes:</b> {answers.changeNotes}</p>
-          )}
-          <ul>
-            {preset.attentionPoints.map((pt, i) => <li key={i}>{pt}</li>)}
-          </ul>
-        </div>
+      {preset && detected.length === 0 && (
+        <p className="lead">Everything below is pre-filled from the previous <b>{preset.name}</b> policy
+          {preset.lastUpdated ? ` (last updated ${preset.lastUpdated})` : ''} and marked{' '}
+          <span className="from-preset-example">orange</span>. <b>Hover any orange field</b> for tips on what typically
+          changes between editions — and still think about how this year’s event differs so the policy truly fits it.
+          It’s in good hands.</p>
       )}
 
       <div className="gaps-layout">
@@ -123,8 +200,9 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
           <div className="card">
             <h3>The event &amp; the controller</h3>
+            <SectionNote section="controller" />
             <div className="grid2">
-              <label className={mk('field:activityTitle')}>Event / processing activity
+              <label className={mk('field:activityTitle')} title={tip('general')}>Event / processing activity
                 <input value={answers.activityTitle} onChange={(e) => set({ activityTitle: e.target.value })}
                   placeholder="e.g. the National Council Meeting 2026" />
               </label>
@@ -142,18 +220,17 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               <span className="role-tag controller-tag">Controller</span>
               <div className="quickfill">
                 <button
-                  type="button" className="ghost-navy"
-                  onClick={() => set({
-                    controller: { ...ELSA_INTERNATIONAL_CONTACT },
-                    controllerCountry: 'BE',
-                  })}
+                  type="button" className={elsaIntlFilled ? 'ghost-navy active' : 'ghost-navy'}
+                  onClick={() => set(elsaIntlFilled
+                    ? { controller: { name: '', address: '', email: '', phone: '' }, controllerCountry: '' }
+                    : { controller: { ...ELSA_INTERNATIONAL_CONTACT }, controllerCountry: 'BE' })}
                 >
-                  Quick-fill: ELSA International
+                  {elsaIntlFilled ? '× Clear: ELSA International' : 'Quick-fill: ELSA International'}
                 </button>
                 <span className="hint">Boulevard Général Jacques 239, Brussels B-1050, Belgium · elsa@elsa.org · +32 2 646 2626</span>
               </div>
               <div className="grid2">
-                <label className={mk('field:controller')}>ELSA group / entity name (controller)
+                <label className={mk('field:controller')} title={tip('controller')}>ELSA group / entity name (controller)
                   <input value={answers.controller.name} onChange={(e) => set({ controller: { ...answers.controller, name: e.target.value } })}
                     placeholder="e.g. International, The Netherlands, Leuven, International Organising Committee (IM team)…" />
                 </label>
@@ -210,11 +287,11 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
             <div className="role-block processor-block">
               <span className="role-tag processor-tag">Processor</span>
-              <label className="checkline">
+              <label className="checkline processor-toggle">
                 <input type="checkbox" checked={answers.usesProcessors}
                   onChange={(e) => set({ usesProcessors: e.target.checked })} />
-                We use a <b>processor / sub-processor</b> (a party that processes data <i>on our instructions</i> — e.g. a
-                registration platform, mailing service or payment provider; not a controller)
+                <span>We use a <b>processor or sub-processor</b> — a party that processes data on our instructions, such
+                  as a registration platform, mailing service or payment provider (not a controller).</span>
               </label>
               {answers.usesProcessors && (
                 <div className="subpanel">
@@ -246,9 +323,10 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
           <div className="card">
             <h3>Whose data do you process? (data subjects)</h3>
+            <SectionNote section="subjects" />
             <div className="checkgrid">
               {DATA_SUBJECT_OPTIONS.map((d) => (
-                <label className={`checkline${mk(`ds:${d.label}`)}`} key={d.id}>
+                <label className={`checkline${mk(`ds:${d.label}`)}`} key={d.id} title={presetMarks.has(`ds:${d.label}`) ? tip('subjects') : undefined}>
                   <input type="checkbox"
                     checked={answers.dataSubjects.includes(d.label)}
                     onChange={(e) => set({
@@ -271,11 +349,13 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
           <div className="card">
             <h3>Which personal data do you collect?</h3>
+            <SectionNote section="categories" />
             <p className="hint">Tick the categories and adjust the exact data items — they appear as bullet points in the policy.</p>
             {standardCategories.map((c) => {
               const def = DATA_CATEGORY_DEFS.find((d) => d.id === c.id)!;
               return (
-                <div className={`catline ${c.enabled ? 'on' : ''}${mk(`cat:${c.id}`)}`} key={c.id}>
+                <div className={`catline ${c.enabled ? 'on' : ''}${mk(`cat:${c.id}`)}`} key={c.id}
+                  title={presetMarks.has(`cat:${c.id}`) ? tip('categories') : undefined}>
                   <label className="checkline">
                     <input type="checkbox" checked={c.enabled}
                       onChange={(e) => set({
@@ -294,7 +374,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               );
             })}
             {customCategories.map((c) => (
-              <div className={`catline on${mk(`cat:${c.id}`)}`} key={c.id}>
+              <div className={`catline on${mk(`cat:${c.id}`)}`} key={c.id}
+                title={presetMarks.has(`cat:${c.id}`) ? tip('categories') : undefined}>
                 <label className="checkline">
                   <input type="checkbox" checked={c.enabled}
                     onChange={(e) => set({
@@ -303,7 +384,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                         : answers.dataCategories.filter((x) => x.id !== c.id),
                     })} />
                   <b>{c.customLabel}</b>
-                  <span className="custom-badge">own category</span>
+                  <span className="custom-badge">added category</span>
                 </label>
                 <input className="items" value={c.items} aria-label={`Data items for ${c.customLabel}`}
                   onChange={(e) => set({
@@ -376,65 +457,56 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               <div>
                 <span className="fieldlabel collect-label">Indirectly, via:</span>
                 <ChipInput id="isrc" values={answers.indirectSources} onChange={(v) => set({ indirectSources: v })}
-                  placeholder="e.g. lists from National Groups — press Enter to add" />
+                  placeholder="e.g. participant lists from National Groups; emergency-contact details provided by the participant; team registrations submitted by a coach — press Enter to add" />
               </div>
             </div>
           </div>
 
           <div className="card">
             <h3>Why do you process the data? (purposes &amp; legal basis)</h3>
+            <SectionNote section="purposes" />
             <p className="hint">Grouped by theme so you can find them faster. Each purpose sits under one legal basis in
               the policy — the pre-set basis follows common ELSA practice; adjust if needed.</p>
-            {PURPOSE_GROUPS.map((group) => {
+            {[...PURPOSE_GROUPS, 'Added / new purposes'].map((group) => {
               const groupPurposes = answers.purposes.filter((p) => {
                 const def = PURPOSE_SUGGESTIONS.find((s) => s.text === p.text);
-                return def ? def.group === group : false;
+                // Custom/preset purposes join a matching theme, else "Added / new purposes"
+                return def ? def.group === group : groupForCustomPurpose(p.text) === group;
               });
               if (groupPurposes.length === 0) return null;
               return (
                 <div key={group} className="purpose-group">
                   <span className="purpose-group-label">{group}</span>
-                  {groupPurposes.map((p) => (
-                    <div className={`purposeline ${p.enabled ? 'on' : ''}${mk(`purpose:${p.id}`)}`} key={p.id}>
-                      <label className="checkline">
-                        <input type="checkbox" checked={p.enabled}
-                          onChange={(e) => set({ purposes: answers.purposes.map((x) => x.id === p.id ? { ...x, enabled: e.target.checked } : x) })} />
-                        {p.text}
-                      </label>
-                      {p.enabled && (
-                        <select value={p.basis} aria-label={`Legal basis for: ${p.text}`}
-                          onChange={(e) => set({ purposes: answers.purposes.map((x) => x.id === p.id ? { ...x, basis: e.target.value as typeof p.basis } : x) })}>
-                          {LEGAL_BASIS_DEFS.map((b) => (
-                            <option key={b.id} value={b.id}>
-                              {b.label}{!b.annex4LeadIn ? ' (no template wording — will be flagged)' : ''}
-                            </option>
-                          ))}
-                        </select>
-                      )}
-                    </div>
-                  ))}
+                  {groupPurposes.map((p) => {
+                    const isCustom = !PURPOSE_SUGGESTIONS.some((s) => s.text === p.text);
+                    return (
+                      <div className={`purposeline ${p.enabled ? 'on' : ''}${mk(`purpose:${p.id}`)}`} key={p.id}
+                        title={presetMarks.has(`purpose:${p.id}`) ? tip('purposes') : undefined}>
+                        <label className="checkline">
+                          <input type="checkbox" checked={p.enabled}
+                            onChange={(e) => set({
+                              purposes: e.target.checked || !isCustom
+                                ? answers.purposes.map((x) => x.id === p.id ? { ...x, enabled: e.target.checked } : x)
+                                : answers.purposes.filter((x) => x.id !== p.id),
+                            })} />
+                          {p.text}
+                        </label>
+                        {p.enabled && (
+                          <select className="basis-select" value={p.basis} aria-label={`Legal basis for: ${p.text}`}
+                            onChange={(e) => set({ purposes: answers.purposes.map((x) => x.id === p.id ? { ...x, basis: e.target.value as typeof p.basis } : x) })}>
+                            {LEGAL_BASIS_DEFS.map((b) => (
+                              <option key={b.id} value={b.id}>
+                                {b.label}{!b.annex4LeadIn ? ' (no template wording — will be flagged)' : ''}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               );
             })}
-            {answers.purposes.filter((p) => !PURPOSE_SUGGESTIONS.some((s) => s.text === p.text)).map((p) => (
-              <div className={`purposeline on${mk(`purpose:${p.id}`)}`} key={p.id}>
-                <label className="checkline">
-                  <input type="checkbox" checked={p.enabled}
-                    onChange={(e) => set({
-                      purposes: e.target.checked
-                        ? answers.purposes.map((x) => x.id === p.id ? { ...x, enabled: true } : x)
-                        : answers.purposes.filter((x) => x.id !== p.id),
-                    })} />
-                  {p.text}
-                </label>
-                <select value={p.basis} aria-label={`Legal basis for: ${p.text}`}
-                  onChange={(e) => set({ purposes: answers.purposes.map((x) => x.id === p.id ? { ...x, basis: e.target.value as typeof p.basis } : x) })}>
-                  {LEGAL_BASIS_DEFS.map((b) => (
-                    <option key={b.id} value={b.id}>{b.label}{!b.annex4LeadIn ? ' (no template wording — will be flagged)' : ''}</option>
-                  ))}
-                </select>
-              </div>
-            ))}
             <span className="fieldlabel">Add your own purpose</span>
             <ChipInput id="custom-purpose" values={[]}
               onChange={(texts) => {
@@ -447,6 +519,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
           <div className="card">
             <h3>Who receives the data — and does it leave the EEA?</h3>
+            <SectionNote section="recipients" />
+            <SectionNote section="transfers" />
             <div className="grid2">
               <div>
                 <span className="fieldlabel collect-label">Within ELSA:</span>
@@ -455,7 +529,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                   return (
                     <div key={r.id}>
                       <label className={`checkline${blockedReason ? ' blocked' : ''}${mk(`ri:${r.label}`)}`}
-                        title={blockedReason ?? undefined}
+                        title={blockedReason ?? (presetMarks.has(`ri:${r.label}`) ? tip('recipients') : undefined)}
                         onClick={() => { if (blockedReason) setRecipientError(blockedReason); }}>
                         <input type="checkbox" disabled={!!blockedReason}
                           checked={!blockedReason && answers.recipientsInternal.includes(r.label)}
@@ -479,7 +553,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               <div>
                 <span className="fieldlabel collect-label">Outside ELSA (third parties):</span>
                 {EXTERNAL_RECIPIENT_OPTIONS.map((r) => (
-                  <label className={`checkline${mk(`re:${r.label}`)}`} key={r.id}>
+                  <label className={`checkline${mk(`re:${r.label}`)}`} key={r.id}
+                    title={presetMarks.has(`re:${r.label}`) ? tip('recipients') : undefined}>
                     <input type="checkbox" checked={answers.recipientsExternal.includes(r.label)}
                       onChange={(e) => set({
                         recipientsExternal: e.target.checked
@@ -498,10 +573,18 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               </div>
             </div>
             {recipientError && <p className="inline-error" role="alert">{recipientError}</p>}
-            <p className="hint">The (joint) controllers themselves — including their own Board, Team or OC — are never
-              listed as recipients (Handbook Ch. 4.2); matching options are blocked automatically.</p>
+            {answers.usesProcessors && answers.processors.some((p) => p.name.trim()) && (
+              <div className="processor-recipients">
+                <span className="fieldlabel">Added automatically as recipients (your processors):</span>
+                <div className="chips">
+                  {answers.processors.filter((p) => p.name.trim()).map((p, i) => (
+                    <span className="chip" key={i}>{p.name} — data {p.kind === 'subprocessor' ? 'sub-processor' : 'processor'}</span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            <div className="subpanel eea-panel">
+            <div className="subpanel eea-panel" title={presetMarks.has('field:transfersOutsideEEA') ? tip('transfers') : undefined}>
               <span className="fieldlabel collect-label">Does data go outside the EEA, or to an international organisation?</span>
               <p className="hint">With standard ELSA infrastructure (Google/Gmail, JotForm) data typically reaches the
                 United States — that is why this is pre-set to “Yes” with the US listed. Untick only if you are sure
@@ -531,6 +614,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
           <div className="card">
             <h3>Final details</h3>
+            <SectionNote section="general" showAttention />
             <div className="grid2">
               <label>Notice period for policy changes (days, minimum 14)
                 <input type="number" min={14} value={answers.noticeDays}

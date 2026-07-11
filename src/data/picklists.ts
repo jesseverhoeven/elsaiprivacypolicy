@@ -20,8 +20,13 @@ export const DATA_SUBJECT_OPTIONS: { id: string; label: string; audienceHint: 'v
   { id: 'speakers', label: 'Speakers', audienceHint: 'participants' },
   { id: 'emergency-contacts', label: 'Emergency Contacts of Participants', audienceHint: 'participants' },
   { id: 'participants', label: 'Participants of the project (and coaches of teams)', audienceHint: 'participants' },
+  { id: 'participants-event', label: 'Participants of the event', audienceHint: 'participants' },
   { id: 'panelists', label: 'Panelists', audienceHint: 'participants' },
 ];
+
+/** Names matching this are international organisations, never third countries. */
+export const INTERNATIONAL_ORG_RE =
+  /foundation|organisation|organization|council of europe|united nations|\bUN\b|world trade|committee|institute|association|european youth/i;
 
 export interface DataCategoryDef {
   id: string;

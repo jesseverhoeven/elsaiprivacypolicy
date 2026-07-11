@@ -7,16 +7,14 @@ import {
 import { analyzeText, type AnalysisResult } from './logic/analyze';
 import { assemblePolicy } from './logic/assemble';
 import { LEGAL_DISCLAIMER, REVIEW_NOTICE, TEMPLATE_VERSION } from './data/clauses';
-import { presetById } from './data/presets';
 import { StepChooseEvent } from './components/StepChooseEvent';
-import { StepIntake } from './components/StepIntake';
 import { StepGaps } from './components/StepGaps';
 import { StepCompose } from './components/StepCompose';
 import { StepExport } from './components/StepExport';
 import type { BlockEdits } from './components/PolicyPreview';
 import './App.css';
 
-const STEPS = ['Choose event', 'Your information', 'Complete & check', 'Review & trim', 'Download'] as const;
+const STEPS = ['Choose event & info', 'Complete & check', 'Review & trim', 'Download'] as const;
 
 export default function App() {
   const restored = useRef(loadSession());
@@ -47,25 +45,21 @@ export default function App() {
     [assembled, edits],
   );
 
-  function handleChooseEvent(presetId: string | null, changeNotes: string) {
-    if (presetId) {
-      const { answers: prefilled, marks } = applyPreset(presetId);
-      prefilled.changeNotes = changeNotes;
-      setAnswers(prefilled);
-      setPresetMarks(marks);
+  /** Step 1 → 2: apply the chosen preset (if any), scan all provided information, merge. */
+  function handleContinue(presetId: string | null) {
+    const base = presetId ? applyPreset(presetId) : { answers: defaultAnswers(), marks: new Set<string>() };
+    setPresetMarks(base.marks);
+    const combined = [intake.files.map((f) => f.text).join('\n\n'), intake.pasted, intake.manual].join('\n\n');
+    if (combined.trim()) {
+      const result = analyzeText(combined);
+      setAnalysis(result);
+      setAnswers(mergeAnalysis(base.answers, result));
     } else {
-      setAnswers(defaultAnswers());
-      setPresetMarks(new Set());
+      setAnalysis(null);
+      setAnswers(base.answers);
     }
     setEdits({});
     setStep(1);
-  }
-
-  function handleAnalyse(text: string, jotformLink: string) {
-    const result = analyzeText(text);
-    setAnalysis(result);
-    setAnswers((a) => mergeAnalysis({ ...a, jotformLink: jotformLink || a.jotformLink }, result));
-    setStep(2);
   }
 
   function saveAnswersToFile() {
@@ -85,7 +79,7 @@ export default function App() {
         setAnswers({ ...defaultAnswers(), ...data.answers });
         setEdits(data.edits ?? {});
         if (data.intake) setIntake({ ...emptyIntake(), ...data.intake });
-        setStep(2);
+        setStep(1);
       }
     } catch {
       alert('That file could not be read as saved answers.');
@@ -146,30 +140,23 @@ export default function App() {
       </div>
 
       <main>
-        {step === 0 && <StepChooseEvent onChoose={handleChooseEvent} />}
+        {step === 0 && <StepChooseEvent intake={intake} setIntake={setIntake} onContinue={handleContinue} />}
         {step === 1 && (
-          <StepIntake
-            intake={intake} setIntake={setIntake}
-            onAnalyse={handleAnalyse} onBack={() => setStep(0)}
-            presetName={presetById(answers.presetId)?.name}
+          <StepGaps
+            answers={answers} setAnswers={setAnswers} analysis={analysis} presetMarks={presetMarks}
+            onBack={() => setStep(0)} onContinue={() => setStep(2)}
           />
         )}
         {step === 2 && (
-          <StepGaps
-            answers={answers} setAnswers={setAnswers} analysis={analysis} presetMarks={presetMarks}
+          <StepCompose
+            blocks={assembled} edits={edits} setEdits={setEdits}
             onBack={() => setStep(1)} onContinue={() => setStep(3)}
           />
         )}
         {step === 3 && (
-          <StepCompose
-            blocks={assembled} edits={edits} setEdits={setEdits}
-            onBack={() => setStep(2)} onContinue={() => setStep(4)}
-          />
-        )}
-        {step === 4 && (
           <StepExport
             answers={answers} finalBlocks={finalBlocks}
-            onBack={() => setStep(3)}
+            onBack={() => setStep(2)}
             onStartOver={startOver}
           />
         )}
@@ -177,7 +164,8 @@ export default function App() {
 
       <footer className="app-footer no-print">
         <p>
-          Template set {TEMPLATE_VERSION} · Sources: Annex 4 — Template Privacy Policy &amp; ELSA Data Protection Handbook ·
+          Template set {TEMPLATE_VERSION} · Sources: Annex 4 — Template Privacy Policy &amp;{' '}
+          <a href="/elsa-data-protection-handbook.pdf" target="_blank" rel="noopener">ELSA Data Protection Handbook (PDF)</a> ·
           No cookies, no analytics, no server — everything runs in your browser ·{' '}
           <a href="mailto:dataprotection@elsa.org">dataprotection@elsa.org</a>
         </p>

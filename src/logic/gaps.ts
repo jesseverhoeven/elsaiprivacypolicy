@@ -113,14 +113,30 @@ export function buildAdvice(a: Answers): Advice[] {
   }
 
   if (a.transfersOutsideEEA === true) {
-    advice.push({
-      level: 'info',
-      title: 'Transfers outside the EEA',
-      body:
-        `Data goes to ${[...a.thirdCountries, ...a.internationalOrgs].join(', ') || 'third countries / international organisations'}. ` +
-        'The policy includes the safeguards section (§5b: adequacy decisions / standard contractual clauses). Check that a ' +
-        'data protection agreement or SCCs are actually in place with those recipients (Handbook Ch. 3.4.4); if unsure, ask dataprotection@elsa.org.',
-    });
+    const nonStandardCountries = a.thirdCountries.filter((c) => !/united states/i.test(c));
+    const onlyStandardUS = nonStandardCountries.length === 0 && a.internationalOrgs.length === 0;
+    if (onlyStandardUS) {
+      advice.push({
+        level: 'info',
+        title: 'Transfers outside the EEA — standard setup',
+        body:
+          'Your only listed transfer is to the United States, which is the normal consequence of ELSA’s standard ' +
+          'infrastructure (Google Workspace/Gmail, common form and meeting platforms). The policy already includes the ' +
+          'safeguards section (§5b: adequacy decisions incl. the EU–US Data Privacy Framework, and standard contractual ' +
+          'clauses) — nothing extra is needed from you. Questions? The ELSA International Data Protection Team is happy ' +
+          'to help at dataprotection@elsa.org.',
+      });
+    } else {
+      advice.push({
+        level: 'info',
+        title: 'Transfers outside the EEA',
+        body:
+          `Data goes to ${[...nonStandardCountries, ...a.internationalOrgs].join(', ')}` +
+          `${a.thirdCountries.some((c) => /united states/i.test(c)) ? ' (besides the standard United States transfer via Google and similar providers, which §5b already covers)' : ''}. ` +
+          'Check that a data protection agreement or standard contractual clauses are in place with those recipients ' +
+          '(Handbook Ch. 3.4.4); if unsure, ask the ELSA International Data Protection Team at dataprotection@elsa.org.',
+      });
+    }
   }
 
   if (a.minorsInvolved) {

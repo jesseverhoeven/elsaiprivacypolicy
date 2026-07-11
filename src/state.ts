@@ -3,7 +3,7 @@ import {
   DATA_CATEGORY_DEFS, PURPOSE_SUGGESTIONS, SOURCE_OPTIONS,
   INTERNAL_RECIPIENT_OPTIONS, EXTERNAL_RECIPIENT_OPTIONS, DATA_SUBJECT_OPTIONS,
 } from './data/picklists';
-import { presetById } from './data/presets';
+import { presetById, presetToPrefill } from './data/presets';
 import type { AnalysisResult } from './logic/analyze';
 
 export function defaultAnswers(): Answers {
@@ -59,25 +59,42 @@ export function applyPreset(id: string): { answers: Answers; marks: Set<string> 
   const marks = new Set<string>();
   if (!preset) return { answers, marks };
 
-  Object.assign(answers, structuredClone(preset.prefill));
+  const prefill = presetToPrefill(preset);
+  Object.assign(answers, structuredClone(prefill));
   answers.presetId = preset.id;
 
-  for (const key of Object.keys(preset.prefill)) marks.add(`field:${key}`);
-  for (const ds of preset.prefill.dataSubjects ?? []) marks.add(`ds:${ds}`);
-  for (const r of preset.prefill.recipientsInternal ?? []) marks.add(`ri:${r}`);
-  for (const r of preset.prefill.recipientsExternal ?? []) marks.add(`re:${r}`);
+  for (const key of Object.keys(prefill)) marks.add(`field:${key}`);
+  for (const r of prefill.recipientsInternal ?? []) marks.add(`ri:${r}`);
+  for (const r of prefill.recipientsExternal ?? []) marks.add(`re:${r}`);
+
+  // Data subjects: match the Handbook pick-list where possible, otherwise "Other"
+  const others: string[] = [];
+  for (const s of preset.subjects) {
+    const known = DATA_SUBJECT_OPTIONS.find(
+      (d) => d.label.toLowerCase().includes(s.toLowerCase()) || s.toLowerCase().includes(d.label.toLowerCase().split(' (')[0]),
+    );
+    if (known) { if (!answers.dataSubjects.includes(known.label)) answers.dataSubjects.push(known.label); marks.add(`ds:${known.label}`); }
+    else others.push(s);
+  }
+  if (others.length > 0) { answers.dataSubjectsOther = others.join('; '); marks.add('field:dataSubjectsOther'); }
+  // Fallback: if the previous policy didn't spell out data subjects, derive from the audience
+  if (answers.dataSubjects.length === 0 && others.length === 0) {
+    const fallback = preset.audience === 'participants' ? 'Participants of the event' : 'National Group Team Officers';
+    answers.dataSubjects.push(fallback);
+    marks.add(`ds:${fallback}`);
+  }
 
   for (const cat of preset.categories) {
     const entry = answers.dataCategories.find((c) => c.id === cat.id);
-    if (entry) { entry.enabled = true; entry.items = cat.items; marks.add(`cat:${cat.id}`); }
+    if (entry) { entry.enabled = true; if (cat.items) entry.items = cat.items; marks.add(`cat:${cat.id}`); }
   }
   for (const custom of preset.customCategories) {
-    const id = `custom:${custom.label}`;
-    answers.dataCategories.push({ id, customLabel: custom.label, items: custom.items, enabled: true });
-    marks.add(`cat:${id}`);
+    const cid = `custom:${custom.label}`;
+    answers.dataCategories.push({ id: cid, customLabel: custom.label, items: custom.items, enabled: true });
+    marks.add(`cat:${cid}`);
   }
   for (const p of preset.purposes) {
-    const existing = answers.purposes.find((x) => x.text === p.text);
+    const existing = answers.purposes.find((x) => x.text.toLowerCase() === p.text.toLowerCase());
     if (existing) { existing.enabled = true; existing.basis = p.basis; marks.add(`purpose:${existing.id}`); }
     else {
       const idp = `c-preset-${answers.purposes.length}`;

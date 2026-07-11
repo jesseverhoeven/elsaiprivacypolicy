@@ -11,7 +11,7 @@ import {
   S5_TRANSFERS, S6_SECURITY, S7_RIGHTS, S8_CHANGES, S9_CONTACT,
   fill,
 } from '../data/clauses';
-import { DATA_CATEGORY_DEFS, LEGAL_BASIS_DEFS } from '../data/picklists';
+import { DATA_CATEGORY_DEFS, LEGAL_BASIS_DEFS, INTERNATIONAL_ORG_RE } from '../data/picklists';
 
 function contactBullets(a: Answers): string[] {
   const emails = [a.controller.email, ...a.extraEmails.filter((e) => e.trim())].filter(Boolean);
@@ -249,17 +249,21 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   });
 
   if (a.transfersOutsideEEA === true) {
+    // Safety: an "international organisation" entered under countries (or vice versa)
+    // is rendered in the correct list — orgs are never presented as countries.
+    const tcCountries = a.thirdCountries.filter((c) => !INTERNATIONAL_ORG_RE.test(c));
+    const tcOrgs = [...a.internationalOrgs, ...a.thirdCountries.filter((c) => INTERNATIONAL_ORG_RE.test(c) && !a.internationalOrgs.includes(c))];
     push({ id: 's5b-h', kind: 'heading3', text: S5_TRANSFERS.thirdCountryHeading, locked: true, source: `${SRC.A4_S5} · conditional per ${SRC.HB_42}` });
     push({ id: 's5b-1', kind: 'paragraph', text: S5_TRANSFERS.tcIntro, locked: true, source: SRC.A4_S5 });
     push({ id: 's5b-2', kind: 'paragraph', text: S5_TRANSFERS.tcSafeguards, locked: true, source: SRC.A4_S5 });
     push({ id: 's5b-3', kind: 'bullets', bullets: S5_TRANSFERS.tcSafeguardBullets, locked: true, source: `${SRC.A4_S5} (SCC citation from .docx hyperlink)` });
-    if (a.thirdCountries.length > 0) {
+    if (tcCountries.length > 0) {
       push({ id: 's5b-4', kind: 'paragraph', text: S5_TRANSFERS.tcCountriesIntro, locked: true, source: SRC.A4_S5 });
-      push({ id: 's5b-5', kind: 'bullets', bullets: a.thirdCountries, locked: false, source: `${SRC.A4_S5} · ROPA Column AF` });
+      push({ id: 's5b-5', kind: 'bullets', bullets: tcCountries, locked: false, source: `${SRC.A4_S5} · ROPA Column AF` });
     }
-    if (a.internationalOrgs.length > 0) {
+    if (tcOrgs.length > 0) {
       push({ id: 's5b-6', kind: 'paragraph', text: S5_TRANSFERS.tcOrgsIntro, locked: true, source: SRC.A4_S5 });
-      push({ id: 's5b-7', kind: 'bullets', bullets: a.internationalOrgs, locked: false, source: `${SRC.A4_S5} · ROPA Column AC` });
+      push({ id: 's5b-7', kind: 'bullets', bullets: tcOrgs, locked: false, source: `${SRC.A4_S5} · ROPA Column AC` });
     }
     push({
       id: 's5b-8', kind: 'paragraph',

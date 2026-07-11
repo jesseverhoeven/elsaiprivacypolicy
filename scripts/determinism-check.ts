@@ -8,7 +8,8 @@
 
 import { assemblePolicy } from '../src/logic/assemble';
 import { analyzeText } from '../src/logic/analyze';
-import { defaultAnswers, mergeAnalysis } from '../src/state';
+import { defaultAnswers, mergeAnalysis, applyPreset } from '../src/state';
+import { PRESET_EVENTS } from '../src/data/presets';
 import { S3_LEGAL_BASIS, S4_RETENTION, S6_SECURITY, SUMMARY, fill } from '../src/data/clauses';
 
 const SAMPLE = `ELSA Leuven organises the Summer Law School 2026 in July for 40 international participants.
@@ -92,6 +93,42 @@ ok('basis lead-in wording preserved inside the table',
 ok('no generator branding inside the policy blocks',
   !blocks.some((b) => JSON.stringify(b.text ?? '').toLowerCase().includes('elsaiprivacypolicy')));
 ok('notice period defaults to 14 days', defaultAnswers().noticeDays === 14);
+
+// Preset system: generated from the approved-policy archive
+ok('presets: 40+ events generated from the policy archive', PRESET_EVENTS.length >= 40, String(PRESET_EVENTS.length));
+ok('presets: every preset has an area, controller and attention points',
+  PRESET_EVENTS.every((p) => p.area && p.controller.name && p.attentionPoints.length >= 3));
+const lecercle = PRESET_EVENTS.find((p) => p.name.toLowerCase().includes('lecercle'));
+ok('presets: LeCercle uses the newest (amended 03.05.2026) version', lecercle?.lastUpdated === '2026-05-03');
+const { answers: pa, marks } = applyPreset(lecercle!.id);
+ok('applyPreset: prefills categories/purposes and marks them orange',
+  pa.dataCategories.some((c) => c.enabled) && pa.purposes.some((p) => p.enabled) && marks.size > 10);
+const pa2 = applyPreset(lecercle!.id).answers;
+ok('applyPreset: deterministic', JSON.stringify(pa) === JSON.stringify(pa2));
+ok('applyPreset: assembles into a complete policy without error',
+  assemblePolicy({ ...pa, activityTitle: pa.activityTitle || 'LeCercle Supporters' }).length > 30);
+
+// Round-3 fixes
+ok('presets: recipients deduped onto standard options (no bare "Cloud Server Providers")',
+  !pa.recipientsExternal.some((r) => r.toLowerCase() === 'cloud server providers'));
+ok('IO/country separation: EYF never rendered as a country', (() => {
+  const a2 = { ...defaultAnswers(), activityTitle: 'x', transfersOutsideEEA: true,
+    thirdCountries: ['The European Youth Foundation', 'The United States of America'], internationalOrgs: [] };
+  const bl = assemblePolicy(a2);
+  const countries = bl.find((b) => b.id === 's5b-5')?.bullets ?? [];
+  const orgs = bl.find((b) => b.id === 's5b-7')?.bullets ?? [];
+  return !countries.some((c) => c.includes('Foundation')) && orgs.some((o) => o.includes('Foundation'));
+})());
+ok('presets: subjects fallback fills data subjects for participants presets', pa.dataSubjects.length > 0);
+ok('presets: no two entries share display name + date', (() => {
+  const seen = new Set<string>();
+  for (const p of PRESET_EVENTS) {
+    const k = `${p.name.toLowerCase()}|${p.lastUpdated}`;
+    if (seen.has(k)) return false;
+    seen.add(k);
+  }
+  return true;
+})());
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

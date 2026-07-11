@@ -1,105 +1,182 @@
 /**
- * PRESET EVENTS — previously approved ELSA privacy policies, converted into
- * prefill data. Choosing one in step 1 pre-fills all VARIABLE information
- * (controller, categories, purposes, recipients, transfers…); the fixed Annex 4
- * wording is never taken from here. Preset-derived values are marked in the
- * questionnaire (orange) so officers see what came from the past policy.
+ * PRESET EVENTS — generated from ELSA's approved privacy policies (current +
+ * archived) by `scripts/build-presets.py`. Choosing one in step 1 pre-fills all
+ * VARIABLE information from the most recent approved policy for that event; the
+ * fixed Annex 4 wording always comes from the clause library, never from here.
  *
- * To add a new approved policy: add an entry here via git commit + redeploy —
- * no database needed; the repo is the (versioned, reviewable) store.
+ * To add a newly approved policy: drop it in the policies folder, run
+ *   python scripts/build-presets.py "<folder>"
+ * and commit the regenerated presets.generated.json — no database needed.
  */
 
-import type { Answers } from '../types';
+import type { Answers, LegalBasis } from '../types';
+import { EXTERNAL_RECIPIENT_OPTIONS, INTERNAL_RECIPIENT_OPTIONS, INTERNATIONAL_ORG_RE } from './picklists';
+import generated from './presets.generated.json';
+
+export type AttentionSection =
+  | 'controller' | 'subjects' | 'categories' | 'purposes' | 'recipients' | 'transfers' | 'general';
+
+export interface AttentionPoint {
+  section: AttentionSection;
+  text: string;
+}
 
 export interface PresetEvent {
   id: string;
   name: string;
-  description: string;
-  sourcePolicy: string; // which approved policy this comes from
-  /** Points the officer must re-check because they typically change between editions. */
-  attentionPoints: string[];
-  /** Partial prefill applied over the defaults. */
-  prefill: Partial<Answers>;
-  /** Data categories to enable, with their exact items from the approved policy. */
+  area: string;
+  lastUpdated: string;
+  sourceFile: string;
+  audience: 'volunteers' | 'participants';
+  controller: { name: string; address: string; email: string; phone: string };
+  subjects: string[];
   categories: { id: string; items: string }[];
-  /** Custom categories that don't map to a standard pick-list entry. */
   customCategories: { label: string; items: string }[];
-  purposes: { text: string; basis: Answers['purposes'][number]['basis'] }[];
+  purposes: { text: string; basis: LegalBasis }[];
+  recipients: string[];
+  transfersOutsideEEA: boolean;
+  thirdCountries: string[];
+  internationalOrgs: string[];
+  directSources: string[];
+  indirectSources: string[];
+  attentionPoints: AttentionPoint[];
 }
 
-export const PRESET_EVENTS: PresetEvent[] = [
-  {
-    id: 'lecercle',
-    name: 'LeCercle Supporters',
-    description: 'ELSA International’s alumni & supporters contribution programme (registration, contributions, WhatsApp community).',
-    sourcePolicy: 'Amended Privacy Policy — LeCercle Supporters (last updated 03.05.2026, approved)',
-    attentionPoints: [
-      'Controller: the approved policy names ELSA International as sole controller — is that still correct?',
-      'Payment service provider and contribution models may have changed — check the recipients and billing items.',
-      'WhatsApp opt-in (consent) — confirm the chat/community still exists and the opt-in box is on the form.',
-      'Third-country transfers listed the United States of America — verify the current providers.',
-    ],
-    prefill: {
-      activityTitle: 'LeCercle Supporters',
-      audience: 'participants',
-      controllerKind: 'controller',
-      controller: {
-        name: 'International',
-        address: '239 Boulevard Général Jacques, 1050 Ixelles, Brussels, Belgium',
-        email: 'secgen@elsa.org',
-        phone: '+32 2 646 2626',
-      },
-      extraEmails: ['president@elsa.org'],
-      controllerCountry: 'BE',
-      dataSubjects: ['Alumni', 'Partners'],
-      dataSubjectsOther: 'LeCercle Supporters',
-      directSources: [
-        'Website Form',
-        'Payment service provider integrated into the registration form',
-      ],
-      indirectSources: ['When you are contacting us'],
-      recipientsInternal: ['ELSA International'],
-      recipientsExternal: [
-        'Cloud Server Providers (e.g. Google Workspace/Gmail, Microsoft)',
-        'Online form and registration platforms (e.g. JotForm, Google Forms)',
-        'Payment service providers (for processing payments)',
-        'IT Software Providers',
-        'Messaging platforms (e.g. WhatsApp / Meta Platforms Ireland Ltd)',
-        'Partner organisations engaged in the performance of our tasks',
-        'Auditors and payroll tax auditors',
-      ],
-      transfersOutsideEEA: true,
-      thirdCountries: ['The United States of America'],
-      internationalOrgs: [],
-      sccContactEmail: 'secgen@elsa.org',
-      noticeDays: 14,
-    },
-    categories: [
-      { id: 'personal-identification', items: 'name, surname' },
-      { id: 'contact-information', items: 'e-mail address' },
-      { id: 'elsa-activity', items: 'involvement in local, national, international and other structures of ELSA, years of activity in ELSA' },
-      { id: 'billing-contribution', items: 'selected contribution model, contribution amount, contribution frequency, subscription status, payment authorisation/mandate details and payment-related information necessary to process and manage your support' },
-      { id: 'communication-data', items: 'messages, inquiries, requests or other information you provide when contacting us in relation to your support of ELSA' },
-    ],
-    customCategories: [
-      { label: 'Project interests', items: 'the specific ELSA projects or activities you indicate an interest in via the registration form' },
-      { label: 'WhatsApp opt-in', items: 'your request, where given, to receive an invitation link to the WhatsApp chat with ELSA International’s Alumni' },
-    ],
-    purposes: [
-      { text: 'Register and manage your participation in the event', basis: 'contract' },
-      { text: 'To process and manage payments, including related administrative matters', basis: 'contract' },
-      { text: 'To communicate with you regarding your participation, requests or inquiries', basis: 'contract' },
-      { text: 'To send you an invitation link to a group chat, where you have requested this', basis: 'consent' },
-      { text: 'To keep records of participants and their registrations', basis: 'legitimateInterest' },
-      { text: 'To share relevant information about ELSA, its projects, activities or opportunities', basis: 'legitimateInterest' },
-      { text: 'To keep our forms, platforms and systems secure and functioning properly', basis: 'legitimateInterest' },
-      { text: 'Notify you about changes to our Privacy Policy', basis: 'legalObligation' },
-      { text: 'Comply with applicable legal, tax, accounting or regulatory obligations', basis: 'legalObligation' },
-      { text: 'To establish, exercise or defend legal claims and protect the rights and interests of ELSA', basis: 'legalObligation' },
-    ],
-  },
-];
+interface GeneratedPreset {
+  file: string; name: string; area: string; lastUpdated: string; audience: string;
+  controller: { name: string; address: string; email: string; phone: string };
+  subjects: string[];
+  categories: { id: string; items: string }[];
+  customCategories: { label: string; items: string }[];
+  purposes: { text: string; basis: string }[];
+  recipients: string[];
+  transfersOutsideEEA: boolean;
+  thirdCountries: string[];
+  internationalOrgs: string[];
+  directSources: string[];
+  indirectSources: string[];
+}
+
+function slug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function buildAttention(p: GeneratedPreset): AttentionPoint[] {
+  const points: AttentionPoint[] = [];
+  points.push({
+    section: 'controller',
+    text: `The previous policy named ELSA ${p.controller.name} as controller — still correct? Is there a joint controller / Organising Committee this edition?`,
+  });
+  points.push({
+    section: 'subjects',
+    text: 'These data subjects come from the previous policy — does the same audience take part this edition?',
+  });
+  points.push({
+    section: 'categories',
+    text: 'These categories come from the previous policy — is anything new collected this edition (e.g. photos, health data, payment details)?',
+  });
+  if (p.purposes.some((x) => x.basis === 'consent')) {
+    points.push({
+      section: 'purposes',
+      text: 'Some purposes rely on consent (opt-ins) — check the corresponding tick-boxes are still on this edition’s registration form.',
+    });
+  } else {
+    points.push({ section: 'purposes', text: 'Purposes come from the previous policy — does this edition do anything new or differently?' });
+  }
+  points.push({
+    section: 'recipients',
+    text: 'Same recipients as last time? Check the form platform, payment provider, accommodation and any partners for this edition. Are you sure before unticking one? Ask dataprotection@elsa.org if in doubt.',
+  });
+  if (p.transfersOutsideEEA) {
+    points.push({
+      section: 'transfers',
+      text: `The previous policy listed transfers${p.thirdCountries.length ? ` to ${p.thirdCountries.join(', ')}` : ' outside the EEA'} — are these still the current providers/countries?`,
+    });
+  }
+  points.push({
+    section: 'general',
+    text: `Foundation: ${p.file.split('\\').pop()}${p.lastUpdated ? ` (last updated ${p.lastUpdated})` : ''}. Set a new date and version for this edition.`,
+  });
+  return points;
+}
+
+/**
+ * Map a recipient phrase from a past policy onto the standard pick-list option
+ * where clearly the same thing (e.g. "Cloud Server Providers" → the standard
+ * "Cloud Server Providers (e.g. Google Workspace/Gmail, Microsoft)") so the
+ * list never shows near-duplicates. Unmatched phrases stay as custom entries.
+ */
+export function canonicalRecipient(raw: string): { list: 'internal' | 'external'; label: string } {
+  const base = raw.toLowerCase().replace(/\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
+  for (const opt of INTERNAL_RECIPIENT_OPTIONS) {
+    const optBase = opt.label.toLowerCase().replace(/\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
+    if (base === optBase || base.includes(optBase) || optBase.includes(base)) return { list: 'internal', label: opt.label };
+  }
+  for (const opt of EXTERNAL_RECIPIENT_OPTIONS) {
+    const optBase = opt.label.toLowerCase().replace(/\(.*?\)/g, ' ').replace(/\s+/g, ' ').trim();
+    if (base === optBase || optBase.startsWith(base) || base.startsWith(optBase)) return { list: 'external', label: opt.label };
+    if (opt.keywords.some((k) => base.includes(k))) return { list: 'external', label: opt.label };
+  }
+  const isInternal = /elsa|national group|local group|organising committee|organizing committee|international board/i.test(raw);
+  return { list: isInternal ? 'internal' : 'external', label: raw };
+}
+
+export const PRESET_EVENTS: PresetEvent[] = (generated as GeneratedPreset[]).map((p) => ({
+  id: slug(p.name),
+  name: p.name,
+  area: p.area,
+  lastUpdated: p.lastUpdated,
+  sourceFile: p.file.split('\\').pop() ?? p.file,
+  audience: p.audience === 'volunteers' ? 'volunteers' : 'participants',
+  controller: p.controller,
+  subjects: p.subjects,
+  categories: p.categories,
+  customCategories: p.customCategories,
+  purposes: p.purposes.map((x) => ({ text: x.text, basis: x.basis as LegalBasis })),
+  recipients: p.recipients,
+  transfersOutsideEEA: p.transfersOutsideEEA,
+  thirdCountries: p.thirdCountries,
+  internationalOrgs: p.internationalOrgs,
+  directSources: p.directSources,
+  indirectSources: p.indirectSources,
+  attentionPoints: buildAttention(p),
+}));
+
+export const PRESET_AREAS: string[] = [...new Set(PRESET_EVENTS.map((p) => p.area))].sort();
 
 export function presetById(id: string | null): PresetEvent | undefined {
   return PRESET_EVENTS.find((p) => p.id === id);
+}
+
+/** Build the Answers prefill from a preset (used by applyPreset in state.ts). */
+export function presetToPrefill(p: PresetEvent): Partial<Answers> {
+  const internal: string[] = [];
+  const external: string[] = [];
+  for (const r of p.recipients) {
+    const c = canonicalRecipient(r);
+    const target = c.list === 'internal' ? internal : external;
+    if (!target.includes(c.label)) target.push(c.label);
+  }
+  // Safety: international organisations are never countries (and vice versa)
+  const countries = p.thirdCountries.filter((c) => !INTERNATIONAL_ORG_RE.test(c));
+  const orgs = [...p.internationalOrgs];
+  for (const c of p.thirdCountries) {
+    if (INTERNATIONAL_ORG_RE.test(c) && !orgs.includes(c)) orgs.push(c);
+  }
+  return {
+    activityTitle: p.name.split(' — ')[0],
+    audience: p.audience,
+    controllerKind: 'controller',
+    controller: { ...p.controller },
+    controllerCountry: 'BE', // ELSA International policies; officer can change
+    directSources: p.directSources,
+    indirectSources: p.indirectSources,
+    recipientsInternal: internal,
+    recipientsExternal: external,
+    transfersOutsideEEA: p.transfersOutsideEEA,
+    thirdCountries: countries,
+    internationalOrgs: orgs,
+    sccContactEmail: p.controller.email,
+    noticeDays: 14,
+  };
 }

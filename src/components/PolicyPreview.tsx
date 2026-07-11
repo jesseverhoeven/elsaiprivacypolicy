@@ -1,6 +1,11 @@
 import type { PolicyBlock } from '../types';
 import logoUrl from '../assets/elsa-logo.png';
 
+/** Stable anchor id for a TOC entry / heading text (shared by TOC links and headings). */
+export function anchorFor(text: string): string {
+  return 'sec-' + text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
 export interface BlockEdits {
   [blockId: string]: { removed?: boolean; bullets?: string[]; text?: string };
 }
@@ -49,7 +54,9 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
                 <h3 className="policy-h2">Contents</h3>
                 <ul>
                   {(b.entries ?? []).map((e, i) => (
-                    <li key={i} className={/^\d/.test(e) || e === 'Summary' || e === 'More details' ? 'toc-top' : 'toc-sub'}>{e}</li>
+                    <li key={i} className={/^\d/.test(e) || e === 'Summary' || e === 'More details' ? 'toc-top' : 'toc-sub'}>
+                      <a href={`#${anchorFor(e)}`}>{e}</a>
+                    </li>
                   ))}
                 </ul>
                 {sourceTag}
@@ -85,11 +92,11 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
           case 'title':
             return <div key={b.id}><h1 className="policy-title">{text}</h1>{sourceTag}</div>;
           case 'heading1':
-            return <div key={b.id} className="policy-h-wrap"><h2 className="policy-h1">{text}</h2>{sourceTag}</div>;
+            return <div key={b.id} className="policy-h-wrap"><h2 className="policy-h1" id={anchorFor(text)}>{text}</h2>{sourceTag}</div>;
           case 'heading2':
-            return <div key={b.id} className="policy-h-wrap"><h3 className="policy-h2">{text}</h3>{sourceTag}</div>;
+            return <div key={b.id} className="policy-h-wrap"><h3 className="policy-h2" id={anchorFor(text)}>{text}</h3>{sourceTag}</div>;
           case 'heading3':
-            return <div key={b.id} className="policy-h-wrap"><h4 className="policy-h3">{text}</h4>{sourceTag}</div>;
+            return <div key={b.id} className="policy-h-wrap"><h4 className="policy-h3" id={anchorFor(text)}>{text}</h4>{sourceTag}</div>;
           case 'bullets': {
             if (!editable || b.locked) {
               return (

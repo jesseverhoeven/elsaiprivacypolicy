@@ -1,0 +1,4917 @@
+[
+ {
+  "file": "5. Academic Activities\\Privacy Policy - AHRC _ Spotlight (Last Updated 20.11.2025).docx",
+  "name": "AHRC Spotlight",
+  "area": "Academic Activities",
+  "lastUpdated": "2025-11-20",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques, 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": ""
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   },
+   {
+    "id": "photos-recordings",
+    "items": "Photos and videos of the event"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Participation to the event",
+    "items": "e.g. place, date and title of the event"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To participate in the event",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To photograph and video record you",
+    "basis": "consent"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations with whom we engage in the course of the organisation of AHRC",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register directly to the application form to the AHRC Event"
+  ],
+  "indirectSources": [
+   "When we are photographing and video recording you during the event"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\11. Privacy Policy - National Coordinators _ AHRC (Last Updated 05_08_24).docx",
+  "name": "AHRC — National Coordinators",
+  "area": "Academic Activities",
+  "lastUpdated": "2024-08-05",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, age, gender, nationality, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. studies pursued in the past, studies currently pursued, knowledge of the English language"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA membership status, National/Local group of affiliation, current ELSA Position"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Content of the Specification and Evaluation Forms",
+    "items": "e.g number of events organised, number of participants, feedback on the campaign"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To coordinate, supervise and evaluate the events organised in the context of the Annual Human Rights Campaign",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To obtain information on the National/Local events organised in the context of the Annual Human Rights Competition and select the winner",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To support the organising of events",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the Campaign",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To enable the Council of Europe to contact you if delivering visibility materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "For the legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe"
+  ],
+  "directSources": [
+   "When you register to participate in the Campaign (through the Specification and Evaluation Forms)",
+   "While you participate in the Campaign"
+  ],
+  "indirectSources": [
+   "Through the Campaign National Coordinator when filling in the Specification Form on who shall receive the visibility materials from the Council of Europe, if other persons than the National Coordinator themselves"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\Privacy Policy - Academic Board _ ELSA Law Review (last updated 13.02.2025).docx",
+  "name": "ELSA Law Review — Academic Board",
+  "area": "Academic Activities",
+  "lastUpdated": "2025-02-13",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Educational background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Previous experiences with the ELSA Law Review",
+    "items": "e.g. past participation"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, past work experiences"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To be appointed as a member of the Academic Board of the ELSA Law Review",
+    "basis": "consent"
+   },
+   {
+    "text": "To review your qualifications as a potential member of the Academic Board for the ELSA Law Review",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the ELSA Law Review",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to be a member of the Academic Board for the ELSA Law Review"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\Privacy Policy - Submissions _ ELSA Law Review (last updated 10.05.2025).docx",
+  "name": "ELSA Law Review — Submissions",
+  "area": "Academic Activities",
+  "lastUpdated": "2025-05-10",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, involvement on local or national level"
+   },
+   {
+    "label": "Education background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Submission details",
+    "items": "e.g. your article"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To collect your submission to the ELSA Law Review",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your submission by the Academic Board of the ELSA Law Review",
+    "basis": "contract"
+   },
+   {
+    "text": "To publish your submission in the ELSA Law Review",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and improve the ELSA Law Review",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To keep statistics of who participates in the project",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "the Academic Board of the ELSA Law Review",
+   "Cloud server providers",
+   "IT and software providers",
+   "Auditors and payroll tax auditors",
+   "Your submission to the ELSA Law Review is published on the official website of the ELSA Law Review with your name and surname"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you send us your submission of the ELSA Law Review through the form"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\2. Privacy Policy for the ELSA x LexisNexis Essay Competition (Last Updated 21_04_2024).docx",
+  "name": "ELSA x LexisNexis Essay Competition",
+  "area": "Academic Activities",
+  "lastUpdated": "2024-04-21",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Submission details",
+    "items": "e.g. your article"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To collect your essay and to select the winner of the Competition",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and improve the Competition",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "LexisNexis",
+   "Cloud server providers",
+   "IT and software providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you submit your essay to the Competition",
+   "When you provide us with your details to send you the prize"
+  ],
+  "indirectSources": [
+   "From public sources, registers, searches on the internet and social media",
+   "From our partner organisations involved in the Competition (e.g. LexisNexis)"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\10. Privacy Policy - Participants _ ROLE TC (Last Updated 09_12_2024).docx",
+  "name": "ROLE TC — Participants",
+  "area": "Academic Activities",
+  "lastUpdated": "2024-12-09",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, visa details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. CV, studies pursued in the past, studies currently pursued, knowledge in the English language"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA membership status, national/local chapter of affiliation, current ELSA position"
+   },
+   {
+    "id": "meal-details",
+    "items": "e.g. period of stay, assigned room, meals provided"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special food requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Conference participation information",
+    "items": "e.g. letter of motivation, prior knowledge of the project, days attended, participation in sessions"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To select your application to the Conference",
+    "basis": "contract"
+   },
+   {
+    "text": "To administer the Conference",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with accommodation and meals",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with an attendance certificate",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve the Conference (e.g. through your feedback that you provide to us)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Accommodation and Meal Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the Conference",
+   "While you participate in the Conference, regarding your attendance",
+   "When you provide us with your feedback after the conclusion of the Conference"
+  ],
+  "indirectSources": [
+   "From public sources"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\9. Privacy Policy - Trainers _ ROLE TtF (Last Updated 03_07_2024).docx",
+  "name": "ROLE TtF — Trainers",
+  "area": "Academic Activities",
+  "lastUpdated": "2024-07-03",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, age, gender, nationality, country of residence, visa details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. studies pursued in the past, studies currently pursued, knowledge of the English language"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA membership status, National/Local group of affiliation, current ELSA Position"
+   },
+   {
+    "id": "meal-details",
+    "items": "e.g. period of stay, assigned room, meals provided"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other related special requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Conference participation",
+    "items": "e.g. days attended, participation in sessions"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To select you and prepare you as a trainer for the Conference (e.g. through pre-Conference online calls)",
+    "basis": "contract"
+   },
+   {
+    "text": "To administer the Conference",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with accommodation and meals, except the processing of your health data which is cumulatively obtained through your explicit consent",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with an attendance certificate",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve the Conference (e.g. through your feedback that you provide to us)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Accommodation and Meal Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the Conference",
+   "While you participate in the Conference, regarding your attendance"
+  ],
+  "indirectSources": [
+   "From public sources"
+  ]
+ },
+ {
+  "file": "5. Academic Activities\\Privacy Policy - Facilitators _ ROLE  (Last Updated 14.04.2025).docx",
+  "name": "ROLE — Facilitators",
+  "area": "Academic Activities",
+  "lastUpdated": "2025-04-14",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, age, country and city of origin"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA membership status, national/local chapter of affiliation, current ELSA position"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ROLE participation information",
+    "items": "e.g. Facilitator from which National or Local Group"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To administer ROLE",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise ROLE together with the National Coordinators",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide information about ROLE to you",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To share your name with the Council of Europe to apply for grants for ROLE",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve ROLE (e.g. through your feedback that you provide to us)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors",
+   "The Council of Europe"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you send us the form for ROLE Facilitators",
+   "When you provide us with your feedback after the conclusion of ROLE",
+   "When you contact us"
+  ],
+  "indirectSources": [
+   "From public sources"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\12. Privacy Policy - National Coordinators _ ROLE (Last updated 22_08_24).docx",
+  "name": "ROLE — National Coordinators",
+  "area": "Academic Activities",
+  "lastUpdated": "2024-08-22",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, age, gender, nationality, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. studies pursued in the past, studies currently pursued, knowledge of the English language"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA membership status, National/Local group of affiliation, current ELSA Position"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Content of the Specification and Evaluation Forms",
+    "items": "e.g number of events organised, number of participants, feedback on the Program"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the Rule of Law Education Program",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To obtain information on the National/Local events organised in the context of the Rule of Law Education Program",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To coordinate, supervise and evaluate the events organised in the context of the Rule of Law Education Program",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To facilitate and coach the organisers of events",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the Program",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "For the legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the Program (through the Specification and Evaluation Forms)",
+   "While you participate in the Program"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook, LinkedIn)"
+  ]
+ },
+ {
+  "file": "5. Academic Activities\\Privacy Policy - Alumni _ Rule of Law Education (Last Updated 18.10.2025).docx",
+  "name": "Rule of Law Education — Alumni",
+  "area": "Academic Activities",
+  "lastUpdated": "2025-10-18",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, LinkedIn"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "To be included in the pool of Alumni for matching with national ROLE coordinators",
+    "basis": "contract"
+   },
+   {
+    "text": "To transfer your contact details to the national ROLE coordinators we matched you with",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your qualifications as a potential advisor for national ROLE coordinators",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To be in the process of being matched with a national ROLE coordinator",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve ROLE",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "national ROLE coordinators",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations with whom we engage in the course of the organisation of ROLE",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America",
+   "The United Kingdom"
+  ],
+  "internationalOrgs": [
+   "The European Youth Foundation"
+  ],
+  "directSources": [
+   "When you register directly to be in the pool of Alumni for ROLE through our website form"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "Privacy Policy - 45th Anniversary _ (Last updated 18.03.2025).docx",
+  "name": "45th Anniversary",
+  "area": "BEE",
+  "lastUpdated": "2025-03-18",
+  "rank": 2,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "active member or Alumni status, ELSA Group, years of activity in ELSA"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "bank account, amount details"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary requirements, allergies, medical conditions and other special requirements"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "Contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Register you for the 45th Anniversary of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise the 45th Anniversary of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "Obtain the payment of the participation fee",
+    "basis": "contract"
+   },
+   {
+    "text": "Answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To photograph and video record you during the 45th Anniversary of ELSA",
+    "basis": "consent"
+   },
+   {
+    "text": "To use the above photographs for promotional purposes related to ELSA. In particular, to use and publish the above photographs and videos of you in various media outlets, including but not limited to websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "Maintain and improve the quality of the events",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "From the registration form you submit to us",
+   "Through your inquiries"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\13. Privacy Policy BEE Academy (Last updated 28.08.2024).docx",
+  "name": "BEE Academy",
+  "area": "BEE",
+  "lastUpdated": "2024-08-28",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "applicants to the BEE Academy"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g., ELSA e-mail, phone number"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ELSA activities",
+    "items": "e.g. current ELSA position occupied, ELSA National Group"
+   },
+   {
+    "label": "Participation in BEE Academy Sessions",
+    "items": "e.g. challenges and information discussed in sessions, expectations"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To register you to our BEE Academy",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with information about the BEE Academy and your participation",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise individual mentoring sessions",
+    "basis": "contract"
+   },
+   {
+    "text": "Perform other operations that are related to the participation to the BEE Academy",
+    "basis": "contract"
+   },
+   {
+    "text": "Manage our human resources, such as activities related to the organisation of individual mentoring sessions and evaluating your performance and the fulfilment of the voluntary agreement (e.g. termination of the agreement, attendance to meetings, general performance and task fulfilment)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "Personal identification elements that you submit directly to us by applying to the BEE Academy",
+   "Contact detail elements, such as identification, CV, motivation letter, previous educational and professional experiences and other elements that you submit directly to us when applying to the BEE Academy",
+   "ELSA activities elements, such as your ELSA position and National Group, that you submit directly to us when applying to the BEE Academy",
+   "Other elements that you are sharing with us during the BEE Academy Sessions"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "Amended_ Privacy Policy - LeCercle Supporters (Last Updated 03.05.2026).docx .docx",
+  "name": "LeCercle Supporters",
+  "area": "BEE",
+  "lastUpdated": "2026-05-03",
+  "rank": 2,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e-mail address"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "involvement in local, national, international and other structures of ELSA, years of activity in ELSA"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "your selected contribution model, contribution amount, contribution frequency, subscription status and payment-related information necessary to process and manage your support"
+   },
+   {
+    "id": "communication-data",
+    "items": "e.g. messages, inquiries, requests or other information you provide when contacting us in relation to your support of ELSA"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Project interests",
+    "items": "the specific ELSA projects or activities you indicate an interest in"
+   },
+   {
+    "label": "WhatsApp opt-in",
+    "items": "your request, where given, to receive an invitation link to the WhatsApp chat with ELSA International's Alumni"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To register and manage your participation in LeCercle Supporters",
+    "basis": "contract"
+   },
+   {
+    "text": "To communicate with you regarding your participation, contribution, requests or inquiries",
+    "basis": "contract"
+   },
+   {
+    "text": "To send you an invitation link to the WhatsApp chat with ELSA International's Alumni, where you have requested this by ticking the corresponding box on the registration form",
+    "basis": "consent"
+   },
+   {
+    "text": "To keep records of LeCercle Supporters and their contributions",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To identify your ELSA background and interests in ELSA projects and activities",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To share relevant information about ELSA, its projects, activities or opportunities connected to LeCercle Supporters",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To keep our forms, platforms and systems secure and functioning properly",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To inform you about changes to this Privacy Policy, where such changes affect the processing of your personal data",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To comply with applicable legal, tax, accounting or regulatory obligations",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To establish, exercise or defend legal claims and protect the rights and interests of ELSA",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online form and registration platforms (including the provider of the registration form used for LeCercle Supporters)",
+   "Payment service providers (for processing one-off and recurring contributions)",
+   "IT Software Providers",
+   "Messaging platforms (in particular WhatsApp / Meta Platforms Ireland Ltd, where you have requested an invitation link to the WhatsApp chat with ELSA International's Alumni)",
+   "Partner organisations with whom we engage in the course of LeCercle Supporters",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register directly to be a LeCercle Supporter through our website form (including any payment authorisation provided as part of that registration)",
+   "When you submit your contribution through our payment service provider integrated into our registration form"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy Alumni Data Base Competitions _ 25-26.docx",
+  "name": "Data Base Competitions — Alumni",
+  "area": "Competitions",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "participants, coaches, judges/panellists of the JHJMCC and the HPMCC"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Participation in the Competition",
+    "items": "e.g. competition taken part in, edition of competition, Role during the Competition (Participant, Coach, Judge/Panellist)"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, current field of work"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage the international network of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage the Alumni Database of the JHJMCC and the HPMCCM",
+    "basis": "contract"
+   },
+   {
+    "text": "To participate in the Alumni Database of the JHJMCC and the HPMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To share information with you about the Competitions of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "To send you the Link to the LinkedIn Group to stay in contact",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To improve and establish excellent workflows within ELSA",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "Personal Identification elements, contact details, Participation in the Competition and Occupational information elements through the Alumni Database Form on our website",
+   "Other elements that are provided by you when you contact us",
+   ""
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Coaches _ Helga Pedersen Moot Court Competition (Last Updated 15.08.2025).docx",
+  "name": "Helga Pedersen Moot Court Competition — Coaches",
+  "area": "Competitions",
+  "lastUpdated": "2025-08-15",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Application information",
+    "items": "e.g. CV, motivation letter"
+   },
+   {
+    "label": "Educational background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Previous experiences with the Competition",
+    "items": "e.g. past participation"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, past work experiences"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To be included in the pool of coaches for matching with a team participating in the JHJMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To transfer your contact details to the team we matched you with",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your qualifications as a potential coach for a team participating in the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To be in the process of being matched with a team",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the HPMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Regional Round Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations whom we engage with in the course of the organisation of the HPMCC (you may find a list of our current partners here)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America",
+   "The United Kingdom"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe"
+  ],
+  "directSources": [
+   "When you register directly to be in the pool of Coaches for the HPMCC through our website form"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Judges _ Helga Pedersen Moot Court Competition (Last Updated 28.08.2025).docx",
+  "name": "Helga Pedersen Moot Court Competition — Judges",
+  "area": "Competitions",
+  "lastUpdated": "2025-08-28",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, passport details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Previous experiences with the Competition",
+    "items": "e.g. past participation"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, past work experiences"
+   },
+   {
+    "label": "Social Media Presence",
+    "items": "e.g. LinkedIn"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the HPMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To transfer your personal data to the Council of Europe in the course of your participation in the HPMCC",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the Rounds of HPMCC and use and publish these photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals and facilities adapted to your restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and update our database of judges",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the HPMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To review your qualifications as a judge for the HPMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Regional Round Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations whom we engage with in the course of the organisation of the HPMCC (you may find a list of our current partners here)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe"
+  ],
+  "directSources": [
+   "When you register directly with us to participate in the HPMCC"
+  ],
+  "indirectSources": [
+   "From our partner organisations and Regional/Final Round Hosts when researching judges to invite to participate in the Competition",
+   "From public sources and social media (LinkedIn)"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Participants _ Helga Pedersen Moot Court Competition (Last Updated 15.08.2025).docx",
+  "name": "Helga Pedersen Moot Court Competition — Participants",
+  "area": "Competitions",
+  "lastUpdated": "2025-08-15",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, passport details"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, physical address"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Education background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Participation in the Competition",
+    "items": "e.g. team number, clarification questions, written pleadings, assigned Regional Round, participation in the Final Oral Round"
+   },
+   {
+    "label": "Performance in the Competition",
+    "items": "e.g. scores, evaluation by the panellists, prizes won, content of the team appearance sheets and team evaluation sheets"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the HPMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To register you in the Regional/Final Oral Rounds of the HPMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the Regional and Final Rounds",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your personal data to the Council of Europe in the course of your participation in the HPMCC",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve the HPMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Regional Round Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations whom we engage with in the course of the organisation of the HPMCC (you may find a list of our current partners here)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America",
+   "The United Kingdom"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe"
+  ],
+  "directSources": [
+   "When you register to participate in the HPMCC through our website form",
+   "When you submit your written pleadings and clarification questions through our website form",
+   "When you register to participate in the Regional/Final Oral Rounds of the HPMCC through our website form",
+   "Throughout your participation in the Competition, regarding your performance, as well as your inquiries"
+  ],
+  "indirectSources": [
+   "From our judges and reviewers of the written and oral pleadings, who provide us with the scores of each team"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Coaches _ John H. Jackson Moot Court Competition (Last updated 15_08_2025).docx",
+  "name": "John H. Jackson Moot Court Competition — Coaches",
+  "area": "Competitions",
+  "lastUpdated": "2025-08-15",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Application information",
+    "items": "e.g. CV, motivation letter"
+   },
+   {
+    "label": "Educational background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Previous experiences with the Competition",
+    "items": "e.g. past participation"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, past work experiences"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To be included in the pool of coaches for matching with a team participating in the JHJMCC",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your contact details to the team we matched you with",
+    "basis": "consent"
+   },
+   {
+    "text": "To review your qualifications as a potential coach for a team participating in the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To be in the process of being matched with a team",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To contact you",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register directly to be in the pool of coaches for the JHJMCC"
+  ],
+  "indirectSources": [
+   "When you are contacting us"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Panellists _ John H. Jackson Moot Court Competition (Last updated 28_08_2025).docx",
+  "name": "John H. Jackson Moot Court Competition — Panellists",
+  "area": "Competitions",
+  "lastUpdated": "2025-08-28",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, passport details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Previous experiences with the Competition",
+    "items": "e.g. past participation"
+   },
+   {
+    "label": "Occupational information",
+    "items": "e.g. current job, past work experiences"
+   },
+   {
+    "label": "Social Media Presence",
+    "items": "e.g. LinkedIn"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the JHJMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the Regional and Final Rounds",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your personal data to the World Trade Organisation in the course of your participation in the JHJMCC",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and update our database of panellists",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To review your qualifications as a panellist for the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Regional Round Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations whom we engage with in the course of the organisation of the JHJMCC (you may find a list of our current partners here)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "China",
+   "India",
+   "Kamerun",
+   "Peru",
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The World Trade Organisation"
+  ],
+  "directSources": [
+   "When you register directly with us to participate in the JHJMCC"
+  ],
+  "indirectSources": [
+   "From our Academic Board, partner organisations and Regional/Final Round Hosts when researching panellists to invite to participate in the Competition",
+   "From public sources and social media (LinkedIn)"
+  ]
+ },
+ {
+  "file": "6. Competitions\\Privacy Policy - Participants _ John H. Jackson Moot Court Competition (Last updated 17_09_2025).docx",
+  "name": "John H. Jackson Moot Court Competition — Participants",
+  "area": "Competitions",
+  "lastUpdated": "2025-09-17",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, passport details"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. prices, duration"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, physical address"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Education background",
+    "items": "e.g. level of studies completed, studies currently pursued"
+   },
+   {
+    "label": "Flight information",
+    "items": "e.g. flight number, flight ticket, departure and arrival, price"
+   },
+   {
+    "label": "Participation in the Competition",
+    "items": "e.g. team number, clarification questions, written pleadings, assigned Regional Round, participation in the Final Oral Round"
+   },
+   {
+    "label": "Performance in the Competition",
+    "items": "e.g. scores, evaluation by the panellists, prizes won, content of the team appearance sheets and team evaluation sheets"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the JHJMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To register you in the Regional/Final Oral Rounds of the JHJMCC",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide African teams with financial support for their participation in the Regional and Final Oral Rounds, including flights, accommodation and meals",
+    "basis": "contract"
+   },
+   {
+    "text": "To match you with a Coach should you request it",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the Regional and Final Rounds",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your personal data to the World Trade Organisation in the course of your participation in the JHJMCC",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve the JHJMCC",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Regional Round Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Partner organisations whom we engage with in the course of the organisation of the JHJMCC (you may find a list of our current partners here)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "China",
+   "India",
+   "Cameroon",
+   "Peru",
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The World Trade Organisation"
+  ],
+  "directSources": [
+   "When you register to participate in the JHJMCC through our website form",
+   "When you submit your written pleadings and clarification questions through our website form",
+   "When you register to participate in the Regional/Final Oral Rounds of the JHJMCC through our website form",
+   "Throughout your participation in the Competition, regarding your performance, as well as your inquiries"
+  ],
+  "indirectSources": [
+   "From our panellists and reviewers of the written and oral pleadings, who provide us with the scores of each team"
+  ]
+ },
+ {
+  "file": "3. FM\\Privacy Policy EDF Application.docx",
+  "name": "EDF Application",
+  "area": "FM",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "Development Foundation",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Purpose of Application",
+    "items": "e.g. ICM Participation, Events, Financial Difference"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To register as applicant to the EDF",
+    "basis": "contract"
+   },
+   {
+    "text": "To review the application to the EDF including but not limited to to cross checking with criteria, short description of the application and preparation of the application for the Board of Directors",
+    "basis": "contract"
+   },
+   {
+    "text": "To review and discuss the application within the Board of Directors",
+    "basis": "contract"
+   },
+   {
+    "text": "To approve or disapprove the application",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of the application",
+    "basis": "contract"
+   },
+   {
+    "text": "To transfer the amount to the bank account of the applying ELSA Group",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and improve the EDF",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to the EDF application form",
+   "When you contact us directly"
+  ],
+  "indirectSources": [
+   "From board members participating in an ICM if the National Group is applying to the EDF Application Form"
+  ]
+ },
+ {
+  "file": "Privacy Policy - EIT Weekend _ (Last updated 21.09.2025).docx",
+  "name": "EIT Weekend",
+  "area": "IM",
+  "lastUpdated": "2025-09-21",
+  "rank": 2,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "ELSA International Team position"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "bank account, amount details"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary requirements, allergies, medical conditions and other special requirements"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "Contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Register you for the EIT Weekend",
+    "basis": "contract"
+   },
+   {
+    "text": "Register you for the Winter Cocktail",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise the EIT Weekend",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise the Winter Cocktail",
+    "basis": "contract"
+   },
+   {
+    "text": "Obtain the payment of the participation fee",
+    "basis": "contract"
+   },
+   {
+    "text": "Answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To photograph and video record you during the EIT Weekend",
+    "basis": "consent"
+   },
+   {
+    "text": "To use the above photographs for promotional purposes related to ELSA. In particular to use and publish the above photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "Maintain and improve the quality of the events",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "From the registration form you submit to us",
+   "Through your inquiries"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "Privacy Policy - ELSA House _ (Last updated 18.09.2025).docx",
+  "name": "ELSA House",
+  "area": "IM",
+  "lastUpdated": "2025-09-18",
+  "rank": 2,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "ELSA Group, position within ELSA"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "bank account, amount details"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary requirements, allergies, medical conditions and other special requirements"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "Contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Register you for the event",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise the visit to the ELSA House",
+    "basis": "contract"
+   },
+   {
+    "text": "Obtain the payment of the participation fee",
+    "basis": "contract"
+   },
+   {
+    "text": "Answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To photograph and video record you during ELSA House Events",
+    "basis": "consent"
+   },
+   {
+    "text": "To use the above photographs for promotional purposes related to ELSA. In particular to use and publish the above photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "Maintain and improve the quality of the event",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "From the registration form you submit to us",
+   "From the food restriction form you submit to us",
+   "Through your inquiries"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "2. IM\\Privacy Policy for ELSA Officers (Last Updated 28_07_2025).docx",
+  "name": "ELSA Officers",
+  "area": "IM",
+  "lastUpdated": "2025-07-28",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "members of the International Board of ELSA",
+   "members and applicants to the ELSA International Team",
+   "members and applicants to the Organising Committees of ELSA",
+   "members and applicants to the Working Groups, coordinated by ELSA Inte"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, passport details, date and place of birth"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, ELSA e-mail, phone number, private address"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. personal CV"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. preferred role within ELSA, statement of motivation"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "Identify qualifications and previous experiences",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Display your name on our website to present the ELSA International Team",
+    "basis": "consent"
+   },
+   {
+    "text": "Publish your photos on our website and social media pages, such as Facebook, Instagram and LinkedIn",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your personal data to international organisations with whom we collaborate with in the course of your tasks (e.g. Council of Europe and World Trade Organisation)",
+    "basis": "consent"
+   },
+   {
+    "text": "Manage our human resources, such as activities related to recruitment (e.g. interviews, onboarding, training) and evaluating your performance and the fulfilment of the voluntary agreement (e.g. termination of the agreement, attendance to meetings, general performance and task fulfilment)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Perform other operations that are related to your tasks, such as managing travels and expenses, managing the Association’s assets, providing IT services, and fulfilling the obligations derived from contracts with third parties",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Register the required volunteers in the appropriate authorities for purposes related to the representation of the Association and access to its assets",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation",
+   "Partner organisations who we engage with in the course of the performance of your tasks",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe; and",
+   "The World Trade Organisation"
+  ],
+  "directSources": [
+   "Public registration elements of the members of the International Board of ELSA provided at the start of the term in office",
+   "Application elements, such as identification, CV, motivation letter, previous educational and professional experiences and other elements that you submit directly to us when applying for vacant positions",
+   "Other elements that are required to start your tasks with us, provided by you once you are accepted into our team"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook, LinkedIn)"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\5. Privacy Policy for the Former IB Weekend (Last Updated 13_05_2024).docx",
+  "name": "Former IB Weekend",
+  "area": "IM",
+  "lastUpdated": "2024-05-13",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "position and term in the International Board of ELSA"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary requirements, allergies, medical conditions and other special requirements"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "bank account, payment details"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Participation in the event",
+    "items": "days of participation, accommodation and participation preferences"
+   },
+   {
+    "label": "Meals",
+    "items": "meals provided"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Obtain the payment of the participation fee",
+    "basis": "contract"
+   },
+   {
+    "text": "Register you for the event",
+    "basis": "contract"
+   },
+   {
+    "text": "Ensure your participation in the Former IB Weekend",
+    "basis": "contract"
+   },
+   {
+    "text": "Provide meals, accommodation and any additional services you have booked",
+    "basis": "contract"
+   },
+   {
+    "text": "Answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "Include you in the participants' WhatsApp Group to facilitate communication",
+    "basis": "consent"
+   },
+   {
+    "text": "Maintain and improve the quality of the event",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation"
+  ],
+  "transfersOutsideEEA": false,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "From the registration form you submit to us",
+   "Through your inquiries"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook) as well as through other public sources"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy ICM Brno.docx",
+  "name": "ICM Brno",
+  "area": "IM",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "[Address]",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, gender, passport details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. period of stay, allocated room and room preferences"
+   },
+   {
+    "id": "transfer-details",
+    "items": "e.g. departure and arrival, flight number"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other food-related special requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ICM Participation",
+    "items": "e.g. workshops to attend, statements and interventions during the sessions, presences, special role taken during the event, such as part of the nominations committee, workshop chair, choice of additional services purchased"
+   },
+   {
+    "label": "Voting platform details",
+    "items": "e.g. access credentials"
+   },
+   {
+    "label": "Participation in ELSA’s election process",
+    "items": "e.g. position applied to, answers provided in Q/A sessions, voting results, candidacy materials"
+   },
+   {
+    "label": "Meals",
+    "items": "e.g. meals provided"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Register you as a participant at the ICM",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise and ensure your participation at the ICM (e.g. by providing you with workshops, plenaries and complying with internal voting procedures)",
+    "basis": "contract"
+   },
+   {
+    "text": "To appoint you as an ICM Officer",
+    "basis": "contract"
+   },
+   {
+    "text": "Manage your application for a vacant position in ELSA’s bodies",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide meals, accommodation, transfer and any additional services you have booked",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the International Council Meeting",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To register you as a representative of your National Group at the ICM",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To give access to the voting platform to the authorised representatives of each National Group",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To keep the ICM minutes available internally to the ELSA network",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the ICMs",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To draft minutes of the ICM workshops and plenaries",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "National/Local Groups of ELSA",
+   "Accommodation and meal providers, such as hotels and restaurants we engage in the course of the ICM",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the ICM through our application form",
+   "When you fill out the form for food restrictions and allergies",
+   "Through your interventions at the ICM",
+   "When you apply for a vacant position in ELSA’s bodies"
+  ],
+  "indirectSources": [
+   "From the participants, when providing the contact information of their emergency contact person",
+   "From your National Group, when they register you as its representative at the ICM (e.g. through the registration form and the letter of authorisation or proxy)"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy for IIM Former Hosts _ 25-26.docx",
+  "name": "IIM Former Hosts",
+  "area": "IM",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "members of former Members of Organising Committees of International In"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, phone number (optional), Facebook Profile (optional), LinkedIn (Optional)"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ELSA activities",
+    "items": "e.g. positions occupied in the OC, ICM/ ISM Host"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage the international network of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage the process of IIM Hosts Coaching",
+    "basis": "contract"
+   },
+   {
+    "text": "To share information to IIM Hosts",
+    "basis": "contract"
+   },
+   {
+    "text": "To improve and establish excellent workflows within ELSA",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "Personal Identification elements, contact details and ELSA Activity elements through the IIM Former Hosts Form on our website",
+   "Other elements that are provided by you when you contact us"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook, Instagram, LinkedIn)"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy ISM Tbilisi.docx",
+  "name": "ISM Tbilisi",
+  "area": "IM",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "3, Chavchavadze Ave., Tbilisi, Georgia",
+   "email": "secgen@elsa.org",
+   "phone": "+995 598 65 70 06"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, gender, passport details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number, address"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. period of stay, allocated room and room preferences"
+   },
+   {
+    "id": "additional-services",
+    "items": "services and products purchased, prices"
+   },
+   {
+    "id": "transfer-details",
+    "items": "e.g. departure and arrival, flight number, time of pick-up, place of pick-up"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other food-related special requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ISM Participation",
+    "items": "e.g. workshops to attend, statements and interventions during the sessions, presences, special role taken during the event, such as workshop chair, secretary, choice of additional services purchased"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Register you as a participant at the ISM",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise and ensure your participation at the ISM (e.g. by providing you with workshops, sessions and complying with internal voting procedures)",
+    "basis": "contract"
+   },
+   {
+    "text": "To appoint you as an ISM Officer",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide meals, accommodation, transfer and any additional services you have booked",
+    "basis": "contract"
+   },
+   {
+    "text": "To invoice you the participation fees",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during the ISM",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To register you as a representative of your National Group at the ISM",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To keep the ISM minutes available internally to the ELSA Network",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the ISMs",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To draft minutes of the ISM workshops and sessions",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "National/Local Groups of ELSA",
+   "Accommodation and meal providers, such as hotels and restaurants we engage in the course of the ISM",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "Georgia",
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the ISM through our application form",
+   "When you fill out the form for food restrictions and allergies",
+   "Through your interventions at the ISM",
+   "When you contact us directly"
+  ],
+  "indirectSources": [
+   "From the participants, when providing the contact information of their emergency contact person",
+   "From your National Group, when they register you as its representative at the ISM (e.g. through the registration form and the letter of authorisation or proxy)"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy _ ITM _ 25-26 (last updated 18.08.2025).docx",
+  "name": "ITM",
+  "area": "IM",
+  "lastUpdated": "2025-08-18",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation, years of experience"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ITM Participation",
+    "items": "e.g. workshops to attend, statements and interventions during the sessions, presence, special role taken during the event, preference of training sessions to attend"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To register you as a participant at the ITM",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise and ensure your participation at the ITM (e.g. by providing you with workshops, trainings)",
+    "basis": "contract"
+   },
+   {
+    "text": "To appoint you as an ITM Officer",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To register you as a representative of your National Group at the ITM",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To maintain and improve the ITMs",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "National/Local Groups of ELSA",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the ITM through our application form",
+   "Through your interventions at the ITM"
+  ],
+  "indirectSources": [
+   "From your National Group, when they register you as its representative at the ITM (e.g. through the registration form)"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\8. Privacy Policy for the International Trainers_ Pool (Last Updated 19_06_2024).docx",
+  "name": "International Trainers Pool",
+  "area": "IM",
+  "lastUpdated": "2024-06-19",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "applicants to the ITP",
+   "members of the ITP",
+   "external Trainers, involved in ITP-related events"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, languages spoken, photo"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. address, e-mail address, phone number, city of residence"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. bank account, billing address, invoice"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Professional experience",
+    "items": "e.g. previous work experiences, current occupation"
+   },
+   {
+    "label": "ELSA activities",
+    "items": "e.g. positions held, main achievements"
+   },
+   {
+    "label": "ITP activity",
+    "items": "e.g. trainings provided, content of related requests, dates, format, performance feedback given by other trainers during ITP events, performance feedback given by attendees of the trainings"
+   },
+   {
+    "label": "Participation in ITP-related events",
+    "items": "e.g. accommodation, meals, package, price paid, skills to improve, expectations"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide you with participation in ITP-related events (e.g. Train the Trainers and Refreshment Weekend)",
+    "basis": "contract"
+   },
+   {
+    "text": "To assign you to training requests submitted by National and Local Groups",
+    "basis": "contract"
+   },
+   {
+    "text": "Publish your photo and description on the ELSA Training Website",
+    "basis": "consent"
+   },
+   {
+    "text": "Take your pictures and videos during ITP-related events and publish them as a part of the promotion of the ELSA Training programme",
+    "basis": "consent"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "Manage the ITP, such as activities related to recruitment and evaluating your performance and the fulfilment of the Voluntary Agreement (e.g. termination of the agreement, attendance to meetings, general performance and task fulfilment)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Perform other operations that are related to your tasks, such as managing travels and expenses, managing the Association’s assets, providing IT services, and fulfilling the obligations derived from contracts with third parties",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "National and Local Groups of ELSA",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register for ITP-related events (e.g. Train the Trainers, Refreshment Weekend)",
+   "When you join the ITP and provide us with the information required under the Voluntary Agreement",
+   "When you fill in other required documentation under the Voluntary Agreement, such as the Training Evaluation Form"
+  ],
+  "indirectSources": [
+   "From the trainers of the ITP-related events you attend regarding your performance",
+   "From requesting National and Local Groups who request you specifically to be their trainer",
+   "From the participants of your trainings that fill in the Training Evaluation Form",
+   "Information taken from social media presence (e.g. Facebook, LinkedIn)"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy NCM Lucerne.docx",
+  "name": "NCM Lucerne",
+  "area": "IM",
+  "lastUpdated": "",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "Frohburgstraase 3, 6002 Lucerne, Switzerland",
+   "email": "secgen@ch.elsa.org",
+   "phone": ""
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address, phone number"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation"
+   },
+   {
+    "id": "financial-information",
+    "items": "e.g. amounts, bank details"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. period of stay, allocated room and room preferences, social programme selected"
+   },
+   {
+    "id": "transfer-details",
+    "items": "e.g. departure and arrival times, means of transportation"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other food-related special requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "NCM Participation",
+    "items": "e.g. workshops to attend, statements and interventions during the sessions, presences, special role taken during the event, such as part of the nominations committee, workshop chair, choice of additional services purchased"
+   },
+   {
+    "label": "Voting platform details",
+    "items": "e.g. access credentials"
+   },
+   {
+    "label": "Participation in ELSA’s election process",
+    "items": "e.g. position applied to, answers provided in Q/A sessions, voting results, candidacy materials"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Register you as a participant at the NCM",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise and ensure your participation at the NCM (e.g. by providing you with workshops, plenaries and complying with internal voting procedures)",
+    "basis": "contract"
+   },
+   {
+    "text": "Appoint you as an NCM Officer",
+    "basis": "contract"
+   },
+   {
+    "text": "Manage your application for a vacant position in ELSA Switzerland’s bodies",
+    "basis": "contract"
+   },
+   {
+    "text": "Provide meals, accommodation, transfer and any additional services you have booked",
+    "basis": "contract"
+   },
+   {
+    "text": "Answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "Maintain and uphold the billing process",
+    "basis": "contract"
+   },
+   {
+    "text": "Contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "Photograph and video record you during the NCM",
+    "basis": "consent"
+   },
+   {
+    "text": "Use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "Register you as a representative of your Local Group at the ICM",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Give access to the voting platform to the authorised representatives of each National Group",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Keep the NCM minutes available internally to the ELSA network",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Maintain and improve the NCMs",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Draft minutes of the ICM workshops and plenaries",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Local Groups of ELSA Switzerland",
+   "Accommodation and meal providers, such as hotels and restaurants we engage in the course of the NCM",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in the NCM through our application form",
+   "When you fill out the form for food restrictions and allergies",
+   "Through your interventions at the NCM",
+   "When you apply for a vacant position in ELSA Switzerland’s bodies"
+  ],
+  "indirectSources": [
+   "From your Local Group, when they register you as its representative at the NCM (e.g. through the registration form and the letter of authorisation or proxy)"
+  ]
+ },
+ {
+  "file": "2. IM\\Privacy Policy for NGR _ 25-26 (Last Updated 01.08.2025).docx",
+  "name": "NGR",
+  "area": "IM",
+  "lastUpdated": "2025-08-01",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "members of the National Boards of ELSA National Groups"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, ELSA e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ELSA activities",
+    "items": "e.g. positions occupied"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage our human resources, such as activities related to supporting your National Group (e.g. calls, onboarding, training)",
+    "basis": "contract"
+   },
+   {
+    "text": "To manage the international network of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "To perform other operations that are related to your tasks, such as sending information to you about the association (e.g. invitations to International Internal Meetings; knowledge management emails, important updates etc.)",
+    "basis": "contract"
+   },
+   {
+    "text": "To improve and establish excellent workflows within ELSA",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation",
+   "Partner organisations who we engage with in the course of the performance of your tasks",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe; and",
+   "The World Trade Organisation"
+  ],
+  "directSources": [
+   "Personal Identification elements, contact details and ELSA Activity elements of the members of the National Board of ELSA National Groups provided through the National Group Report Form",
+   "Other elements that are required to start your tasks with us, provided by you when you contact us"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook, Instagram, LinkedIn)"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\Privacy Policy for OC ELSA International (Last Updated 21_02_2025).docx",
+  "name": "OC ELSA International",
+  "area": "IM",
+  "lastUpdated": "2025-02-21",
+  "rank": 1,
+  "audience": "volunteers",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [
+   "members and applicants to the Organising Committees of the Final Oral"
+  ],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, passport details, date and place of birth"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, ELSA e-mail, phone number, private address"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. personal CV"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. preferred role within the Organising Committee, statement of motivation"
+   },
+   {
+    "id": "health-data",
+    "items": "e.g. dietary restrictions, allergies and other special requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ELSA activities",
+    "items": "e.g. membership in local and national chapters of ELSA, positions occupied"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "Identify you",
+    "basis": "contract"
+   },
+   {
+    "text": "Identify qualifications and previous experiences",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "Publish your photos on our website and social media pages, such as Facebook, Instagram and LinkedIn",
+    "basis": "consent"
+   },
+   {
+    "text": "To transfer your personal data to international organisations with whom we collaborate with in the course of your tasks (e.g. Council of Europe and World Trade Organisation)",
+    "basis": "consent"
+   },
+   {
+    "text": "Health data (e.g. dietary restrictions, allergies and other special requirements; if applicable)",
+    "basis": "consent"
+   },
+   {
+    "text": "Manage our human resources, such as activities related to recruitment (e.g. interviews, onboarding, training) and evaluating your performance and the fulfilment of the voluntary agreement (e.g. termination of the agreement, attendance to meetings, general performance and task fulfilment)",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Perform other operations that are related to your tasks, such as managing travels and expenses, managing the Association’s assets, providing IT services, and fulfilling the obligations derived from contracts with third parties",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Register the required volunteers with the appropriate authorities for purposes related to the representation of the Association and access to its assets",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Public agencies and institutions (e.g. tax authorities) in the event of a legal obligation",
+   "Partner organisations who we engage with in the course of the performance of your tasks",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [
+   "The Council of Europe; and",
+   "The World Trade Organisation"
+  ],
+  "directSources": [
+   "Application elements, such as identification, CV, motivation letter, previous educational and professional experiences and other elements that you submit directly to us when applying for vacant positions",
+   "Other elements that are required to start your tasks with us, provided by you once you are accepted into our team",
+   "Dietary Restrictions, Allergies and other special requirements that you submit directly to us when filling out the respective form for it"
+  ],
+  "indirectSources": [
+   "Information taken from social media presence (e.g. Facebook, LinkedIn)"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\16. Privacy Policy Career Launch _ 25-26.docx",
+  "name": "Career Launch",
+  "area": "Professional Development",
+  "lastUpdated": "",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, gender"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. amounts per person, bank account information"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. ELSA Position, National/Local Group of affiliation"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. level of education and professional experience"
+   }
+  ],
+  "customCategories": [],
+  "purposes": [
+   {
+    "text": "Register you as a participant or speaker of Career Launch",
+    "basis": "contract"
+   },
+   {
+    "text": "Organise and manage your participation at Career Launch",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates of participation",
+    "basis": "contract"
+   },
+   {
+    "text": "To ensure the billing process for the participation at Career Launch",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and enhance the quality of Career Launch through the feedback of participants",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate at Career Launch through our application form",
+   "Through your interventions at Career Launch",
+   "Through email correspondence",
+   "When you send us feedback through email or the applicable feedback form"
+  ],
+  "indirectSources": [
+   "Information to update and maintain the database about potential partners can be used from employer’s website, social media or similar public sources"
+  ]
+ },
+ {
+  "file": "7. Professional Development\\Privacy Policy - Participants _ ELSA Traineeships (Last updated 10.10.2025).docx",
+  "name": "ELSA Traineeships — Participants",
+  "area": "Professional Development",
+  "lastUpdated": "2025-10-10",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, passport details"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, phone number, private address"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. level of studies completed, studies currently pursued, CV, languages"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "ELSA activities",
+    "items": "e.g. membership in Local and National Groups of ELSA, positions occupied, participation in ELSA Projects"
+   },
+   {
+    "label": "Traineeship Details",
+    "items": "e.g. traineeship you applied to, periods of stay, approvals and disapprovals of traineeship provider"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To verify your application with the Local and National Group of ELSA",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you as Local and National Group regarding the verification process",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you as Local and National Group, about the successful or unsuccessful outcome of the verification",
+    "basis": "contract"
+   },
+   {
+    "text": "To verify your application through the ELSA International Team",
+    "basis": "contract"
+   },
+   {
+    "text": "To rate your application through the ELSA International Team",
+    "basis": "contract"
+   },
+   {
+    "text": "To match your application to the ELSA Traineeship providers",
+    "basis": "contract"
+   },
+   {
+    "text": "To share matched applications to the respective ELSA Traineeship Providers",
+    "basis": "contract"
+   },
+   {
+    "text": "To process and review your application as respective ELSA Traineeship Providers",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you as ELSA Traineeship Provider with the purpose of having an interview for the traineeship you applied for",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of your application(s)",
+    "basis": "contract"
+   },
+   {
+    "text": "To offer, waitlist or decline you for a Traineeship",
+    "basis": "contract"
+   },
+   {
+    "text": "To send you the ELSA Traineeship Agreement following your acceptance of the Traineeship offer",
+    "basis": "contract"
+   },
+   {
+    "text": "To get you in contact with the ELSA Traineeship Provider for further discussions and contracts",
+    "basis": "contract"
+   },
+   {
+    "text": "To get you in contact with the National Group of ELSA in the respective country where your traineeship takes place",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you as National Group of ELSA in the respective country of your Traineeship to facilitate reception",
+    "basis": "contract"
+   },
+   {
+    "text": "To facilitate and resolve visa issues with selected trainees",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To share the trainee’s testimonial on the ELSA Traineeship’s website and ELSA’s social media",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve ELSA Traineeships",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To create statistics and share them with the Network",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "For the legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "Republic of Albania",
+   "Republic of Armenia",
+   "Republic of Azerbaijan",
+   "Republic of Ecuador",
+   "Bosnia and Herzegovina",
+   "Georgia"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register to participate in ELSA Traineeships through our website Traineeship Applications Form (TAF)",
+   "When you submit the Pre-Traineeship Evaluation Form (Pre-TEF)",
+   "When you submit the Post-Traineeship Evaluation Form (Post-TEF)",
+   "When you submit your testimonial to us to share it on our website and social media",
+   "Throughout your participation in ELSA Traineeships, as well as your inquiries"
+  ],
+  "indirectSources": [
+   "From the Local and National Groups of ELSA verifying your application",
+   "From the Traineeship Providers throughout your participation in ELSA Traineeships"
+  ]
+ },
+ {
+  "file": "7. Professional Development\\Privacy Policy - Traineeship Providers _ ELSA Traineeships (Last updated 27.01.2026).docx",
+  "name": "Traineeship Providers ELSA Traineeships",
+  "area": "Professional Development",
+  "lastUpdated": "2026-01-27",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. personal e-mail, phone number"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Professional Information of Contact Person",
+    "items": "e.g. position within the organisation/company"
+   },
+   {
+    "label": "ELSA activities",
+    "items": "e.g. ELSA Alumni Status"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To verify your information of the application to be an ELSA Traineeship Provider",
+    "basis": "contract"
+   },
+   {
+    "text": "To verify the minimal standards of an ELSA Traineeship Provider",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you regarding the verification process",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise and distribute login credentials to the Traineeship Portal",
+    "basis": "contract"
+   },
+   {
+    "text": "To match the applications of Traineeship applicants to the ELSA Traineeship providers",
+    "basis": "contract"
+   },
+   {
+    "text": "To share matched applications to the ELSA Traineeship Providers",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of your application(s)",
+    "basis": "contract"
+   },
+   {
+    "text": "To offer, waitlist or decline you for a Traineeship",
+    "basis": "contract"
+   },
+   {
+    "text": "To get the ELSA Traineeship Provider in contact with the ELSA Trainees for further discussions and contracts",
+    "basis": "contract"
+   },
+   {
+    "text": "To get you in contact with the National Group of ELSA in the respective country the traineeship takes place in",
+    "basis": "contract"
+   },
+   {
+    "text": "To facilitate and resolve visa issues with selected trainees",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and improve ELSA Traineeships",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To create statistics and share them with the Network",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "To notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "To comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "For the legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "Republic of Albania",
+   "Republic of Armenia",
+   "Republic of Azerbaijan",
+   "Republic of Ecuador",
+   "Bosnia and Herzegovina",
+   "Georgia"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you register as an ELSA Traineeship Provider through our website to the Traineeship Specification Form (TSF)",
+   "When you submit the evaluation form to us",
+   "When you submit your testimonial to us to share it on our website and social media",
+   "Throughout your participation in ELSA Traineeships, as well as your inquiries"
+  ],
+  "indirectSources": [
+   "From the Local and National Groups of ELSA when registering you as a Traineeship Provider (only in the case of explicit request of the Traineeship Provider)"
+  ]
+ },
+ {
+  "file": "8. Seminars & Conferences\\Privacy Policy - Applicants _ Colombia Law School (Last updated 01.11.2025).docx",
+  "name": "Colombia Law School — Applicants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-11-01",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques, 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail address"
+   },
+   {
+    "id": "elsa-activity",
+    "items": "e.g. membership status, National Group/Local Group"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Submission details",
+    "items": "e.g. your Curriculum Vitae, motivation letter"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To collect your Curriculum Vitae and motivation letter, and to shortlist the applicants for the Colombia Law School Scholarship",
+    "basis": "contract"
+   },
+   {
+    "text": "To allow and coordinate your application for the Colombia Law School Scholarship",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide information (if applicable) to Colombia Law School",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of your application",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To maintain and improve the Colombia Law School Scholarships",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Colombia Law School",
+   "Cloud server providers",
+   "IT and software providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you submit your application for the Colombia Law School Scholarship",
+   "When you contact us"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "8. Seminars & Conferences\\Privacy Policy - Participants _ Delegations WFD (Last updated 09.10.2025).docx",
+  "name": "Delegations WFD — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-10-09",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. title, name, surname, date of birth, nationality, gender, passport details, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, physical address"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. education and knowledge background, level of studies completed, studies currently pursued, occupation, CV, motivation letter"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, ELSA Position"
+   },
+   {
+    "label": "Participation in ELSA Delegations to the World Forum for Democracy",
+    "items": "e.g. application to the World Forum for Democracy, attendance of academic and social programme"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the World Forum for Democracy",
+    "basis": "contract"
+   },
+   {
+    "text": "To coordinate participation in the World Forum for Democracy",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide information (if applicable) to the Organisers of the World Forum for Democracy",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To take photographs and videos throughout the duration of the World Forum for Democracy and further use them for promotional purposes",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve ELSA Delegations",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in ELSA Delegations through our website form",
+   "When you submit the Delegate Specification Form to the World Forum for Democracy",
+   "When you contact us through email",
+   "Throughout your participation in ELSA Delegations, regarding your attendance, as well as your inquiries",
+   "When you submit the evaluation form for ELSA Delegations"
+  ],
+  "indirectSources": [
+   "When you apply to participate in the ELSA Delegation to the World Forum for Democracy in regards to emergency contact details"
+  ]
+ },
+ {
+  "file": "8. Seminars & Conferences\\Privacy Policy - Participants _ Delegations (Last updated 01.11.2025).docx",
+  "name": "Delegations — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-11-01",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, date of birth, nationality, gender, passport details, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, private address"
+   },
+   {
+    "id": "professional-educational",
+    "items": "e.g. level of studies completed, studies currently pursued, CV, motivation letter, languages"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. application to which Delegation, motivation letter"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, current and past ELSA Positions, participation in ELSA projects and events"
+   },
+   {
+    "label": "Participation in ELSA Delegations",
+    "items": "e.g. attendance of academic and social programme"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your application(s) to the respective ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To rate your application(s) according to the selection criteria",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of your application(s)",
+    "basis": "contract"
+   },
+   {
+    "text": "To appoint you as a Delegate of ELSA International to ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To coordinate your participation to the respective ELSA Delegation",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide information (if applicable) to the Organisers of each Delegation",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during ELSA Delegations",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and update the list of delegates to the respective ELSA Delegation as a Data Base for future reference to your ELSA National Group (if requested by the National Group). (deleted in the end of the term)",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve ELSA Delegations",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in ELSA Delegations through our website form",
+   "When you contact us through email",
+   "Throughout your participation in ELSA Delegations, regarding your attendance, as well as your inquiries",
+   "When you submit the evaluation form for ELSA Delegations"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "8. Seminars & Conferences\\Privacy Policy - Participants _ ELSA Training (Last updated 09.03.2026).docx",
+  "name": "ELSA Training — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2026-03-09",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, current and past ELSA Positions"
+   },
+   {
+    "label": "Attendance Details",
+    "items": "e.g. attendance of which Training, Testimonial"
+   },
+   {
+    "label": "Participation in ELSA Training",
+    "items": "e.g. attendance of the session"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your application(s) to the respective ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To rate your application(s) according to the selection criteria",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform you about the outcome of your application(s)",
+    "basis": "contract"
+   },
+   {
+    "text": "To appoint you as a Delegate of ELSA International to ELSA Delegations",
+    "basis": "contract"
+   },
+   {
+    "text": "To coordinate your participation to the respective ELSA Delegation",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide information (if applicable) to the Organisers of each Delegation",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions",
+    "basis": "consent"
+   },
+   {
+    "text": "To photograph and video record you during ELSA Delegations",
+    "basis": "consent"
+   },
+   {
+    "text": "To use and publish the above mentioned photographs and videos of you in various media outlets, including but not limited to, websites, social media, and promotional materials",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and update the list of delegates to the respective ELSA Delegation as a Data Base for future reference to your ELSA National Group (if requested by the National Group). (deleted in the end of the term)",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve ELSA Delegations",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in ELSA Delegations through our website form",
+   "When you contact us through email",
+   "Throughout your participation in ELSA Delegations, regarding your attendance, as well as your inquiries",
+   "When you submit the evaluation form for ELSA Delegations"
+  ],
+  "indirectSources": []
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\Privacy Policy - Participants _ SELS (Last updated 08_03_2025).docx",
+  "name": "SELS — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-03-08",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, passport details, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, physical address"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. education and knowledge background, level of studies completed, studies currently pursued, occupation, CV, motivation letter"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. prices, duration"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, ELSA Position"
+   },
+   {
+    "label": "Participation in the SELS",
+    "items": "e.g. application to which SELS, attendance of academic and social programme, merch"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the SELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To coordinate applications to SELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide all information of application and (if applicable) of participation to Organising Committees",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your qualifications as a potential participant for a participating in the SELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To select participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform applicants about the outcome of their application",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise the SELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "To take photographs and videos throughout the duration of the SELS and further use it for promotional purposes",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve SELS",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "SELS Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "Azerbaijan",
+   "Georgia",
+   "The United States of America",
+   "Türkiye"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in the SELS through our website form",
+   "When you contact us through email",
+   "Throughout your participation in the SELS, regarding your attendance, as well as your inquiries",
+   "When you submit the evaluation form for SELS"
+  ],
+  "indirectSources": [
+   "When you apply to participate in the SELS in regards to emergency contact details"
+  ]
+ },
+ {
+  "file": "8. Seminars & Conferences\\Privacy Policy - Participants _ WELS (Last updated 18.08.2025).docx",
+  "name": "WELS — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-08-18",
+  "rank": 3,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname, nationality, gender, passport details, country of residence"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, physical address"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. education and knowledge background, level of studies completed, studies currently pursued, occupation, CV, motivation letter"
+   },
+   {
+    "id": "health-data",
+    "items": "dietary restrictions, allergies and other special requirements, including any accessibility requirements"
+   },
+   {
+    "id": "accommodation-details",
+    "items": "e.g. prices, duration"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, ELSA Position"
+   },
+   {
+    "label": "Participation in the WELS",
+    "items": "e.g. application to which WELS, attendance of academic and social programme, merch"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation in the WELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To coordinate applications to WELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide all information of application and (if applicable) of participation to Organising Committees",
+    "basis": "contract"
+   },
+   {
+    "text": "To review your qualifications as a potential participant for a participating in the WELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To select participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To inform applicants about the outcome of their application",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise the WELS",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To process your health data in order to provide you with proper meals adapted to your food restrictions, as well as any other facilities",
+    "basis": "consent"
+   },
+   {
+    "text": "To take photographs and videos throughout the duration of the WELS and further use it for promotional purposes",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve WELS",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "WELS Organisers",
+   "Cloud Server Providers",
+   "Online Meeting Platforms",
+   "IT Software Providers",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "Albania",
+   "Azerbaijan",
+   "Georgia",
+   "Serbia",
+   "The United States of America",
+   "Türkiye"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in the WELS through our website form",
+   "When you contact us through email",
+   "Throughout your participation in the WELS, regarding your attendance, as well as your inquiries",
+   "When you submit the evaluation form for WELS"
+  ],
+  "indirectSources": [
+   "When you apply to participate in the WELS in regards to emergency contact details"
+  ]
+ },
+ {
+  "file": "Privacy Policies 2024-2025\\Privacy Policy - Participants _ Webinar Summer 2025 (Last updated 19_06_2025)).docx",
+  "name": "Webinar Summer 2025 — Participants",
+  "area": "Seminars & Conferences",
+  "lastUpdated": "2025-06-19",
+  "rank": 1,
+  "audience": "participants",
+  "controller": {
+   "name": "International",
+   "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
+   "email": "secgen@elsa.org",
+   "phone": "+32 2646 2626"
+  },
+  "subjects": [],
+  "categories": [
+   {
+    "id": "personal-identification",
+    "items": "e.g. name, surname"
+   },
+   {
+    "id": "contact-information",
+    "items": "e.g. e-mail, phone number, address"
+   },
+   {
+    "id": "billing-contribution",
+    "items": "e.g. account number, banking details, amounts owed, amounts paid"
+   },
+   {
+    "id": "application-process",
+    "items": "e.g. education and knowledge background"
+   }
+  ],
+  "customCategories": [
+   {
+    "label": "Affiliation with ELSA",
+    "items": "e.g. membership status, National/Local Group, ELSA Position"
+   },
+   {
+    "label": "Participation Details",
+    "items": "e.g.participation live or recording, comments made; questions asked"
+   }
+  ],
+  "purposes": [
+   {
+    "text": "To allow your participation to the Webinar",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide all information of participation to the participant",
+    "basis": "contract"
+   },
+   {
+    "text": "To record the Webinar in order to provide it to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To organise the Webinar",
+    "basis": "contract"
+   },
+   {
+    "text": "To provide certificates to participants",
+    "basis": "contract"
+   },
+   {
+    "text": "To answer your inquiries and provide support",
+    "basis": "contract"
+   },
+   {
+    "text": "To contact you",
+    "basis": "contract"
+   },
+   {
+    "text": "To make a recording of the Webinar in order to provide it to participants",
+    "basis": "consent"
+   },
+   {
+    "text": "To take photographs and videos throughout the duration of the Webinar and further use it for promotional purposes",
+    "basis": "consent"
+   },
+   {
+    "text": "To maintain and improve Webinars",
+    "basis": "legitimateInterest"
+   },
+   {
+    "text": "Notify you about changes to our Privacy Policy",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "Comply with applicable legislation",
+    "basis": "legalObligation"
+   },
+   {
+    "text": "The legal enforcement of claims and rights",
+    "basis": "legalObligation"
+   }
+  ],
+  "recipients": [
+   "Cloud Server Providers",
+   "Online Meeting Platforms (Clickmeeting)",
+   "IT Software Providers",
+   "Online Payment System Providers (PayPal)",
+   "Auditors and payroll tax auditors"
+  ],
+  "transfersOutsideEEA": true,
+  "thirdCountries": [
+   "The United States of America"
+  ],
+  "internationalOrgs": [],
+  "directSources": [
+   "When you apply to participate in the Webinar through our form",
+   "When you contact us through email",
+   "Throughout your participation in the Webinar, regarding your attendance, questions and comments as well as your inquiries",
+   "When you submit the evaluation form for the Webinar"
+  ],
+  "indirectSources": [
+   "When you pay through PayPal"
+  ]
+ }
+]
