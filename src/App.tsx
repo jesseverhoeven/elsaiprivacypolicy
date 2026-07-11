@@ -131,13 +131,8 @@ export default function App() {
         </nav>
       </header>
 
-      <div className="notice-banner no-print" role="note">
-        {REVIEW_NOTICE}
-        <details className="disclaimer">
-          <summary>Legal disclaimer — no liability of the Tool’s developer or ELSA</summary>
-          <p>{LEGAL_DISCLAIMER}</p>
-        </details>
-      </div>
+      {/* The unfoldable legal disclaimer lives only in the footer (user decision 2026-07-11). */}
+      <div className="notice-banner no-print" role="note">{REVIEW_NOTICE}</div>
 
       <main>
         {step === 0 && <StepChooseEvent intake={intake} setIntake={setIntake} onContinue={handleContinue} />}

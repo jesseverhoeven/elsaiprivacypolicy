@@ -190,6 +190,14 @@ export const S4_RETENTION = {
   /** FIXED — Ch. 4.2: leave as it is in the template. */
   body:
     'We keep personal data for the duration necessary to fulfil the purposes for which it was obtained, per legal and regulatory obligations, as well as contractual agreements. Once this retention period concludes, we either delete or irreversibly anonymize your personal data.',
+  /**
+   * deviation: lecercle-enhancement — OPTIONAL indicative retention periods,
+   * wording from the approved amended LeCercle Supporters policy (03.05.2026).
+   * Off by default: the fixed template text stays untouched; the ROPA remains
+   * the authoritative source for specific periods.
+   */
+  indicativeIntro:
+    'As a general rule, we apply the following indicative retention periods, subject to longer retention where required by law or to establish, exercise or defend legal claims:',
 };
 
 export const S5_TRANSFERS = {

@@ -54,8 +54,12 @@ export interface Answers {
   /** (Sub)processors — listed as data recipients, never as controllers. */
   usesProcessors: boolean;
   processors: ProcessorEntry[];
-  /** Joint-controller case: purposes for which the group acts as sole controller (Ch. 4.2 "About us (if applicable)"). */
-  soleControllerPurposes: string;
+  /**
+   * Joint-controller case: ids of the selected purposes for which the group acts as
+   * sole controller (Ch. 4.2 "About us (if applicable)") — chosen from the purposes
+   * list, not free text, so §1 and §3 stay consistent.
+   */
+  soleControllerPurposeIds: string[];
   controllerCountry: string; // ISO code, for supervisory-authority advice
   dpoContact: string; // optional (brief §12 item 2)
   dataSubjects: string[];
@@ -71,6 +75,11 @@ export interface Answers {
   internationalOrgs: string[];
   sccContactEmail: string;
   noticeDays: number;
+  /**
+   * Optional indicative retention periods (approved LeCercle pattern). Empty =
+   * only the fixed Annex 4 retention text; the ROPA holds the specific periods.
+   */
+  retentionPeriods: { label: string; period: string }[];
   minorsInvolved: boolean;
   includeNoAutomatedDecisions: boolean;
   /** Art. 9 safeguard: officer confirmed explicit consent will be collected for special-category data. */

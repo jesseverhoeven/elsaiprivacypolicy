@@ -86,7 +86,7 @@ export function StepChooseEvent({ intake, setIntake, onContinue }: Props) {
         className={`event-card new ${choice === 'new' ? 'chosen' : ''}`}
         onClick={() => { setChoice('new'); setPresetId(''); }}
       >
-        <span className="event-name">＋ New event — or a previous event that is not listed above</span>
+        <span className="event-name">＋ New event</span>
         <span className="hint">For an event or activity without a listed privacy policy. Describe it below — or upload
           the previous privacy policy of an unlisted event under A — and the tool pre-fills whatever it recognises; you
           review everything afterwards.</span>

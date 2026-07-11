@@ -8,8 +8,36 @@ import {
 } from '../data/picklists';
 import { SUPERVISORY_AUTHORITIES } from '../data/supervisoryAuthorities';
 import { presetById, type AttentionSection } from '../data/presets';
+import { SECTION_INFO, CATEGORY_INFO, PURPOSE_GROUP_INFO } from '../data/handbookInfo';
 import { findGaps, specialCategoriesSelected } from '../logic/gaps';
 import type { AnalysisResult } from '../logic/analyze';
+
+/**
+ * 📖 next to a heading — click (not hover) toggles a light-blue box with the
+ * in-depth Handbook explanation for that topic (user decision 2026-07-11).
+ */
+function InfoBook({ topic }: { topic: string }) {
+  const [open, setOpen] = useState(false);
+  const info = SECTION_INFO[topic];
+  if (!info) return null;
+  return (
+    <>
+      <button
+        type="button" className="info-book" aria-expanded={open}
+        title={open ? 'Hide the Handbook explanation' : 'Read the Handbook explanation'}
+        onClick={() => setOpen(!open)}
+      >
+        📖
+      </button>
+      {open && (
+        <div className="info-box" role="note">
+          <span className="info-chapter">{info.chapter}</span>
+          {info.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      )}
+    </>
+  );
+}
 
 interface Props {
   answers: Answers;
@@ -61,6 +89,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
   const special = specialCategoriesSelected(answers);
   const set = (patch: Partial<Answers>) => setAnswers({ ...answers, ...patch });
   const [recipientError, setRecipientError] = useState('');
+  const [openBulb, setOpenBulb] = useState<string | null>(null);
   const preset = presetById(answers.presetId);
 
   /** Orange marking for values pre-filled from the chosen preset (previous approved policy). */
@@ -73,7 +102,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
 
   const CATEGORY_TIPS: Record<string, string> = {
     'personal-identification': 'Are passport or ID details needed this edition (e.g. visa invitation letters), or just name and surname?',
-    'contact-information': 'Any new contact channels this edition (phone, WhatsApp, postal address)?',
+    'contact-information': 'Have the contact channels changed this edition (phone, WhatsApp, postal address)?',
     'financial-information': 'Same payment method this edition (IBAN transfer, payment provider)? Any deposits or reimbursements?',
     'billing-contribution': 'Same contribution models, amounts and payment provider as last time?',
     'elsa-activity': 'Is membership/position information still asked on the form?',
@@ -81,7 +110,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
     'professional-educational': 'Is a CV, study background or motivation still part of the application?',
     'application-process': 'Has the application changed (motivation letter, references, selection rounds)?',
     'meal-details': 'Are meals provided this edition, and is meal choice asked on the form?',
-    'health-data': 'Same dietary/allergy questions on this edition’s form? Any new medical or accessibility questions? This stays Art. 9 data — explicit consent needed.',
+    'health-data': 'Same dietary/allergy questions on this edition’s form? Any changed or added medical or accessibility questions? This stays Art. 9 data — explicit consent needed.',
     'transfer-details': 'Are pick-ups, flights or transport organised this edition?',
     'accommodation-details': 'Same accommodation setup (hotel/hostel, room preferences) this edition?',
     'additional-services': 'Which extras are sold this edition (merch, gala tickets, trips)?',
@@ -269,6 +298,11 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
   return (
     <section className="step">
       <h2>Step 2 · Complete &amp; check</h2>
+      <p className="icons-legend">
+        <span>📖 click for the Handbook explanation of a topic</span>
+        <span>💡 click for examples to judge whether something applies to your event</span>
+        {preset && <span><span className="from-preset-example">↻ orange</span> = carried over from the previous policy — hover it for what typically changes</span>}
+      </p>
       {detected.length > 0 && (
         <p className="lead">From your information the tool recognised: {detected.join(' · ')}. Everything below is a
           suggestion — please review each field; the tool proposes, you decide.
@@ -289,7 +323,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
         <div className="gaps-form">
 
           <div className="card">
-            <h3>The event &amp; the controller</h3>
+            <h3>The event &amp; the controller <InfoBook topic="controller" /></h3>
             <SectionNote section="controller" />
             <div className="grid2">
               <label className={mk('field:activityTitle')}>Event / processing activity
@@ -298,11 +332,13 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               </label>
               <label>Whom is the policy mainly for?
                 <select value={answers.audience} onChange={(e) => set({ audience: e.target.value as Answers['audience'] })}>
-                  <option value="participants">Event participants / guests (incl. ELSA members attending)</option>
-                  <option value="volunteers">ELSA officers / volunteers being recruited or managed</option>
+                  <option value="participants">External — event participants / guests (incl. ELSA members attending)</option>
+                  <option value="volunteers">Internal — ELSA officers, volunteers or ELSA groups (recruitment, management, internal reporting)</option>
                 </select>
                 <span className="hint">This only affects the phrasing of a few template sentences (“participating in…” vs
-                  “volunteering with…”). ELSA members attending an event count as participants.</span>
+                  “volunteering with…”). ELSA members attending an event count as external participants; choose internal
+                  for officer recruitment/management or when ELSA International collects information from other ELSA
+                  groups (e.g. establishing an ICE, National Group Reports).</span>
               </label>
             </div>
 
@@ -367,13 +403,29 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                   <label>Joint controller e-mail
                     <input value={answers.jointController.email} onChange={(e) => set({ jointController: { ...answers.jointController, email: e.target.value } })} />
                   </label>
-                  <label>Purposes handled by YOUR group alone (optional)
-                    <input value={answers.soleControllerPurposes} onChange={(e) => set({ soleControllerPurposes: e.target.value })}
-                      placeholder="usually empty — e.g. managing its own members’ registrations" />
-                    <span className="hint">Only if some purposes are yours alone, not shared with the joint controller.
-                      The Handbook (Ch. 4.2 “About us — if applicable”) asks the policy to name these; leave empty if
-                      everything is decided together.</span>
-                  </label>
+                  <div className="sole-purposes">
+                    <span className="fieldlabel">Purposes handled by YOUR group alone (optional)</span>
+                    <span className="hint">Usually none — tick only purposes that are yours alone, not shared with the
+                      joint controller (Handbook Ch. 4.2 “About us — if applicable”). Pick from the purposes you selected
+                      below; they appear in §1 of the policy, marked as yours alone.</span>
+                    {answers.purposes.filter((p) => p.enabled).length === 0 ? (
+                      <span className="hint">Select purposes in the “Why do you process the data?” section first — they
+                        become tickable here.</span>
+                    ) : (
+                      answers.purposes.filter((p) => p.enabled).map((p) => (
+                        <label className="checkline" key={p.id}>
+                          <input type="checkbox"
+                            checked={answers.soleControllerPurposeIds.includes(p.id)}
+                            onChange={(e) => set({
+                              soleControllerPurposeIds: e.target.checked
+                                ? [...answers.soleControllerPurposeIds, p.id]
+                                : answers.soleControllerPurposeIds.filter((x) => x !== p.id),
+                            })} />
+                          {p.text}
+                        </label>
+                      ))
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -415,7 +467,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           </div>
 
           <div className="card">
-            <h3>Whose data do you process? (data subjects)</h3>
+            <h3>Whose data do you process? (data subjects) <InfoBook topic="subjects" /></h3>
             <SectionNote section="subjects" />
             <div className="checkgrid">
               {DATA_SUBJECT_OPTIONS.map((d) => (
@@ -441,7 +493,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           </div>
 
           <div className="card">
-            <h3>Which personal data do you collect?</h3>
+            <h3>Which personal data do you collect? <InfoBook topic="categories" /></h3>
             <SectionNote section="categories" />
             <p className="hint">Tick the categories and adjust the exact data items — they appear as bullet points in the policy.</p>
             {standardCategories.map((c) => {
@@ -449,12 +501,30 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               return (
                 <div className={`catline ${c.enabled ? 'on' : ''}${mk(`cat:${c.id}`)}`} key={c.id}
                   data-tip={catTip(c.id)}>
-                  <label className="checkline">
-                    <input type="checkbox" checked={c.enabled}
-                      onChange={(e) => toggleCategory(c.id, e.target.checked)} />
-                    <b>{def.label}</b>
-                    {def.special && <span className="special-badge" title="Special category — Art. 9 GDPR">Art. 9 — sensitive</span>}
-                  </label>
+                  <div className="catline-row">
+                    <label className="checkline">
+                      <input type="checkbox" checked={c.enabled}
+                        onChange={(e) => toggleCategory(c.id, e.target.checked)} />
+                      <b>{def.label}</b>
+                      {def.special && <span className="special-badge" title="Special category — Art. 9 GDPR">Art. 9 — sensitive</span>}
+                    </label>
+                    {CATEGORY_INFO[c.id] && (
+                      <button
+                        type="button" className="bulb" aria-expanded={openBulb === c.id}
+                        title="What belongs in this category, with examples"
+                        onClick={() => setOpenBulb(openBulb === c.id ? null : c.id)}
+                      >
+                        💡
+                      </button>
+                    )}
+                  </div>
+                  {openBulb === c.id && CATEGORY_INFO[c.id] && (
+                    <div className="info-box bulb-box" role="note">
+                      <p><b>{CATEGORY_INFO[c.id].what}</b></p>
+                      <p><b>Examples:</b> {CATEGORY_INFO[c.id].examples}</p>
+                      <p><b>When it applies:</b> {CATEGORY_INFO[c.id].applies}</p>
+                    </div>
+                  )}
                   {c.enabled && (
                     <input className="items" value={c.items} aria-label={`Data items for ${def.label}`}
                       onChange={(e) => set({
@@ -527,7 +597,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           )}
 
           <div className="card">
-            <h3>How do you collect the data?</h3>
+            <h3>How do you collect the data? <InfoBook topic="sources" /></h3>
             <p className="hint">Direct = the person gives it to you themselves; indirect = you receive it another way
               (e.g. from their emergency contact, another group, a coach).</p>
             <div className="grid2">
@@ -557,7 +627,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           </div>
 
           <div className="card">
-            <h3>Why do you process the data? (purposes &amp; legal basis)</h3>
+            <h3>Why do you process the data? (purposes &amp; legal basis) <InfoBook topic="purposes" /></h3>
             <SectionNote section="purposes" />
             <p className="hint">Grouped by theme so you can find them faster. Each purpose sits under one legal basis in
               the policy — the pre-set basis follows common ELSA practice; adjust if needed.</p>
@@ -570,7 +640,25 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               if (groupPurposes.length === 0) return null;
               return (
                 <div key={group} className="purpose-group">
-                  <span className="purpose-group-label">{group}</span>
+                  <span className="purpose-group-label">
+                    {group}
+                    {PURPOSE_GROUP_INFO[group] && (
+                      <button
+                        type="button" className="bulb" aria-expanded={openBulb === `pg:${group}`}
+                        title="Directions to think in, with example purposes"
+                        onClick={() => setOpenBulb(openBulb === `pg:${group}` ? null : `pg:${group}`)}
+                      >
+                        💡
+                      </button>
+                    )}
+                  </span>
+                  {openBulb === `pg:${group}` && PURPOSE_GROUP_INFO[group] && (
+                    <div className="info-box bulb-box" role="note">
+                      <p><b>{PURPOSE_GROUP_INFO[group].what}</b></p>
+                      <p><b>Example purposes:</b> {PURPOSE_GROUP_INFO[group].examples}</p>
+                      <p><b>How to think about it:</b> {PURPOSE_GROUP_INFO[group].applies}</p>
+                    </div>
+                  )}
                   {groupPurposes.map((p) => {
                     const isCustom = !PURPOSE_SUGGESTIONS.some((s) => s.text === p.text);
                     return (
@@ -612,7 +700,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           </div>
 
           <div className="card">
-            <h3>Who receives the data — and does it leave the EEA?</h3>
+            <h3>Who receives the data — and does it leave the EEA? <InfoBook topic="recipients" /></h3>
             <SectionNote section="recipients" />
             <SectionNote section="transfers" />
             <div className="grid2">
@@ -708,7 +796,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           </div>
 
           <div className="card">
-            <h3>Final details</h3>
+            <h3>Final details <InfoBook topic="final" /></h3>
             <SectionNote section="general" showAttention />
             <div className="grid2">
               <label>Notice period for policy changes (days, minimum 14)
@@ -722,6 +810,39 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                 <input type="date" value={answers.policyDate} onChange={(e) => set({ policyDate: e.target.value })} />
               </label>
             </div>
+            <label className="checkline">
+              <input type="checkbox" checked={answers.retentionPeriods.length > 0}
+                onChange={(e) => set({
+                  retentionPeriods: e.target.checked
+                    ? [
+                        { label: 'Registration and contact data', period: 'typically up to 2 years after the end of the event' },
+                        { label: 'Financial and billing information', period: '10 years from the end of the relevant financial year (accounting and tax obligations)' },
+                        { label: 'Records of consent', period: 'until consent is withdrawn; the record of withdrawal is kept as proof of compliance' },
+                        { label: 'Communication data', period: 'typically up to 2 years from the last interaction' },
+                      ]
+                    : [],
+                })} />
+              Add indicative retention periods (optional good practice from the approved LeCercle policy — the fixed
+              retention text always stays; your ROPA remains the authoritative source)
+            </label>
+            {answers.retentionPeriods.length > 0 && (
+              <div className="subpanel">
+                {answers.retentionPeriods.map((r, i) => (
+                  <div className="processor-row retention-row" key={i}>
+                    <input value={r.label} aria-label="Data type"
+                      onChange={(e) => set({ retentionPeriods: answers.retentionPeriods.map((x, j) => j === i ? { ...x, label: e.target.value } : x) })} />
+                    <input className="retention-period" value={r.period} aria-label="Retention period"
+                      onChange={(e) => set({ retentionPeriods: answers.retentionPeriods.map((x, j) => j === i ? { ...x, period: e.target.value } : x) })} />
+                    <button className="cut" title="Remove row" aria-label="Remove row"
+                      onClick={() => set({ retentionPeriods: answers.retentionPeriods.filter((_, j) => j !== i) })}>✕</button>
+                  </div>
+                ))}
+                <button className="ghost-navy" onClick={() => set({ retentionPeriods: [...answers.retentionPeriods, { label: '', period: '' }] })}>
+                  + Add row
+                </button>
+                <p className="hint">Align these with your ROPA’s retention column — the ROPA holds the specific deadlines.</p>
+              </div>
+            )}
             <label className="checkline">
               <input type="checkbox" checked={answers.minorsInvolved} onChange={(e) => set({ minorsInvolved: e.target.checked })} />
               Persons under 18 may participate (rare — e.g. a summer school with pupils)

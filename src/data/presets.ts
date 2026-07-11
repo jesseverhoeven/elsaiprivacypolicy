@@ -124,14 +124,14 @@ function buildAttention(p: GeneratedPreset): AttentionPoint[] {
   }
   points.push({
     section: 'categories',
-    text: `Prefilled from the previous ${short} policy — scroll the list and untick anything no longer collected. Ask yourself: does this edition’s registration form ask anything new (photos or recordings, health or dietary questions, payment or travel details)? Hover an orange item (↻) for what typically changes for that category.`,
+    text: `Prefilled from the previous ${short} policy — scroll the list and untick anything no longer collected. Ask yourself: has anything changed on this edition’s registration form (photos or recordings, health or dietary questions, payment or travel details)? Hover an orange item (↻) for what typically changes for that category.`,
   });
   const consentCount = p.purposes.filter((x) => x.basis === 'consent').length;
   points.push({
     section: 'purposes',
     text: consentCount > 0
-      ? `Prefilled from the previous policy; ${consentCount} purpose${consentCount > 1 ? 's' : ''} rel${consentCount > 1 ? 'y' : 'ies'} on consent — make sure each matching opt-in tick-box is on this edition’s registration form. Ask yourself: does this edition do anything new (new activities, new communications, new sharing)?`
-      : 'Prefilled from the previous policy. Ask yourself: does this edition do anything new or differently — new activities, new communications, anything participants opt into?',
+      ? `Prefilled from the previous policy; ${consentCount} purpose${consentCount > 1 ? 's' : ''} rel${consentCount > 1 ? 'y' : 'ies'} on consent — make sure each matching opt-in tick-box is on this edition’s registration form. Ask yourself: has anything changed this edition (activities, communications, sharing)?`
+      : 'Prefilled from the previous policy. Ask yourself: has anything changed this edition — activities, communications, anything participants opt into?',
   });
   points.push({
     section: 'recipients',

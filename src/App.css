@@ -233,6 +233,35 @@ select.basis-select {
   padding: 0.45rem 0.7rem; margin: 0.35rem 0; font-size: 0.85rem; font-weight: 600;
 }
 
+/* ---------- Handbook 📖 boxes & category 💡 boxes (click, not hover) ---------- */
+.info-book, .bulb {
+  background: none; border: 1px solid var(--line); border-radius: 6px;
+  font-size: 0.95rem; line-height: 1; padding: 0.15rem 0.35rem; vertical-align: middle;
+  cursor: pointer; margin-left: 0.4rem;
+}
+.info-book:hover, .bulb:hover { border-color: #7EA6D9; background: #F3F8FD; }
+.info-book[aria-expanded="true"], .bulb[aria-expanded="true"] { background: #EAF2FB; border-color: #4A7DBD; }
+.info-box {
+  background: #F3F8FD; border: 1px solid #7EA6D9; border-left: 5px solid #4A7DBD;
+  border-radius: 0 8px 8px 8px; padding: 0.7rem 1rem; margin: 0.5rem 0 0.8rem;
+  font-size: 0.88rem; font-weight: 400;
+}
+.info-box p { margin: 0.35rem 0; max-width: 85ch; }
+.info-chapter {
+  display: block; font-size: 0.72rem; font-weight: 700; color: #4A7DBD;
+  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.25rem;
+}
+.catline-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+.catline-row .checkline { flex: 1; }
+.bulb-box { margin-left: 1.7rem; }
+.sole-purposes { border: 1px dashed var(--line); border-radius: 8px; padding: 0.5rem 0.8rem; margin: 0.5rem 0; }
+.retention-row { grid-template-columns: 1.2fr 2fr auto; }
+.icons-legend {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; margin: 0.2rem 0 0.6rem;
+  font-size: 0.85rem; color: var(--ink-soft);
+}
+.purpose-group-label .bulb { font-size: 0.85rem; padding: 0.05rem 0.3rem; }
+
 /* ---------- Step 1 choose layout ---------- */
 .choose-heading {
   color: var(--navy); font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;

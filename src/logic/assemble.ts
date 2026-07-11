@@ -135,10 +135,14 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     locked: true, source: `${SRC.A4_S1} · ${SRC.HB_42} (Column F)`,
     deviation: isJoint ? 'joint-controller-adaptation (Ch. 4.2 “About us”; Art. 26(3) GDPR)' : undefined,
   });
-  if (isJoint && a.soleControllerPurposes.trim()) {
+  const solePurposeTexts = isJoint
+    ? a.purposes.filter((p) => p.enabled && a.soleControllerPurposeIds.includes(p.id)).map((p) => p.text)
+    : [];
+  if (solePurposeTexts.length > 0) {
+    // Purposes are selected from the §3 purposes list, keeping §1 and §3 consistent.
     push({
       id: 's1-sole', kind: 'paragraph',
-      text: fill(S1_ABOUT_US.soleControllerPurposes, { groupName: g.groupName, purposes: a.soleControllerPurposes.trim() }),
+      text: fill(S1_ABOUT_US.soleControllerPurposes, { groupName: g.groupName, purposes: solePurposeTexts.join('; ') }),
       locked: false, source: `${SRC.HB_42} “About us (if applicable)” (Column C where Column F = Controller)`,
       deviation: 'joint-controller-adaptation',
     });
@@ -232,9 +236,22 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     });
   }
 
-  /* 4 - Data Retention (fixed) */
+  /* 4 - Data Retention (fixed; optional indicative periods per the approved LeCercle pattern) */
   push({ id: 's4-h', kind: 'heading2', text: S4_RETENTION.heading, locked: true, source: SRC.A4_S4 });
   push({ id: 's4', kind: 'paragraph', text: S4_RETENTION.body, locked: true, source: `${SRC.A4_S4} · ${SRC.HB_42}: “Leave section as it is”` });
+  const retentionRows = a.retentionPeriods.filter((r) => r.label.trim() && r.period.trim());
+  if (retentionRows.length > 0) {
+    push({
+      id: 's4-ind-i', kind: 'paragraph', text: S4_RETENTION.indicativeIntro, locked: true,
+      source: 'LeCercle Supporters policy §4 (approved wording)', deviation: 'lecercle-enhancement (optional)',
+    });
+    push({
+      id: 's4-ind', kind: 'bullets',
+      bullets: retentionRows.map((r) => `${r.label.trim()}: ${r.period.trim()}`),
+      locked: false, source: 'Officer input · pattern from the approved LeCercle policy §4',
+      deviation: 'lecercle-enhancement (optional)',
+    });
+  }
 
   /* 5 - Data Transfers & Sharing */
   push({ id: 's5-h', kind: 'heading2', text: S5_TRANSFERS.heading, locked: true, source: SRC.A4_S5 });
