@@ -207,9 +207,21 @@ select.basis-select {
 
 /* ---------- Preset attention, verification & marks ---------- */
 .from-preset { border-left: 3px solid var(--orange) !important; padding-left: 0.45rem; background: var(--orange-soft); border-radius: 3px; }
-.from-preset[title] { cursor: help; }
-.from-preset[title]::after { content: ' ⚠'; color: var(--orange); font-size: 0.8em; }
 .from-preset-example { color: var(--orange); font-weight: 700; }
+
+/* Custom hover tooltip — reads as an extension of the orange field, not a browser
+   tooltip. ↻ marks "carried over from the previous policy" (not a warning). */
+[data-tip] { position: relative; cursor: help; }
+[data-tip]::after { content: ' ↻'; color: var(--orange); font-weight: 700; font-size: 0.9em; }
+[data-tip]:hover::before {
+  content: attr(data-tip);
+  position: absolute; left: 0; top: calc(100% + 4px); z-index: 60;
+  width: min(440px, 92vw); pointer-events: none;
+  background: var(--orange-soft); color: var(--ink);
+  border: 2px solid var(--orange); border-left-width: 6px; border-radius: 0 10px 10px 10px;
+  padding: 0.7rem 0.9rem; font-size: 0.92rem; font-weight: 400; line-height: 1.5;
+  white-space: normal; box-shadow: 0 8px 22px rgba(10, 48, 135, 0.18);
+}
 .section-notes { margin: 0.3rem 0 0.6rem; }
 .note-attention {
   background: var(--orange-soft); border: 1px solid var(--orange); border-radius: 6px;
@@ -237,23 +249,35 @@ select.basis-select {
 .preset-box { width: 100%; cursor: default; margin-top: 0.8rem; display: block; }
 .preset-box .inline-intake { margin-top: 0.8rem; border-top: 1px dashed var(--orange); padding-top: 0.6rem; }
 .new-box { background: var(--ground); }
+.skip-btn {
+  display: block; margin: 0.8rem auto 0; background: var(--navy); color: #fff;
+  border: none; border-radius: 8px; padding: 0.55rem 1.3rem; font-weight: 600;
+}
+.skip-btn:hover { background: var(--navy-deep); }
 
 /* ---------- Controller vs processor blocks ---------- */
 .role-block { border: 1px solid var(--line); border-radius: 8px; padding: 0.8rem 1rem; margin: 0.8rem 0; position: relative; }
 .controller-block { border-left: 5px solid var(--navy); }
-.processor-block { border-left: 5px solid var(--orange); }
+/* Light blue, NOT orange — orange means "carried over from the previous policy" (user decision 2026-07-11) */
+.processor-block { border-left: 5px solid #7EA6D9; background: #F3F8FD; }
 .role-tag {
   position: absolute; top: -0.7rem; left: 0.8rem; font-size: 0.68rem; font-weight: 700;
   letter-spacing: 0.1em; text-transform: uppercase; padding: 0.1rem 0.55rem; border-radius: 4px; color: #fff;
 }
 .controller-tag { background: var(--navy); }
-.processor-tag { background: var(--orange); color: var(--navy-deep); }
+.processor-tag { background: #4A7DBD; }
 .quickfill { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; margin: 0.4rem 0 0.6rem; }
 .ghost-navy {
   background: var(--navy-soft); color: var(--navy); border: 1px solid var(--navy);
   border-radius: 6px; padding: 0.3rem 0.8rem; font-weight: 600; font-size: 0.85rem;
 }
 .ghost-navy:hover { background: var(--navy); color: #fff; }
+/* Quick-fill: neutral grey so it can't be mistaken for a "carried over" orange field */
+.quickfill .ghost-navy {
+  background: var(--ground-alt); color: var(--ink); border-color: var(--line);
+}
+.quickfill .ghost-navy:hover { background: var(--line); color: var(--ink); }
+.quickfill .ghost-navy.active { background: var(--ground-alt); border-color: var(--ink-soft); color: var(--ink); }
 .processor-row { display: grid; grid-template-columns: 2fr 1fr 2fr auto; gap: 0.4rem; align-items: center; margin: 0.35rem 0; }
 @media (max-width: 700px) { .processor-row { grid-template-columns: 1fr; } }
 /* Processor toggle reads as one flowing sentence, not a narrow column */
@@ -349,7 +373,13 @@ button.cut.inline {
   .print-only { display: block !important; }
   html, body { background: #fff; }
   main { max-width: none; padding: 0; }
-  @page { margin: 12mm 16mm 12mm; }
+  /* Zero page margins remove the browser's own print header/footer (date top-left,
+     URL bottom-left, tiny title); our repeating thead/tfoot take over instead,
+     and horizontal margins are handled by the frame's cell padding. */
+  @page { margin: 0; }
+  .print-frame > thead td, .print-frame > tbody td, .print-frame > tfoot td {
+    padding-left: 16mm; padding-right: 16mm;
+  }
   .policy { font-size: 11pt; }
   .policy-title { font-size: 20pt; margin-top: 2mm; }
   .policy-h1 { font-size: 15pt; break-after: avoid; }
@@ -363,9 +393,14 @@ button.cut.inline {
      logo and contact footer — body text can never collide with them. */
   .policy-logo { display: none; }
   .print-frame { width: 100%; border-collapse: collapse; }
-  .print-frame > thead td { text-align: right; padding-bottom: 4mm; }
-  .print-logo { width: 62px; height: auto; }
-  .print-frame > tfoot td { padding-top: 3mm; }
+  .print-frame > thead td { padding-top: 8mm; padding-bottom: 5mm; }
+  .print-head { display: flex; align-items: center; justify-content: space-between; gap: 6mm; }
+  .print-head-title {
+    flex: 1; text-align: center; font-family: Georgia, serif; font-size: 9pt;
+    color: var(--ink-soft); letter-spacing: 0.03em;
+  }
+  .print-logo { width: 58px; height: auto; flex: none; }
+  .print-frame > tfoot td { padding-top: 3mm; padding-bottom: 7mm; }
   .print-footer {
     text-align: center; font-size: 8pt; color: var(--ink-soft);
     border-top: 1px solid var(--orange); padding-top: 2mm;

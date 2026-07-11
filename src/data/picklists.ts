@@ -210,6 +210,7 @@ export const LEGAL_BASIS_DEFS: { id: LegalBasis; label: string; annex4LeadIn: bo
 export const PURPOSE_GROUPS = [
   'Registration & communication',
   'Event logistics',
+  'Medical & dietary',
   'Media & publicity',
   'Finance & administration',
   'Community & network',
@@ -229,8 +230,10 @@ export const PURPOSE_SUGGESTIONS: { text: string; basis: LegalBasis; group: Purp
   { text: 'Identify qualifications and previous experiences', basis: 'contract', group: 'Registration & communication', keywords: ['qualification', 'experience', 'cv', 'motivation letter'] },
 
   { text: 'Organise the academic and social programme', basis: 'contract', group: 'Event logistics', keywords: ['programme', 'program', 'workshop', 'agenda', 'schedule'] },
-  { text: 'To provide meals adapted to dietary restrictions and allergies', basis: 'consent', group: 'Event logistics', keywords: ['dietary', 'allerg', 'meal', 'food'] },
   { text: 'To provide accommodation', basis: 'contract', group: 'Event logistics', keywords: ['accommodation', 'hotel', 'hostel', 'room'] },
+
+  { text: 'To provide meals adapted to dietary restrictions and allergies', basis: 'consent', group: 'Medical & dietary', keywords: ['dietary', 'allerg', 'meal', 'food'] },
+  { text: 'To process health data in order to accommodate medical, accessibility and other special requirements during the event', basis: 'consent', group: 'Medical & dietary', keywords: ['medical', 'accessibility', 'wheelchair', 'medication', 'special requirement'] },
   { text: 'To organise transport and pick-ups', basis: 'contract', group: 'Event logistics', keywords: ['transport', 'pick-up', 'pickup', 'flight', 'shuttle'] },
   { text: 'To contact your emergency contact in case of emergency', basis: 'vitalInterests', group: 'Event logistics', keywords: ['emergency'] },
 

@@ -9,7 +9,8 @@
 import { assemblePolicy } from '../src/logic/assemble';
 import { analyzeText } from '../src/logic/analyze';
 import { defaultAnswers, mergeAnalysis, applyPreset } from '../src/state';
-import { PRESET_EVENTS } from '../src/data/presets';
+import { PRESET_EVENTS, titleWithExpansion } from '../src/data/presets';
+import { blockingGaps } from '../src/logic/gaps';
 import { S3_LEGAL_BASIS, S4_RETENTION, S6_SECURITY, SUMMARY, fill } from '../src/data/clauses';
 
 const SAMPLE = `ELSA Leuven organises the Summer Law School 2026 in July for 40 international participants.
@@ -120,6 +121,20 @@ ok('IO/country separation: EYF never rendered as a country', (() => {
   return !countries.some((c) => c.includes('Foundation')) && orgs.some((o) => o.includes('Foundation'));
 })());
 ok('presets: subjects fallback fills data subjects for participants presets', pa.dataSubjects.length > 0);
+// Round-4: Art. 9 auto-purpose data + abbreviation expansion
+ok('Medical & dietary purpose group exists with consent purposes', (() => {
+  const meds = defaultAnswers().purposes.filter((p) =>
+    p.text === 'To provide meals adapted to dietary restrictions and allergies' ||
+    p.text.startsWith('To process health data'));
+  return meds.length === 2 && meds.every((p) => p.basis === 'consent');
+})());
+ok('explicit-consent confirmation no longer blocks generation', (() => {
+  const a3 = { ...defaultAnswers(), activityTitle: 'x', controller: { name: 'X', address: 'Y', email: 'z@e.org', phone: '1' },
+    dataSubjects: ['Alumni'], directSources: ['E-mail'], transfersOutsideEEA: false as const };
+  a3.dataCategories = a3.dataCategories.map((c) => c.id === 'health-data' ? { ...c, enabled: true } : c);
+  a3.purposes = a3.purposes.map((p) => p.text.includes('meals adapted') ? { ...p, enabled: true } : p);
+  return blockingGaps(a3).length === 0;
+})());
 ok('presets: no two entries share display name + date', (() => {
   const seen = new Set<string>();
   for (const p of PRESET_EVENTS) {
@@ -129,6 +144,8 @@ ok('presets: no two entries share display name + date', (() => {
   }
   return true;
 })());
+
+ok('abbreviations expand in event titles (WELS)', titleWithExpansion('WELS') === 'Winter ELSA Law Schools (WELS)');
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

@@ -55,11 +55,14 @@ export function findGaps(a: Answers): Gap[] {
     add('thirdCountries', 'Which countries / international organisations', '§5b must name all countries and organisations (Handbook Ch. 3.4.4 / 4.2).');
 
   // Art. 9 safeguard (HB Ch. 1.6.2): special categories require explicit consent.
+  // The consent PURPOSE is auto-added when a special category is ticked (user decision
+  // 2026-07-11), so this gap only fires if the officer then removed it. The explicit-
+  // consent confirmation stays as a recommendation, not a generation blocker.
   const special = specialCategoriesSelected(a);
   if (special.length > 0) {
     if (!a.explicitConsentConfirmed)
       add('explicitConsent', `Explicit consent for: ${special.join(', ')}`,
-        'Special-category (Art. 9) data is generally prohibited to process; within ELSA the applicable exception is the individual’s explicit consent (Handbook Ch. 1.6.2). Confirm explicit consent will be collected.');
+        'Special-category (Art. 9) data is generally prohibited to process; within ELSA the applicable exception is the individual’s explicit consent (Handbook Ch. 1.6.2). Confirm explicit consent will be collected.', false);
     const consentPurpose = a.purposes.some((p) => p.enabled && p.basis === 'consent');
     if (!consentPurpose)
       add('consentPurpose', 'A purpose under the legal basis “Consent”',

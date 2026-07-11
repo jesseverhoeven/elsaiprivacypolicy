@@ -112,7 +112,10 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
         <table className="print-frame">
           <thead>
             <tr><td>
-              <img src={logoUrl} alt="" className="print-logo" />
+              <div className="print-head">
+                <span className="print-head-title">{filename}</span>
+                <img src={logoUrl} alt="" className="print-logo" />
+              </div>
             </td></tr>
           </thead>
           <tfoot>

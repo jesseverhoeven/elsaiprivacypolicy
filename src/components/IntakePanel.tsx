@@ -65,7 +65,9 @@ export function IntakePanel({ intake, setIntake, mode, presetName }: Props) {
       <div className="card">
         <h3><span className="badge">A</span> Upload documents</h3>
         <p className="hint">PDF, Word (.docx) or text — e.g. a JotForm PDF export, an event one-pager, or a document
-          downloaded from Google Drive (File → Download → PDF or Word). Everything is read on your device only.</p>
+          downloaded from Google Drive (File → Download → PDF or Word).
+          {mode === 'new' && <> You can also upload the <b>previous privacy policy</b> of an event that is not in the
+          list above — the tool derives what it can from it.</>} Everything is read on your device only.</p>
         <div
           className="dropzone"
           onDragOver={(e) => e.preventDefault()}
@@ -113,7 +115,7 @@ export function IntakePanel({ intake, setIntake, mode, presetName }: Props) {
           <p className="hint">Any general comments, guidance or remarks — e.g. things you already know changed compared
             to previous {presetName ?? 'event'} editions (different organisers, new tools, new data being collected).
             Don’t worry about who attends or the details here: <b>we walk through everything together in “Complete &amp;
-            check”</b> — it’s in good hands.</p>
+            check”</b> — you are in good hands, you can do this!</p>
         ) : (
           <p className="hint">Anything else: what the event is, who attends, which tools you use (Google Forms, Zoom…),
             who you share lists with (hotel, caterer, ELSA International…), payments, photos, countries involved.</p>

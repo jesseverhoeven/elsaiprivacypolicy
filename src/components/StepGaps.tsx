@@ -66,21 +66,110 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
   /** Orange marking for values pre-filled from the chosen preset (previous approved policy). */
   const mk = (key: string) => (presetMarks.has(key) ? ' from-preset' : '');
 
-  /** Hover tooltip: the "pay attention" text from the previous policy for this section. */
-  const tip = (section: AttentionSection): string | undefined => {
-    const pts = preset?.attentionPoints.filter((p) => p.section === section) ?? [];
-    return pts.length > 0 ? `⚠ From the previous policy: ${pts.map((p) => p.text).join(' ')}` : undefined;
+  /* ---------- Item-specific hover tips (↻ = carried over from the previous policy).
+     Short and customised per item — what typically changes between editions
+     (user decision 2026-07-11). Section-wide guidance lives in the visible remark
+     block under each heading instead. ---------- */
+
+  const CATEGORY_TIPS: Record<string, string> = {
+    'personal-identification': 'Are passport or ID details needed this edition (e.g. visa invitation letters), or just name and surname?',
+    'contact-information': 'Any new contact channels this edition (phone, WhatsApp, postal address)?',
+    'financial-information': 'Same payment method this edition (IBAN transfer, payment provider)? Any deposits or reimbursements?',
+    'billing-contribution': 'Same contribution models, amounts and payment provider as last time?',
+    'elsa-activity': 'Is membership/position information still asked on the form?',
+    'emergency-contact': 'Is an emergency contact still collected at registration?',
+    'professional-educational': 'Is a CV, study background or motivation still part of the application?',
+    'application-process': 'Has the application changed (motivation letter, references, selection rounds)?',
+    'meal-details': 'Are meals provided this edition, and is meal choice asked on the form?',
+    'health-data': 'Same dietary/allergy questions on this edition’s form? Any new medical or accessibility questions? This stays Art. 9 data — explicit consent needed.',
+    'transfer-details': 'Are pick-ups, flights or transport organised this edition?',
+    'accommodation-details': 'Same accommodation setup (hotel/hostel, room preferences) this edition?',
+    'additional-services': 'Which extras are sold this edition (merch, gala tickets, trips)?',
+    'event-activity': 'Do the tracked activities match this edition’s programme (workshops, attendance, roles)?',
+    'photos-recordings': 'Is a photographer or videographer present again? Livestreams or social-media coverage?',
+    'communication-data': 'Usually unchanged — inquiries and messages participants send you.',
+    'religious-beliefs': 'Only if actually asked (e.g. religious dietary needs, prayer room) — Art. 9, explicit consent needed.',
+    'political-opinions': 'Only if actually collected in this activity’s context — Art. 9, explicit consent needed.',
+    'trade-union': 'Only if actually collected — Art. 9, explicit consent needed.',
   };
+  const catTip = (id: string): string | undefined =>
+    presetMarks.has(`cat:${id}`)
+      ? (id.startsWith('custom:')
+        ? 'Carried over from the previous policy — is this still collected this edition, and are the items accurate?'
+        : CATEGORY_TIPS[id] ?? 'Still collected this edition? Check the listed items match this edition’s form.')
+      : undefined;
+
+  const PURPOSE_TIPS: Record<string, string> = {
+    consent: 'Consent-based: is the matching opt-in tick-box on this edition’s registration form, unticked by default?',
+    contract: 'Part of what participants sign up for — still applicable to this edition?',
+    legitimateInterest: 'Legitimate-interest based: still applicable and proportionate this edition?',
+    legalObligation: 'Standard legal purpose — usually unchanged between editions.',
+    publicInterest: 'No template wording exists for this basis — it will be flagged; contact dataprotection@elsa.org.',
+    vitalInterests: 'Used for emergencies (e.g. emergency contacts) — still applicable this edition?',
+  };
+  const purposeTip = (id: string, basis: string): string | undefined =>
+    presetMarks.has(`purpose:${id}`) ? PURPOSE_TIPS[basis] : undefined;
+
+  const RECIPIENT_TIPS: Record<string, string> = {
+    'cloud-providers': 'Standard ELSA infrastructure (Google Workspace/Gmail) — usually unchanged.',
+    'it-providers': 'Standard ELSA infrastructure — usually unchanged.',
+    'form-platforms': 'Same registration platform this edition (JotForm, Google Forms, website form)?',
+    'payment-providers': 'Same payment provider this edition?',
+    'messaging-platforms': 'Is the group chat / WhatsApp community still used this edition?',
+    'meeting-platforms': 'Same meeting tools this edition (Zoom, Google Meet…)?',
+    'public-agencies': 'Usually unchanged — only where a legal obligation requires sharing.',
+    'partner-organisations': 'Same partners and sponsors this edition?',
+    'auditors-payroll': 'Usually unchanged.',
+    'accommodations': 'Which hotel/hostel receives the rooming list this edition?',
+    'restaurants': 'Same caterers, restaurants or venues this edition?',
+    'international-orgs': 'Is data still shared with this organisation this edition (affects the transfers section)?',
+    'partners': 'Same partners this edition?',
+    'speakers': 'External speakers again this edition?',
+    'event-organisers': 'Same venues or institutions this edition?',
+  };
+  const recipTip = (key: 'ri' | 're', label: string): string | undefined => {
+    if (!presetMarks.has(`${key}:${label}`)) return undefined;
+    const opt = [...INTERNAL_RECIPIENT_OPTIONS, ...EXTERNAL_RECIPIENT_OPTIONS].find((o) => o.label === label);
+    return (opt && RECIPIENT_TIPS[opt.id]) ?? 'Carried over from the previous policy — does this party still receive data this edition?';
+  };
+
+  const dsTip = (label: string): string | undefined =>
+    presetMarks.has(`ds:${label}`) ? 'Covered by the previous policy — does this audience take part again this edition?' : undefined;
+
+  /**
+   * Ticking a special-category (Art. 9) data category auto-adds the matching
+   * consent purpose under "Medical & dietary" (user decision 2026-07-11), so the
+   * consent-purpose requirement is solved rather than left as a blocker.
+   */
+  function toggleCategory(id: string, checked: boolean) {
+    let purposes = answers.purposes;
+    const def = DATA_CATEGORY_DEFS.find((d) => d.id === id);
+    if (checked && def?.special) {
+      const cat = answers.dataCategories.find((c) => c.id === id);
+      const items = (cat?.items ?? def.defaultItems).toLowerCase();
+      const wanted = items.match(/dietary|allerg|meal|food/) || id === 'health-data'
+        ? 'To provide meals adapted to dietary restrictions and allergies'
+        : 'To process health data in order to accommodate medical, accessibility and other special requirements during the event';
+      if (!purposes.some((p) => p.enabled && p.basis === 'consent')) {
+        purposes = purposes.map((p) => p.text === wanted ? { ...p, enabled: true, basis: 'consent' as const } : p);
+      }
+    }
+    set({
+      dataCategories: answers.dataCategories.map((x) => x.id === id ? { ...x, enabled: checked } : x),
+      purposes,
+    });
+  }
 
   /**
    * Inline notes next to the relevant question (user decision 2026-07-10):
    * orange = attention points from the approved policy ("still applicable?");
    * green = corroborated by the information the officer provided in step 1.
    */
-  function SectionNote({ section, showAttention = false }: { section: AttentionSection; showAttention?: boolean }) {
-    // Preset attention points live in hover tooltips on the orange fields (user
-    // decision 2026-07-11); visible boxes here are only the green/orange checks
-    // against the information the officer provided — plus 'general' at Final details.
+  function SectionNote({ section, showAttention = true }: { section: AttentionSection; showAttention?: boolean }) {
+    // Visible remark block under each heading: brief, customised guidance from the
+    // previous policy (questions to ask yourself). Item-specific "what changed"
+    // tips live in the per-item hover tooltips. Green/orange checks below verify
+    // against the information the officer provided.
     const points = showAttention ? (preset?.attentionPoints.filter((p) => p.section === section) ?? []) : [];
     const checks: { status: 'ok' | 'warn'; text: string }[] = [];
     if (analysis) {
@@ -119,7 +208,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
     return (
       <div className="section-notes">
         {points.map((p, i) => (
-          <p className="note-attention" key={`a${i}`} role="note">⚠ <b>From the previous policy:</b> {p.text}</p>
+          <p className="note-attention" key={`a${i}`} role="note">↻ {p.text}</p>
         ))}
         {checks.map((c, i) => (
           <p className={c.status === 'ok' ? 'note-verified' : 'note-attention'} key={`c${i}`} role="note">
@@ -184,15 +273,16 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
         <p className="lead">From your information the tool recognised: {detected.join(' · ')}. Everything below is a
           suggestion — please review each field; the tool proposes, you decide.
           {preset && <> Values marked <span className="from-preset-example">orange</span> come from the approved {preset.name} policy;
-          the ⚠ boxes next to each question tell you what typically changes between editions.</>}
+          hover any orange field (↻) for what typically changes between editions.</>}
         </p>
       )}
       {preset && detected.length === 0 && (
         <p className="lead">Everything below is pre-filled from the previous <b>{preset.name}</b> policy
           {preset.lastUpdated ? ` (last updated ${preset.lastUpdated})` : ''} and marked{' '}
-          <span className="from-preset-example">orange</span>. <b>Hover any orange field</b> for tips on what typically
-          changes between editions — and still think about how this year’s event differs so the policy truly fits it.
-          It’s in good hands.</p>
+          <span className="from-preset-example">orange</span> — carried over, not a warning. Each section starts with a
+          short ↻ note with questions to ask yourself, and <b>hovering an orange item (↻)</b> shows what typically
+          changes for exactly that item. Still think about how this year’s event differs so the policy truly fits it.
+          You are in good hands — you can do this!</p>
       )}
 
       <div className="gaps-layout">
@@ -202,7 +292,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
             <h3>The event &amp; the controller</h3>
             <SectionNote section="controller" />
             <div className="grid2">
-              <label className={mk('field:activityTitle')} title={tip('general')}>Event / processing activity
+              <label className={mk('field:activityTitle')}>Event / processing activity
                 <input value={answers.activityTitle} onChange={(e) => set({ activityTitle: e.target.value })}
                   placeholder="e.g. the National Council Meeting 2026" />
               </label>
@@ -230,7 +320,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                 <span className="hint">Boulevard Général Jacques 239, Brussels B-1050, Belgium · elsa@elsa.org · +32 2 646 2626</span>
               </div>
               <div className="grid2">
-                <label className={mk('field:controller')} title={tip('controller')}>ELSA group / entity name (controller)
+                <label className={mk('field:controller')}>ELSA group / entity name (controller)
                   <input value={answers.controller.name} onChange={(e) => set({ controller: { ...answers.controller, name: e.target.value } })}
                     placeholder="e.g. International, The Netherlands, Leuven, International Organising Committee (IM team)…" />
                 </label>
@@ -277,9 +367,12 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                   <label>Joint controller e-mail
                     <input value={answers.jointController.email} onChange={(e) => set({ jointController: { ...answers.jointController, email: e.target.value } })} />
                   </label>
-                  <label>Purposes for which YOUR group acts alone (optional)
+                  <label>Purposes handled by YOUR group alone (optional)
                     <input value={answers.soleControllerPurposes} onChange={(e) => set({ soleControllerPurposes: e.target.value })}
-                      placeholder="e.g. managing its own members’ registrations" />
+                      placeholder="usually empty — e.g. managing its own members’ registrations" />
+                    <span className="hint">Only if some purposes are yours alone, not shared with the joint controller.
+                      The Handbook (Ch. 4.2 “About us — if applicable”) asks the policy to name these; leave empty if
+                      everything is decided together.</span>
                   </label>
                 </div>
               )}
@@ -326,7 +419,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
             <SectionNote section="subjects" />
             <div className="checkgrid">
               {DATA_SUBJECT_OPTIONS.map((d) => (
-                <label className={`checkline${mk(`ds:${d.label}`)}`} key={d.id} title={presetMarks.has(`ds:${d.label}`) ? tip('subjects') : undefined}>
+                <label className={`checkline${mk(`ds:${d.label}`)}`} key={d.id} data-tip={dsTip(d.label)}>
                   <input type="checkbox"
                     checked={answers.dataSubjects.includes(d.label)}
                     onChange={(e) => set({
@@ -355,12 +448,10 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               const def = DATA_CATEGORY_DEFS.find((d) => d.id === c.id)!;
               return (
                 <div className={`catline ${c.enabled ? 'on' : ''}${mk(`cat:${c.id}`)}`} key={c.id}
-                  title={presetMarks.has(`cat:${c.id}`) ? tip('categories') : undefined}>
+                  data-tip={catTip(c.id)}>
                   <label className="checkline">
                     <input type="checkbox" checked={c.enabled}
-                      onChange={(e) => set({
-                        dataCategories: answers.dataCategories.map((x) => x.id === c.id ? { ...x, enabled: e.target.checked } : x),
-                      })} />
+                      onChange={(e) => toggleCategory(c.id, e.target.checked)} />
                     <b>{def.label}</b>
                     {def.special && <span className="special-badge" title="Special category — Art. 9 GDPR">Art. 9 — sensitive</span>}
                   </label>
@@ -375,7 +466,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
             })}
             {customCategories.map((c) => (
               <div className={`catline on${mk(`cat:${c.id}`)}`} key={c.id}
-                title={presetMarks.has(`cat:${c.id}`) ? tip('categories') : undefined}>
+                data-tip={catTip(c.id)}>
                 <label className="checkline">
                   <input type="checkbox" checked={c.enabled}
                     onChange={(e) => set({
@@ -425,9 +516,12 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                   onChange={(e) => set({ explicitConsentConfirmed: e.target.checked })} />
                 We will collect explicit consent for this data where it is gathered
               </label>
-              {!answers.purposes.some((p) => p.enabled && p.basis === 'consent') && (
-                <p className="hint">Also list at least one purpose under the legal basis “Consent” below (e.g. “To provide
-                  meals adapted to dietary restrictions and allergies”).</p>
+              {answers.purposes.some((p) => p.enabled && p.basis === 'consent') ? (
+                <p className="hint">✓ A matching consent purpose is listed under “Medical &amp; dietary” in the purposes
+                  below — adjust it there if needed.</p>
+              ) : (
+                <p className="hint">Also list at least one purpose under the legal basis “Consent” below (see the
+                  “Medical &amp; dietary” group).</p>
               )}
             </div>
           )}
@@ -481,7 +575,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                     const isCustom = !PURPOSE_SUGGESTIONS.some((s) => s.text === p.text);
                     return (
                       <div className={`purposeline ${p.enabled ? 'on' : ''}${mk(`purpose:${p.id}`)}`} key={p.id}
-                        title={presetMarks.has(`purpose:${p.id}`) ? tip('purposes') : undefined}>
+                        data-tip={purposeTip(p.id, p.basis)}>
                         <label className="checkline">
                           <input type="checkbox" checked={p.enabled}
                             onChange={(e) => set({
@@ -529,7 +623,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                   return (
                     <div key={r.id}>
                       <label className={`checkline${blockedReason ? ' blocked' : ''}${mk(`ri:${r.label}`)}`}
-                        title={blockedReason ?? (presetMarks.has(`ri:${r.label}`) ? tip('recipients') : undefined)}
+                        title={blockedReason ?? undefined}
+                        data-tip={blockedReason ? undefined : recipTip('ri', r.label)}
                         onClick={() => { if (blockedReason) setRecipientError(blockedReason); }}>
                         <input type="checkbox" disabled={!!blockedReason}
                           checked={!blockedReason && answers.recipientsInternal.includes(r.label)}
@@ -554,7 +649,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                 <span className="fieldlabel collect-label">Outside ELSA (third parties):</span>
                 {EXTERNAL_RECIPIENT_OPTIONS.map((r) => (
                   <label className={`checkline${mk(`re:${r.label}`)}`} key={r.id}
-                    title={presetMarks.has(`re:${r.label}`) ? tip('recipients') : undefined}>
+                    data-tip={recipTip('re', r.label)}>
                     <input type="checkbox" checked={answers.recipientsExternal.includes(r.label)}
                       onChange={(e) => set({
                         recipientsExternal: e.target.checked
@@ -584,7 +679,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               </div>
             )}
 
-            <div className="subpanel eea-panel" title={presetMarks.has('field:transfersOutsideEEA') ? tip('transfers') : undefined}>
+            <div className="subpanel eea-panel">
               <span className="fieldlabel collect-label">Does data go outside the EEA, or to an international organisation?</span>
               <p className="hint">With standard ELSA infrastructure (Google/Gmail, JotForm) data typically reaches the
                 United States — that is why this is pre-set to “Yes” with the US listed. Untick only if you are sure
