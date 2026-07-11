@@ -79,7 +79,22 @@ BASIS_HEADS = [
     ("legalObligation", re.compile(r"^legal (compliance|obligations?)\s*:", re.I)),
 ]
 
-VOLUNTEER_AUDIENCE = re.compile(r"officer|trainer|coach|judge|panellist|panelist|national coordinator|organiser|organizer|oc\b|board|host|facilitator|academic board", re.I)
+# Internal vs external — mirrors deriveAudience() in src/data/presets.ts (user feedback
+# 2026-07-12: name-only matching misclassified e.g. moot-court Coaches/Judges as internal).
+EXTERNAL_AUDIENCE = re.compile(r"participant|alumni|submission|essay|supporter|delegate|speaker|coach|judge|panell?ist", re.I)
+WORKS_FOR_ELSA = re.compile(r"human resources|voluntary agreement|recruit", re.I)
+VOLUNTEER_AUDIENCE = re.compile(r"officer|trainer|national coordinator|organiser|organizer|oc\b|board|host|facilitator|academic board|national group", re.I)
+
+
+def derive_audience(name: str, subjects: list, purposes: list) -> str:
+    who = f"{name}; {'; '.join(subjects)}"
+    purpose_text = "; ".join(p["text"] for p in purposes)
+    works_for_elsa = bool(WORKS_FOR_ELSA.search(purpose_text))
+    if EXTERNAL_AUDIENCE.search(who) and not works_for_elsa:
+        return "participants"
+    if works_for_elsa or VOLUNTEER_AUDIENCE.search(who):
+        return "volunteers"
+    return "participants"
 
 
 def clean(s: str) -> str:
@@ -318,7 +333,7 @@ def parse_policy(path: Path, root: Path):
     if not controller["email"]:
         controller["email"] = "secgen@elsa.org"
 
-    audience = "volunteers" if VOLUNTEER_AUDIENCE.search(name) else "participants"
+    audience = derive_audience(name, subjects, purposes)
 
     rel = path.relative_to(root)
     top = rel.parts[0].lower() if len(rel.parts) > 1 else ""

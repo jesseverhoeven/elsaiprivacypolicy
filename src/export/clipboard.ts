@@ -43,9 +43,9 @@ export function blocksToHtml(blocks: PolicyBlock[]): string {
           (b.rows ?? [])
             .map((row) =>
               `<tr><td style="border:1px solid #0A3087;padding:6px 10px;vertical-align:top;width:38%;">` +
-              `<b style="color:#0A3087;">${esc(row.label)}</b><br/><span style="font-size:0.85em;">${esc(row.lead)}</span></td>` +
+              `<b style="color:#0A3087;">${esc(row.label)}</b><br/><span style="font-size:0.85em;text-align:justify;display:block;">${esc(row.lead)}</span></td>` +
               `<td style="border:1px solid #0A3087;padding:6px 10px;vertical-align:top;">` +
-              `<ul>${row.purposes.map((p) => `<li>${esc(p)}</li>`).join('')}</ul></td></tr>`,
+              `<ul>${row.purposes.map((p) => `<li style="text-align:justify;">${esc(p)}</li>`).join('')}</ul></td></tr>`,
             )
             .join('') +
           `</table>`,

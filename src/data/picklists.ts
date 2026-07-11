@@ -158,18 +158,34 @@ export const ELSA_INTERNATIONAL_CONTACT = {
   phone: '+32 2 646 2626',
 } as const;
 
-/** HB Ch. 3.4.4 — transfers within ELSA. */
+/**
+ * HB Ch. 3.4.4 — transfers within ELSA. Consolidated to non-overlapping options
+ * (user feedback 2026-07-12: the previous 7 — own Board/Team/Council, Local Groups,
+ * Other National/Local Groups, OCs — overlapped too much). The (joint) controller's
+ * own Board, Team and OC are part of the controller and never recipients (Ch. 4.2),
+ * so "own organ" options are gone entirely; what remains is one option per truly
+ * distinct receiving entity, each with a hint saying who is meant.
+ */
 export const INTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: string[]; hint?: string }[] = [
-  { id: 'own-board', label: 'ELSA National/Local Board', keywords: ['national board', 'local board', 'the board'] },
-  { id: 'own-team', label: 'ELSA National/Local Team', keywords: ['national team', 'local team'] },
-  { id: 'own-council', label: 'ELSA National/Local Council', keywords: ['council'] },
-  { id: 'local-groups', label: 'ELSA Local Groups', keywords: ['local groups'] },
   {
     id: 'elsa-international', label: 'ELSA International', keywords: ['elsa international'],
-    hint: `Areas: ${ELSA_INTERNATIONAL_AREAS.join(' · ')}`,
+    hint: `Where ELSA International is not the controller itself. Areas: ${ELSA_INTERNATIONAL_AREAS.join(' · ')}`,
   },
-  { id: 'other-groups', label: 'Other ELSA National/Local Groups', keywords: ['other national group', 'other local group'] },
-  { id: 'organising-committees', label: 'Organising Committees', keywords: ['organising committee', 'organizing committee', ' oc '] },
+  {
+    id: 'other-national-groups', label: 'Other ELSA National Groups (their Board, Team or Council)',
+    keywords: ['national board', 'national team', 'national council', 'other national group', 'national groups'],
+    hint: 'E.g. sharing participant lists or reports with the National Groups whose members take part.',
+  },
+  {
+    id: 'other-local-groups', label: 'Other ELSA Local Groups (their Board or Team)',
+    keywords: ['local board', 'local team', 'other local group', 'local groups'],
+    hint: 'Local Groups other than the group organising this activity.',
+  },
+  {
+    id: 'organising-committees', label: 'Organising Committees of other ELSA events',
+    keywords: ['organising committee', 'organizing committee', ' oc '],
+    hint: 'An OC that helps organise THIS event is (part of) the controller or a joint controller — tick that above instead of listing it here.',
+  },
 ];
 
 /**
@@ -200,7 +216,8 @@ export const EXTERNAL_RECIPIENT_OPTIONS: { id: string; label: string; keywords: 
 export const LEGAL_BASIS_DEFS: { id: LegalBasis; label: string; annex4LeadIn: boolean }[] = [
   { id: 'contract', label: 'Contractual Obligations', annex4LeadIn: true },
   { id: 'consent', label: 'Consent', annex4LeadIn: true },
-  { id: 'legitimateInterest', label: 'Legitimate Interests', annex4LeadIn: true },
+  // Singular "Interest" — one legal basis, however many purposes rest on it (user feedback 2026-07-12)
+  { id: 'legitimateInterest', label: 'Legitimate Interest', annex4LeadIn: true },
   { id: 'legalObligation', label: 'Legal Compliance (legal obligation)', annex4LeadIn: true },
   { id: 'publicInterest', label: 'Public Interest', annex4LeadIn: false },
   { id: 'vitalInterests', label: 'Vital Interests', annex4LeadIn: false },

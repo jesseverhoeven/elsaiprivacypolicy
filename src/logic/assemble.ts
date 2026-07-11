@@ -181,7 +181,10 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({
     id: 's2b-intro', kind: 'paragraph',
     text: fill(isParticipants ? S2_COLLECTION.howIntroParticipants : S2_COLLECTION.howIntroVolunteers, g),
-    locked: true, source: `${SRC.A4_S2} · ${SRC.HB_42} (Columns J–K)`, deviation: audDev,
+    locked: true, source: `${SRC.A4_S2} · ${SRC.HB_42} (Columns J–K)`,
+    deviation: isParticipants
+      ? audDev
+      : 'neutral-internal-adaptation (Annex 4 recruitment phrasing does not fit every internal activity, user feedback 2026-07-12 — to be discussed with dataprotection@elsa.org)',
   });
   push({ id: 's2b-intro2', kind: 'paragraph', text: S2_COLLECTION.howIntro2, locked: true, source: SRC.A4_S2 });
   if (a.directSources.length > 0) {
@@ -337,7 +340,15 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     locked: false, source: `${SRC.A4_S9} · ${SRC.HB_42} (Column F)`,
   });
 
-  return blocks;
+  // Runs of spaces (e.g. carried over from imported preset wording or typed input)
+  // read as ugly gaps in the justified layout — collapse them everywhere.
+  const tidy = (s: string) => s.replace(/[ \t]{2,}/g, ' ').trim();
+  return blocks.map((b) => ({
+    ...b,
+    text: b.text === undefined ? undefined : tidy(b.text),
+    bullets: b.bullets?.map(tidy),
+    rows: b.rows?.map((r) => ({ label: tidy(r.label), lead: tidy(r.lead), purposes: r.purposes.map(tidy) })),
+  }));
 }
 
 /** Apply the officer's compose-step edits (removals + per-section bullet order/edits). Locked blocks pass through untouched. */

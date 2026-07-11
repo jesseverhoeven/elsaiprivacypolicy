@@ -179,7 +179,7 @@ select.basis-select {
   background: var(--navy); color: #fff; text-align: left; padding: 0.45rem 0.8rem;
   font-size: 0.95rem; border: 1px solid var(--navy);
 }
-.basis-table td { border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top; }
+.basis-table td { border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top; text-align: justify; }
 .basis-table td:first-child { width: 38%; }
 .basis-name {
   display: inline-block; color: var(--navy); font-weight: 700;
@@ -187,7 +187,8 @@ select.basis-select {
 }
 .basis-leadtext { display: block; font-size: 0.85em; text-align: justify; }
 .basis-table ul { margin: 0; padding-left: 1.2rem; }
-.basis-table li { margin: 0.2rem 0; }
+/* Table content justified like the body paragraphs (Word "justify", user request 2026-07-11) */
+.basis-table li { margin: 0.2rem 0; text-align: justify; }
 
 /* ---------- ELSA logo on the policy ---------- */
 .policy-logo { display: block; margin-left: auto; width: 130px; height: auto; }
@@ -206,7 +207,11 @@ select.basis-select {
 .attention-list { margin-top: 0.6rem; }
 
 /* ---------- Preset attention, verification & marks ---------- */
-.from-preset { border-left: 3px solid var(--orange) !important; padding-left: 0.45rem; background: var(--orange-soft); border-radius: 3px; }
+/* Carried-over values show only the orange ↻ marker — the filled orange block was
+   too busy (user feedback 2026-07-12). The hover tooltip block stays unchanged.
+   Items with a tip get the ↻ from [data-tip]::after below; plain marked fields
+   (no tip) get their own ↻ here so the indication never disappears. */
+.from-preset:not([data-tip])::after { content: ' ↻'; color: var(--orange); font-weight: 700; font-size: 0.9em; }
 .from-preset-example { color: var(--orange); font-weight: 700; }
 
 /* Custom hover tooltip — reads as an extension of the orange field, not a browser
@@ -223,9 +228,12 @@ select.basis-select {
   white-space: normal; box-shadow: 0 8px 22px rgba(10, 48, 135, 0.18);
 }
 .section-notes { margin: 0.3rem 0 0.6rem; }
+/* Slim orange accent instead of a filled block — the full orange boxes on arrival
+   in step 2 were too busy (user feedback 2026-07-12); the orange hover tooltip
+   above stays exactly as it was. */
 .note-attention {
-  background: var(--orange-soft); border: 1px solid var(--orange); border-radius: 6px;
-  padding: 0.45rem 0.7rem; margin: 0.35rem 0; font-size: 0.85rem;
+  border-left: 3px solid var(--orange);
+  padding: 0.1rem 0 0.1rem 0.7rem; margin: 0.35rem 0; font-size: 0.85rem; color: var(--ink-soft);
 }
 .note-attention b { color: var(--navy-deep); }
 .note-verified {
@@ -332,6 +340,17 @@ select.basis-select {
   border-radius: 4px; padding: 0.1rem 0.4rem; margin-left: 0.5rem;
 }
 .areas-hint { display: block; margin: -0.15rem 0 0.35rem 1.7rem; font-size: 0.75rem; }
+
+/* Double-click-to-edit wording of categories/purposes (user request 2026-07-11).
+   A pencil appears on hover; single clicks are swallowed so ticking stays on the checkbox. */
+.editable-text { cursor: text; border-bottom: 1px dashed transparent; }
+.editable-text:hover { border-bottom-color: var(--orange); }
+.editable-text:hover::after { content: ' ✎'; color: var(--orange); font-size: 0.85em; }
+input.editable-text-input {
+  width: auto; min-width: min(420px, 60vw); display: inline-block;
+  border: 1px dashed var(--orange); background: var(--orange-soft);
+  padding: 0.1rem 0.35rem; margin: 0; font-size: inherit; font-weight: inherit;
+}
 .purpose-group { margin: 0.7rem 0; }
 .purpose-group-label {
   display: block; color: var(--navy); font-weight: 700; font-size: 0.82rem;
@@ -429,6 +448,16 @@ button.cut.inline {
     color: var(--ink-soft); letter-spacing: 0.03em;
   }
   .print-logo { width: 58px; height: auto; flex: none; }
+  /* Page 1 carries the big policy title, so the small running title in the repeating
+     thead is redundant there (user feedback 2026-07-11). The thead repeats identically
+     on every printed page and cannot be styled per page — instead a white rectangle,
+     absolutely positioned over the page-1 header area (absolute boxes do not repeat),
+     hides the title on the first page only. It stops left of the logo, which stays. */
+  .print-only { position: relative; }
+  .print-head-cover {
+    position: absolute; top: 0; left: 0; width: 168mm; height: 14mm;
+    background: #fff; z-index: 5;
+  }
   .print-frame > tfoot td { padding-top: 3mm; padding-bottom: 7mm; }
   .print-footer {
     text-align: center; font-size: 8pt; color: var(--ink-soft);

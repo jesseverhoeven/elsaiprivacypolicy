@@ -145,9 +145,15 @@ export const S2_COLLECTION = {
   noObligationParticipants:
     'You are under no obligation to provide your personal data. Nonetheless, it’s important to be aware that we cannot register you for or provide you with {{activityTitle}} without the essential personal data required to fulfil the contractual obligations between you and us.',
   howHeading: 'How we collect personal data',
-  /** Verbatim Annex 4 (volunteer audience). */
+  /**
+   * deviation: neutral-internal-adaptation — Annex 4 reads "starting from the
+   * recruitment phase to your subsequent inclusion in our team", which does not fit
+   * every internal activity (e.g. ICE questionnaires, National Group Reports).
+   * Neutral phrasing per user feedback 2026-07-12; flagged for discussion with
+   * dataprotection@elsa.org since the original is template text.
+   */
   howIntroVolunteers:
-    'We collect personal data about you in different ways, starting from the recruitment phase to your subsequent inclusion in our team.',
+    'We collect personal data about you in different ways in the course of your involvement with us — for example when you apply for or take up a role, carry out your tasks, or share information with us as part of ELSA’s internal processes.',
   /** deviation: audience-adaptation. */
   howIntroParticipants:
     'We collect personal data about you in different ways, starting from your registration to your participation in {{activityTitle}}.',
@@ -170,8 +176,10 @@ export const S3_LEGAL_BASIS = {
     'Contractual Obligations: We collect and process personal data about you as a participant to register you and manage your participation. In particular, we rely on contractual obligations, to:',
   consent:
     'Consent: We may rely on your voluntary consent, which you provided to us when sharing your personal data. In particular, we rely on your consent, to the extent agreed in the declaration of consent, to:',
+  // Label singular ("Legitimate Interest") — one legal basis, however many purposes rest
+  // on it (user feedback 2026-07-12); the body text after the colon stays verbatim.
   legitimateInterest:
-    'Legitimate Interests: We utilize legitimate interests as the legal basis for processing, based on our evaluation that the processing is equitable and justifiable and does not infringe upon your interests or fundamental rights and freedoms. Our legitimate interests are related to ensuring proper working processes, ensuring better performance and the overall optimization of our internal process. Our legitimate interests are, in particular to:',
+    'Legitimate Interest: We utilize legitimate interests as the legal basis for processing, based on our evaluation that the processing is equitable and justifiable and does not infringe upon your interests or fundamental rights and freedoms. Our legitimate interests are related to ensuring proper working processes, ensuring better performance and the overall optimization of our internal process. Our legitimate interests are, in particular to:',
   legalObligation:
     'Legal Compliance: We process personal data when necessary to comply with legal obligations and regulations. In particular, we rely on legal compliance, to:',
   /** deviation: brief-item-12 — optional statement, GDPR Art. 13(2)(f); Handbook notes ADM generally does not apply to ELSA. */

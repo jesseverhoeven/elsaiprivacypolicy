@@ -124,7 +124,7 @@ function buildAttention(p: GeneratedPreset): AttentionPoint[] {
   }
   points.push({
     section: 'categories',
-    text: `Prefilled from the previous ${short} policy — scroll the list and untick anything no longer collected. Ask yourself: has anything changed on this edition’s registration form (photos or recordings, health or dietary questions, payment or travel details)? Hover an orange item (↻) for what typically changes for that category.`,
+    text: `Prefilled from the previous ${short} policy — scroll the list and untick anything no longer collected. Ask yourself: has anything changed on this edition’s registration form (photos or recordings, health or dietary questions, payment or travel details)? Hover a ↻ item for what typically changes for that category.`,
   });
   const consentCount = p.purposes.filter((x) => x.basis === 'consent').length;
   points.push({
@@ -171,13 +171,37 @@ export function canonicalRecipient(raw: string): { list: 'internal' | 'external'
   return { list: isInternal ? 'internal' : 'external', label: raw };
 }
 
+/**
+ * Internal (volunteers) vs external (participants) — re-derived from the policy's
+ * own subjects and purposes, not just the file name (user feedback 2026-07-12: the
+ * name-only guess misclassified e.g. moot-court Coaches/Judges as internal and the
+ * National Group Reports as external). Rules, in order:
+ * 1. an audience that takes part (participants, coaches, judges, alumni, …) without
+ *    an ELSA working relationship in the purposes → external;
+ * 2. HR-style purposes (human resources, voluntary agreement, recruitment) → internal;
+ * 3. officer/board/coordinator/OC audiences → internal; anything else → external.
+ */
+function deriveAudience(p: GeneratedPreset): 'volunteers' | 'participants' {
+  const who = `${p.name}; ${p.subjects.join('; ')}`.toLowerCase();
+  const purposes = p.purposes.map((x) => x.text.toLowerCase()).join('; ');
+  const worksForElsa = /human resources|voluntary agreement|recruit/.test(purposes);
+  if (/participant|alumni|submission|essay|supporter|delegate|speaker|coach|judge|panell?ist/.test(who) && !worksForElsa) {
+    return 'participants';
+  }
+  if (worksForElsa) return 'volunteers';
+  if (/officer|board|national coordinator|facilitator|trainer|organising committee|organizing committee|national group/.test(who)) {
+    return 'volunteers';
+  }
+  return 'participants';
+}
+
 export const PRESET_EVENTS: PresetEvent[] = (generated as GeneratedPreset[]).map((p) => ({
   id: slug(p.name),
   name: p.name,
   area: p.area,
   lastUpdated: p.lastUpdated,
   sourceFile: p.file.split('\\').pop() ?? p.file,
-  audience: p.audience === 'volunteers' ? 'volunteers' : 'participants',
+  audience: deriveAudience(p),
   controller: p.controller,
   subjects: p.subjects,
   categories: p.categories,

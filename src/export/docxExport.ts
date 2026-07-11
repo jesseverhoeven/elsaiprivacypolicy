@@ -124,6 +124,7 @@ function blockToChildren(b: PolicyBlock): (Paragraph | Table)[] {
             children: row.purposes.map((p) => new Paragraph({
               bullet: { level: 0 },
               spacing: { after: 40 },
+              alignment: AlignmentType.JUSTIFIED,
               children: [new TextRun({ text: p, size: 22, color: INK })],
             })),
           }),

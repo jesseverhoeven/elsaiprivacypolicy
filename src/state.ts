@@ -50,6 +50,18 @@ export function defaultAnswers(): Answers {
 }
 
 /**
+ * Purpose texts match ignoring case, whitespace runs, a leading "To " and trailing
+ * punctuation — otherwise a preset's "To comply with applicable legal, tax…" would
+ * sit next to the built-in "Comply with applicable legal, tax…" and the policy
+ * would list the purpose twice (user feedback 2026-07-11).
+ */
+function samePurpose(a: string, b: string): boolean {
+  const norm = (t: string) =>
+    t.toLowerCase().replace(/\s+/g, ' ').trim().replace(/^to\s+/, '').replace(/[.\s]+$/, '');
+  return norm(a) === norm(b);
+}
+
+/**
  * Apply a preset event (approved past policy) over the defaults.
  * Returns the prefilled answers plus the set of "marks" — values that came from
  * the preset, shown in orange in the questionnaire so officers can spot them.
@@ -95,7 +107,7 @@ export function applyPreset(id: string): { answers: Answers; marks: Set<string> 
     marks.add(`cat:${cid}`);
   }
   for (const p of preset.purposes) {
-    const existing = answers.purposes.find((x) => x.text.toLowerCase() === p.text.toLowerCase());
+    const existing = answers.purposes.find((x) => samePurpose(x.text, p.text));
     if (existing) { existing.enabled = true; existing.basis = p.basis; marks.add(`purpose:${existing.id}`); }
     else {
       const idp = `c-preset-${answers.purposes.length}`;
@@ -113,17 +125,15 @@ export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
   if (r.groupNames.length > 0 && !next.controller.name) next.controller.name = r.groupNames[0];
   if (r.emails.length > 0 && !next.controller.email) next.controller.email = r.emails[0];
   if (r.phones.length > 0 && !next.controller.phone) next.controller.phone = r.phones[0];
-  if (r.activityTitleGuess && !next.activityTitle) next.activityTitle = r.activityTitleGuess;
+  // The event name and the data categories are deliberately NOT pre-filled from free
+  // text — keyword guesses were too often wrong there (user feedback 2026-07-11).
+  // They surface as ⚠ suggestion notes in the matching step-2 sections instead.
   if (r.audienceGuess) next.audience = r.audienceGuess;
   if (r.jotformLinks.length > 0 && !next.jotformLink) next.jotformLink = r.jotformLinks[0];
 
   for (const id of r.dataSubjectIds) {
     const label = DATA_SUBJECT_OPTIONS.find((d) => d.id === id)?.label;
     if (label && !next.dataSubjects.includes(label)) next.dataSubjects.push(label);
-  }
-  for (const id of r.dataCategoryIds) {
-    const cat = next.dataCategories.find((c) => c.id === id);
-    if (cat) cat.enabled = true;
   }
   for (const id of r.sourceIds) {
     const label = SOURCE_OPTIONS.find((s) => s.id === id)?.label;

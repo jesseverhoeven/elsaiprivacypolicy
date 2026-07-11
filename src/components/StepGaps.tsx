@@ -39,6 +39,42 @@ function InfoBook({ topic }: { topic: string }) {
   );
 }
 
+/**
+ * Double-click-to-edit wording for pick-list items (user feedback 2026-07-11):
+ * the standard label often almost covers it and only needs a small addition.
+ * A single click on the text is swallowed (preventDefault) so editing never
+ * toggles the checkbox — ticking happens on the checkbox itself.
+ */
+function EditableText({ value, onSave, ariaLabel }: {
+  value: string; onSave: (v: string) => void; ariaLabel: string;
+}) {
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(value);
+  if (!editing) {
+    return (
+      <span
+        className="editable-text" title="Double-click to adjust the wording"
+        onClick={(e) => e.preventDefault()}
+        onDoubleClick={(e) => { e.preventDefault(); setDraft(value); setEditing(true); }}
+      >
+        {value}
+      </span>
+    );
+  }
+  return (
+    <input
+      className="editable-text-input" value={draft} autoFocus aria-label={ariaLabel}
+      onClick={(e) => e.preventDefault()}
+      onChange={(e) => setDraft(e.target.value)}
+      onBlur={() => { setEditing(false); if (draft.trim() && draft.trim() !== value) onSave(draft.trim()); }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') { e.preventDefault(); e.currentTarget.blur(); }
+        if (e.key === 'Escape') { setDraft(value); setEditing(false); }
+      }}
+    />
+  );
+}
+
 interface Props {
   answers: Answers;
   setAnswers: (a: Answers) => void;
@@ -202,6 +238,19 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
     const points = showAttention ? (preset?.attentionPoints.filter((p) => p.section === section) ?? []) : [];
     const checks: { status: 'ok' | 'warn'; text: string }[] = [];
     if (analysis) {
+      if (section === 'controller' && analysis.activityTitleGuess) {
+        // The event name is never pre-filled from free text (too error-prone) —
+        // the guess is offered here as a suggestion instead.
+        const guess = analysis.activityTitleGuess;
+        const title = answers.activityTitle.trim();
+        if (!title) {
+          checks.push({ status: 'warn', text: `Your information suggests the event is “${guess}” — if that is right, fill it in as the event name above (it is deliberately not pre-filled).` });
+        } else if (title.toLowerCase().includes(guess.toLowerCase()) || guess.toLowerCase().includes(title.toLowerCase())) {
+          checks.push({ status: 'ok', text: 'Checked against the information you provided — the event name matches.' });
+        } else {
+          checks.push({ status: 'warn', text: `Your information mentions “${guess}”, but the event name above is “${title}” — double-check which is right.` });
+        }
+      }
       if (section === 'controller' && analysis.groupNames.length > 0) {
         const found = analysis.groupNames[0];
         const match = answers.controller.name.toLowerCase().includes(found.toLowerCase())
@@ -214,7 +263,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
         const missing = analysis.dataCategoryIds.filter((id) => !answers.dataCategories.some((c) => c.id === id && c.enabled));
         checks.push(missing.length === 0
           ? { status: 'ok', text: 'Checked against the information you provided — every data category it mentions is ticked.' }
-          : { status: 'warn', text: `Your information also mentions: ${missing.map((id) => DATA_CATEGORY_DEFS.find((d) => d.id === id)?.label ?? id).join(', ')} — tick them if collected.` });
+          : { status: 'warn', text: `Your information mentions: ${missing.map((id) => DATA_CATEGORY_DEFS.find((d) => d.id === id)?.label ?? id).join(', ')} — deliberately not pre-ticked; tick the ones you actually collect.` });
       }
       if (section === 'recipients' && analysis.externalRecipientIds.length > 0) {
         const labels = analysis.externalRecipientIds
@@ -272,6 +321,16 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
     answers.controller.name === ELSA_INTERNATIONAL_CONTACT.name &&
     answers.controller.email === ELSA_INTERNATIONAL_CONTACT.email;
 
+  /**
+   * Built-in purposes carry the id `p<index>` into PURPOSE_SUGGESTIONS (see
+   * defaultAnswers). Resolving the definition by id — not by text — keeps a
+   * purpose in its theme group after its wording is edited.
+   */
+  function purposeDef(id: string) {
+    const m = /^p(\d+)$/.exec(id);
+    return m ? PURPOSE_SUGGESTIONS[Number(m[1])] : undefined;
+  }
+
   /** Custom purposes join an existing theme where the text matches its keywords; otherwise "Added / new purposes". */
   function groupForCustomPurpose(text: string): string {
     const t = text.toLowerCase();
@@ -301,20 +360,20 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
       <p className="icons-legend">
         <span>📖 click for the Handbook explanation of a topic</span>
         <span>💡 click for examples to judge whether something applies to your event</span>
-        {preset && <span><span className="from-preset-example">↻ orange</span> = carried over from the previous policy — hover it for what typically changes</span>}
+        {preset && <span><span className="from-preset-example">↻</span> = carried over from the previous policy — hover it for what typically changes</span>}
       </p>
       {detected.length > 0 && (
         <p className="lead">From your information the tool recognised: {detected.join(' · ')}. Everything below is a
           suggestion — please review each field; the tool proposes, you decide.
-          {preset && <> Values marked <span className="from-preset-example">orange</span> come from the approved {preset.name} policy;
-          hover any orange field (↻) for what typically changes between editions.</>}
+          {preset && <> Values marked <span className="from-preset-example">↻</span> come from the approved {preset.name} policy;
+          hover a marked item (↻) for what typically changes between editions.</>}
         </p>
       )}
       {preset && detected.length === 0 && (
         <p className="lead">Everything below is pre-filled from the previous <b>{preset.name}</b> policy
           {preset.lastUpdated ? ` (last updated ${preset.lastUpdated})` : ''} and marked{' '}
-          <span className="from-preset-example">orange</span> — carried over, not a warning. Each section starts with a
-          short ↻ note with questions to ask yourself, and <b>hovering an orange item (↻)</b> shows what typically
+          <span className="from-preset-example">↻</span> — carried over, not a warning. Each section starts with a
+          short ↻ note with questions to ask yourself, and <b>hovering a marked item (↻)</b> shows what typically
           changes for exactly that item. Still think about how this year’s event differs so the policy truly fits it.
           You are in good hands — you can do this!</p>
       )}
@@ -495,7 +554,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           <div className="card">
             <h3>Which personal data do you collect? <InfoBook topic="categories" /></h3>
             <SectionNote section="categories" />
-            <p className="hint">Tick the categories and adjust the exact data items — they appear as bullet points in the policy.</p>
+            <p className="hint">Tick the categories and adjust the exact data items — they appear as bullet points in the
+              policy. Double-click a category name to fine-tune its wording (a single click never ticks the box).</p>
             {standardCategories.map((c) => {
               const def = DATA_CATEGORY_DEFS.find((d) => d.id === c.id)!;
               return (
@@ -505,7 +565,10 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                     <label className="checkline">
                       <input type="checkbox" checked={c.enabled}
                         onChange={(e) => toggleCategory(c.id, e.target.checked)} />
-                      <b>{def.label}</b>
+                      <b><EditableText value={c.customLabel ?? def.label} ariaLabel={`Rename category ${def.label}`}
+                        onSave={(v) => set({
+                          dataCategories: answers.dataCategories.map((x) => x.id === c.id ? { ...x, customLabel: v } : x),
+                        })} /></b>
                       {def.special && <span className="special-badge" title="Special category — Art. 9 GDPR">Art. 9 — sensitive</span>}
                     </label>
                     {CATEGORY_INFO[c.id] && (
@@ -544,7 +607,10 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                         ? answers.dataCategories.map((x) => x.id === c.id ? { ...x, enabled: true } : x)
                         : answers.dataCategories.filter((x) => x.id !== c.id),
                     })} />
-                  <b>{c.customLabel}</b>
+                  <b><EditableText value={c.customLabel ?? c.id} ariaLabel={`Rename category ${c.customLabel}`}
+                    onSave={(v) => set({
+                      dataCategories: answers.dataCategories.map((x) => x.id === c.id ? { ...x, customLabel: v } : x),
+                    })} /></b>
                   <span className="custom-badge">added category</span>
                 </label>
                 <input className="items" value={c.items} aria-label={`Data items for ${c.customLabel}`}
@@ -630,10 +696,11 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
             <h3>Why do you process the data? (purposes &amp; legal basis) <InfoBook topic="purposes" /></h3>
             <SectionNote section="purposes" />
             <p className="hint">Grouped by theme so you can find them faster. Each purpose sits under one legal basis in
-              the policy — the pre-set basis follows common ELSA practice; adjust if needed.</p>
+              the policy — the pre-set basis follows common ELSA practice; adjust if needed. Double-click a purpose to
+              fine-tune its wording (a single click never ticks the box).</p>
             {[...PURPOSE_GROUPS, 'Added / new purposes'].map((group) => {
               const groupPurposes = answers.purposes.filter((p) => {
-                const def = PURPOSE_SUGGESTIONS.find((s) => s.text === p.text);
+                const def = purposeDef(p.id);
                 // Custom/preset purposes join a matching theme, else "Added / new purposes"
                 return def ? def.group === group : groupForCustomPurpose(p.text) === group;
               });
@@ -660,7 +727,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                     </div>
                   )}
                   {groupPurposes.map((p) => {
-                    const isCustom = !PURPOSE_SUGGESTIONS.some((s) => s.text === p.text);
+                    const isCustom = !purposeDef(p.id);
                     return (
                       <div className={`purposeline ${p.enabled ? 'on' : ''}${mk(`purpose:${p.id}`)}`} key={p.id}
                         data-tip={purposeTip(p.id, p.basis)}>
@@ -671,7 +738,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                                 ? answers.purposes.map((x) => x.id === p.id ? { ...x, enabled: e.target.checked } : x)
                                 : answers.purposes.filter((x) => x.id !== p.id),
                             })} />
-                          {p.text}
+                          <EditableText value={p.text} ariaLabel={`Edit purpose: ${p.text}`}
+                            onSave={(v) => set({ purposes: answers.purposes.map((x) => x.id === p.id ? { ...x, text: v } : x) })} />
                         </label>
                         {p.enabled && (
                           <select className="basis-select" value={p.basis} aria-label={`Legal basis for: ${p.text}`}
@@ -706,6 +774,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
             <div className="grid2">
               <div>
                 <span className="fieldlabel collect-label">Within ELSA:</span>
+                <span className="hint">Your own Board, Team and OC are part of the controller — they are never listed
+                  as recipients (Handbook Ch. 4.2). List only other ELSA entities that actually receive data.</span>
                 {INTERNAL_RECIPIENT_OPTIONS.map((r) => {
                   const blockedReason = controllerMatchReason(r.label);
                   return (

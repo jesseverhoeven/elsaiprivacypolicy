@@ -109,6 +109,9 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
           printed page, giving the LeCercle layout — logo top-right, contact footer —
           without ever overlapping the body text. */}
       <div className="print-only">
+        {/* Hides the small running title on page 1 only — the big policy title is
+            already there. Absolute boxes don't repeat with the thead (see App.css). */}
+        <div className="print-head-cover" aria-hidden="true" />
         <table className="print-frame">
           <thead>
             <tr><td>
