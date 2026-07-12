@@ -3,7 +3,12 @@
  * The legal logic lives in data files (clauses, picklists) — see src/data/.
  */
 
-export type Audience = 'volunteers' | 'participants';
+/**
+ * '' = not chosen (the default) — the policy then uses neutral wording that fits
+ * both internal and external audiences (user decision 2026-07-12: never preselect;
+ * neutral is the safest, most widely applicable phrasing).
+ */
+export type Audience = 'volunteers' | 'participants' | '';
 
 export type LegalBasis =
   | 'contract'

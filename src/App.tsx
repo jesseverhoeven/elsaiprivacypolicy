@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Answers } from './types';
 import {
-  defaultAnswers, mergeAnalysis, applyPreset,
+  defaultAnswers, mergeAnalysis, applyPreset, applyUploadedPolicy,
   emptyIntake, loadSession, saveSession, clearSession, type IntakeState,
 } from './state';
+import { parseUploadedPolicy } from './logic/parsePolicy';
+import { toPresetEvent } from './data/presets';
 import { analyzeText, type AnalysisResult } from './logic/analyze';
 import { assemblePolicy } from './logic/assemble';
 import { LEGAL_DISCLAIMER, REVIEW_NOTICE, TEMPLATE_VERSION } from './data/clauses';
@@ -45,12 +47,30 @@ export default function App() {
     [assembled, edits],
   );
 
-  /** Step 1 → 2: apply the chosen preset (if any), scan all provided information, merge. */
+  /**
+   * Step 1 → 2: apply the chosen preset (if any), scan all provided information, merge.
+   * New event + an uploaded previous privacy policy: the upload is parsed structurally
+   * and its variable details are copied 1-on-1 into step 2, exactly like choosing a
+   * previous event (user request 2026-07-12). That structural copy is authoritative,
+   * so the keyword analyser (which only ever suggests) is skipped for it — otherwise
+   * it would re-scan the very policy we just parsed and add noisy duplicate notes.
+   */
   function handleContinue(presetId: string | null) {
-    const base = presetId ? applyPreset(presetId) : { answers: defaultAnswers(), marks: new Set<string>() };
+    let base = presetId ? applyPreset(presetId) : { answers: defaultAnswers(), marks: new Set<string>() };
+    let parsedUpload = false;
+    if (!presetId) {
+      const candidates = [
+        ...intake.files.filter((f) => !f.error).map((f) => ({ text: f.text, name: f.name })),
+        { text: intake.pasted, name: '' },
+      ];
+      for (const c of candidates) {
+        const parsed = c.text.trim() ? parseUploadedPolicy(c.text, c.name) : null;
+        if (parsed) { base = applyUploadedPolicy(toPresetEvent(parsed)); parsedUpload = true; break; }
+      }
+    }
     setPresetMarks(base.marks);
     const combined = [intake.files.map((f) => f.text).join('\n\n'), intake.pasted, intake.manual].join('\n\n');
-    if (combined.trim()) {
+    if (combined.trim() && !parsedUpload) {
       const result = analyzeText(combined);
       setAnalysis(result);
       setAnswers(mergeAnalysis(base.answers, result));

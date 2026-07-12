@@ -3,14 +3,15 @@ import {
   DATA_CATEGORY_DEFS, PURPOSE_SUGGESTIONS, SOURCE_OPTIONS,
   INTERNAL_RECIPIENT_OPTIONS, EXTERNAL_RECIPIENT_OPTIONS, DATA_SUBJECT_OPTIONS,
 } from './data/picklists';
-import { presetById, presetToPrefill } from './data/presets';
+import { presetById, presetToPrefill, type PresetEvent } from './data/presets';
 import type { AnalysisResult } from './logic/analyze';
 
 export function defaultAnswers(): Answers {
   const today = new Date().toISOString().slice(0, 10);
   return {
     activityTitle: '',
-    audience: 'participants',
+    // Never preselected: '' = neutral wording until the officer chooses (user decision 2026-07-12)
+    audience: '',
     controllerKind: 'controller',
     controller: { name: '', address: '', email: '', phone: '' },
     extraEmails: [],
@@ -68,13 +69,33 @@ function samePurpose(a: string, b: string): boolean {
  */
 export function applyPreset(id: string): { answers: Answers; marks: Set<string> } {
   const preset = presetById(id);
+  if (!preset) return { answers: defaultAnswers(), marks: new Set() };
+  return applyPresetEvent(preset, preset.id);
+}
+
+/**
+ * Same prefill for an UPLOADED previous policy (new event → upload under A):
+ * parsed variable details are copied 1-on-1 into step 2, exactly like choosing a
+ * previous event (user request 2026-07-12). presetId stays null — the preset-
+ * specific attention notes don't apply; the ↻ marks and hover tips do.
+ */
+export function applyUploadedPolicy(preset: PresetEvent): { answers: Answers; marks: Set<string> } {
+  const result = applyPresetEvent(preset, null, { exactPurposes: true });
+  result.answers.controllerCountry = /belgium|brussels/i.test(preset.controller.address) ? 'BE' : '';
+  return result;
+}
+
+function applyPresetEvent(
+  preset: PresetEvent,
+  presetId: string | null,
+  opts: { exactPurposes?: boolean } = {},
+): { answers: Answers; marks: Set<string> } {
   const answers = defaultAnswers();
   const marks = new Set<string>();
-  if (!preset) return { answers, marks };
 
   const prefill = presetToPrefill(preset);
   Object.assign(answers, structuredClone(prefill));
-  answers.presetId = preset.id;
+  answers.presetId = presetId;
 
   for (const key of Object.keys(prefill)) marks.add(`field:${key}`);
   for (const r of prefill.recipientsInternal ?? []) marks.add(`ri:${r}`);
@@ -107,6 +128,19 @@ export function applyPreset(id: string): { answers: Answers; marks: Set<string> 
     marks.add(`cat:${cid}`);
   }
   for (const p of preset.purposes) {
+    // Uploaded policy: add each purpose with its EXACT wording, in document order,
+    // as an "Added / new purpose" (user request 2026-07-12: literally copy-paste the
+    // uploaded policy's purposes). Only skip an exact (normalised) duplicate.
+    // Chosen previous event: fold into the matching built-in purpose to keep the
+    // Handbook theme grouping (unchanged behaviour).
+    if (opts.exactPurposes) {
+      const dup = answers.purposes.find((x) => x.enabled && samePurpose(x.text, p.text));
+      if (dup) { marks.add(`purpose:${dup.id}`); continue; }
+      const idp = `c-upload-${answers.purposes.length}`;
+      answers.purposes.push({ id: idp, text: p.text, basis: p.basis, enabled: true });
+      marks.add(`purpose:${idp}`);
+      continue;
+    }
     const existing = answers.purposes.find((x) => samePurpose(x.text, p.text));
     if (existing) { existing.enabled = true; existing.basis = p.basis; marks.add(`purpose:${existing.id}`); }
     else {
@@ -125,10 +159,10 @@ export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
   if (r.groupNames.length > 0 && !next.controller.name) next.controller.name = r.groupNames[0];
   if (r.emails.length > 0 && !next.controller.email) next.controller.email = r.emails[0];
   if (r.phones.length > 0 && !next.controller.phone) next.controller.phone = r.phones[0];
-  // The event name and the data categories are deliberately NOT pre-filled from free
-  // text — keyword guesses were too often wrong there (user feedback 2026-07-11).
-  // They surface as ⚠ suggestion notes in the matching step-2 sections instead.
-  if (r.audienceGuess) next.audience = r.audienceGuess;
+  // The event name, data categories and audience are deliberately NOT pre-filled
+  // from free text — keyword guesses were too often wrong there (user feedback
+  // 2026-07-11/12). They surface as ⚠ suggestion notes in step 2 instead; the
+  // audience stays neutral until the officer chooses.
   if (r.jotformLinks.length > 0 && !next.jotformLink) next.jotformLink = r.jotformLinks[0];
 
   for (const id of r.dataSubjectIds) {

@@ -368,7 +368,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
       <p className="icons-legend">
         <span>📖 click for the Handbook explanation of a topic</span>
         <span>💡 click for examples to judge whether something applies to your event</span>
-        {preset && <span><span className="from-preset-example">↻</span> = carried over from the previous policy — hover it for what typically changes</span>}
+        {(preset || presetMarks.size > 0) && <span><span className="from-preset-example">↻</span> = carried over from the previous policy — hover it for what typically changes</span>}
       </p>
       {detected.length > 0 && (
         <p className="lead">From your information the tool recognised: {detected.join(' · ')}. Everything below is a
@@ -376,6 +376,12 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           {preset && <> Values marked <span className="from-preset-example">↻</span> come from the approved {preset.name} policy;
           hover a marked item (↻) for what typically changes between editions.</>}
         </p>
+      )}
+      {!preset && presetMarks.size > 0 && (
+        <p className="lead">An uploaded previous privacy policy was recognised: everything marked{' '}
+          <span className="from-preset-example">↻</span> below was copied 1-on-1 from it — purposes, data categories
+          (with their exact items), data subjects, recipients, sources and transfers — the same way a previous event
+          pre-fills. Review each value: this edition may differ from the uploaded policy.</p>
       )}
       {preset && detected.length === 0 && (
         <p className="lead">Everything below is pre-filled from the previous <b>{preset.name}</b> policy
@@ -399,13 +405,16 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               </label>
               <label>Whom is the policy mainly for?
                 <select value={answers.audience} onChange={(e) => set({ audience: e.target.value as Answers['audience'] })}>
+                  <option value="">— not chosen: neutral wording, fits both (safest) —</option>
                   <option value="participants">External — event participants / guests (incl. ELSA members attending)</option>
                   <option value="volunteers">Internal — ELSA officers, volunteers or ELSA groups (recruitment, management, internal reporting)</option>
                 </select>
-                <span className="hint">This only affects the phrasing of a few template sentences (“participating in…” vs
-                  “volunteering with…”). ELSA members attending an event count as external participants; choose internal
-                  for officer recruitment/management or when ELSA International collects information from other ELSA
-                  groups (e.g. establishing an ICE, National Group Reports).</span>
+                <span className="hint">Never preselected. This only affects the phrasing of a few template sentences —
+                  unset, the policy uses neutral wording (e.g. “We collect personal data about you in different ways, as
+                  described within this privacy policy”) that fits internal and external alike. ELSA members attending an
+                  event count as external participants; choose internal for officer recruitment/management or when ELSA
+                  International collects information from other ELSA groups (e.g. establishing an ICE, National Group
+                  Reports).</span>
               </label>
             </div>
 

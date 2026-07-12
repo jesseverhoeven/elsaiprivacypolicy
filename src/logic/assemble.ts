@@ -54,8 +54,15 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   const blocks: PolicyBlock[] = [];
   const g = { groupName: a.controller.name, address: a.controller.address, activityTitle: a.activityTitle || 'the event' };
   const isJoint = a.controllerKind === 'joint';
-  const isParticipants = a.audience === 'participants';
-  const audDev = isParticipants ? 'audience-adaptation (user decision A) — verbatim volunteer original in clause library' : undefined;
+  // No audience chosen ('') → neutral wording that fits both internal and external
+  // (user decision 2026-07-12: audience is never preselected; neutral is the default).
+  const pick = <T,>(participants: T, volunteers: T, neutral: T): T =>
+    a.audience === 'participants' ? participants : a.audience === 'volunteers' ? volunteers : neutral;
+  const audDev = pick<string | undefined>(
+    'audience-adaptation (user decision A) — verbatim volunteer original in clause library',
+    undefined,
+    'neutral-audience-adaptation (no audience chosen — wording fits internal and external)',
+  );
 
   const push = (b: Omit<PolicyBlock, 'removed'>) => blocks.push(b);
 
@@ -124,7 +131,7 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({ id: 's1-h', kind: 'heading2', text: S1_ABOUT_US.heading, locked: true, source: SRC.A4_S1 });
   push({
     id: 's1-welcome', kind: 'paragraph',
-    text: fill(isParticipants ? S1_ABOUT_US.welcomeParticipants : S1_ABOUT_US.welcomeVolunteers, g),
+    text: fill(pick(S1_ABOUT_US.welcomeParticipants, S1_ABOUT_US.welcomeVolunteers, S1_ABOUT_US.welcomeNeutral), g),
     locked: true, source: `${SRC.A4_S1} · ${SRC.HB_42}`, deviation: audDev,
   });
   push({
@@ -168,23 +175,23 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({ id: 's2a-h', kind: 'heading3', text: S2_COLLECTION.catHeading, locked: true, source: SRC.A4_S2 });
   push({
     id: 's2a-intro', kind: 'paragraph',
-    text: fill(isParticipants ? S2_COLLECTION.catIntroParticipants : S2_COLLECTION.catIntroVolunteers, g),
+    text: fill(pick(S2_COLLECTION.catIntroParticipants, S2_COLLECTION.catIntroVolunteers, S2_COLLECTION.catIntroNeutral), g),
     locked: true, source: `${SRC.A4_S2} · ${SRC.HB_42} (Column I)`, deviation: audDev,
   });
   push({ id: 's2a-list', kind: 'bullets', bullets: enabledCategoryBullets(a), locked: false, source: `${SRC.A4_S2} “[copy list from above]” · ${SRC.HB_42} (Column I)` });
   push({
     id: 's2a-noobl', kind: 'paragraph',
-    text: fill(isParticipants ? S2_COLLECTION.noObligationParticipants : S2_COLLECTION.noObligationVolunteers, g),
+    text: fill(pick(S2_COLLECTION.noObligationParticipants, S2_COLLECTION.noObligationVolunteers, S2_COLLECTION.noObligationNeutral), g),
     locked: true, source: `${SRC.A4_S2} · GDPR Art. 13(2)(e)`, deviation: audDev,
   });
   push({ id: 's2b-h', kind: 'heading3', text: S2_COLLECTION.howHeading, locked: true, source: SRC.A4_S2 });
   push({
     id: 's2b-intro', kind: 'paragraph',
-    text: fill(isParticipants ? S2_COLLECTION.howIntroParticipants : S2_COLLECTION.howIntroVolunteers, g),
+    text: fill(pick(S2_COLLECTION.howIntroParticipants, S2_COLLECTION.howIntroVolunteers, S2_COLLECTION.howIntroNeutral), g),
     locked: true, source: `${SRC.A4_S2} · ${SRC.HB_42} (Columns J–K)`,
-    deviation: isParticipants
-      ? audDev
-      : 'neutral-internal-adaptation (Annex 4 recruitment phrasing does not fit every internal activity, user feedback 2026-07-12 — to be discussed with dataprotection@elsa.org)',
+    deviation: a.audience === 'volunteers'
+      ? 'neutral-internal-adaptation (Annex 4 recruitment phrasing does not fit every internal activity, user feedback 2026-07-12 — to be discussed with dataprotection@elsa.org)'
+      : audDev,
   });
   push({ id: 's2b-intro2', kind: 'paragraph', text: S2_COLLECTION.howIntro2, locked: true, source: SRC.A4_S2 });
   if (a.directSources.length > 0) {
@@ -212,7 +219,7 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     const purposes = a.purposes.filter((p) => p.enabled && p.basis === basis);
     if (purposes.length === 0) return [];
     const leadIn =
-      basis === 'contract' ? (isParticipants ? S3_LEGAL_BASIS.contractParticipants : S3_LEGAL_BASIS.contractVolunteers) :
+      basis === 'contract' ? pick(S3_LEGAL_BASIS.contractParticipants, S3_LEGAL_BASIS.contractVolunteers, S3_LEGAL_BASIS.contractNeutral) :
       basis === 'consent' ? S3_LEGAL_BASIS.consent :
       basis === 'legitimateInterest' ? S3_LEGAL_BASIS.legitimateInterest :
       S3_LEGAL_BASIS.legalObligation;

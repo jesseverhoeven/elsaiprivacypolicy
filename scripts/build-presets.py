@@ -58,6 +58,7 @@ STD_CATEGORIES = [
     ("transfer-details", ["transfer details", "travel details", "travel data"]),
     ("accommodation-details", ["accommodation"]),
     ("additional-services", ["additional services"]),
+    ("event-activity", ["event activity"]),
     ("photos-recordings", ["photograph", "recording", "image", "photo"]),
     ("communication-data", ["communication data"]),
     ("religious-beliefs", ["religious"]),

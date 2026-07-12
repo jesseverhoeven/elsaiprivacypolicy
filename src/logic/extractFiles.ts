@@ -22,10 +22,13 @@ export async function extractFileText(file: File): Promise<string> {
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
       const content = await page.getTextContent();
+      // hasEOL preserves the PDF's own visual line breaks (one line per line). The
+      // policy parser (parsePolicy.ts) reflows wrapped lines structurally — bullets
+      // never carry reliable extra spacing, so line breaks beat geometry here.
       pages.push(
         content.items
-          .map((it) => ('str' in it ? it.str : ''))
-          .join(' '),
+          .map((it) => ('str' in it ? it.str + (it.hasEOL ? '\n' : ' ') : ''))
+          .join(''),
       );
     }
     return pages.join('\n');

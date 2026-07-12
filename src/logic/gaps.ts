@@ -39,6 +39,9 @@ export function findGaps(a: Answers): Gap[] {
     if (!a.jointController.address.trim()) add('jointController.address', 'Address of the joint controller', 'Joint-controller contact details (Handbook Ch. 4.2).', false);
   }
   if (!a.controllerCountry) add('controllerCountry', 'Country of your group', 'Used to name your national supervisory authority in the follow-up advice.', false);
+  if (!a.audience)
+    add('audience', 'Whom is the policy mainly for (optional)',
+      'Unset, the policy uses neutral wording that fits internal and external audiences — choosing one makes a few sentences more specific.', false);
   if (a.dataSubjects.length === 0 && !a.dataSubjectsOther.trim())
     add('dataSubjects', 'Whose data is processed (data subjects)', 'Fills “This Policy applies to …” in §1 (Handbook Ch. 3.4.2).');
   if (!a.dataCategories.some((c) => c.enabled))

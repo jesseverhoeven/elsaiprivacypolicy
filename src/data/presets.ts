@@ -42,7 +42,7 @@ export interface PresetEvent {
   attentionPoints: AttentionPoint[];
 }
 
-interface GeneratedPreset {
+export interface GeneratedPreset {
   file: string; name: string; area: string; lastUpdated: string; audience: string;
   controller: { name: string; address: string; email: string; phone: string };
   subjects: string[];
@@ -195,26 +195,36 @@ function deriveAudience(p: GeneratedPreset): 'volunteers' | 'participants' {
   return 'participants';
 }
 
-export const PRESET_EVENTS: PresetEvent[] = (generated as GeneratedPreset[]).map((p) => ({
-  id: slug(p.name),
-  name: p.name,
-  area: p.area,
-  lastUpdated: p.lastUpdated,
-  sourceFile: p.file.split('\\').pop() ?? p.file,
-  audience: deriveAudience(p),
-  controller: p.controller,
-  subjects: p.subjects,
-  categories: p.categories,
-  customCategories: p.customCategories,
-  purposes: p.purposes.map((x) => ({ text: x.text, basis: x.basis as LegalBasis })),
-  recipients: p.recipients,
-  transfersOutsideEEA: p.transfersOutsideEEA,
-  thirdCountries: p.thirdCountries,
-  internationalOrgs: p.internationalOrgs,
-  directSources: p.directSources,
-  indirectSources: p.indirectSources,
-  attentionPoints: buildAttention(p),
-}));
+/**
+ * Convert a generated/parsed policy into a usable PresetEvent. Shared by the
+ * built-in preset list and by "new event → upload a previous policy" (parsePolicy),
+ * so an uploaded old policy prefills step 2 exactly like choosing a previous event
+ * (user request 2026-07-12).
+ */
+export function toPresetEvent(p: GeneratedPreset): PresetEvent {
+  return {
+    id: slug(p.name),
+    name: p.name,
+    area: p.area,
+    lastUpdated: p.lastUpdated,
+    sourceFile: p.file.split('\\').pop() ?? p.file,
+    audience: deriveAudience(p),
+    controller: p.controller,
+    subjects: p.subjects,
+    categories: p.categories,
+    customCategories: p.customCategories,
+    purposes: p.purposes.map((x) => ({ text: x.text, basis: x.basis as LegalBasis })),
+    recipients: p.recipients,
+    transfersOutsideEEA: p.transfersOutsideEEA,
+    thirdCountries: p.thirdCountries,
+    internationalOrgs: p.internationalOrgs,
+    directSources: p.directSources,
+    indirectSources: p.indirectSources,
+    attentionPoints: buildAttention(p),
+  };
+}
+
+export const PRESET_EVENTS: PresetEvent[] = (generated as GeneratedPreset[]).map(toPresetEvent);
 
 export const PRESET_AREAS: string[] = [...new Set(PRESET_EVENTS.map((p) => p.area))].sort();
 
@@ -239,7 +249,8 @@ export function presetToPrefill(p: PresetEvent): Partial<Answers> {
   }
   return {
     activityTitle: titleWithExpansion(p.name.split(' — ')[0]),
-    audience: p.audience,
+    // audience deliberately NOT prefilled — never preselected; neutral wording is
+    // used until the officer chooses (user decision 2026-07-12)
     controllerKind: 'controller',
     controller: { ...p.controller },
     controllerCountry: 'BE', // ELSA International policies; officer can change

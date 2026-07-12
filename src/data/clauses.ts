@@ -111,6 +111,9 @@ export const S1_ABOUT_US = {
   /** deviation: audience-adaptation (user decision A). */
   welcomeParticipants:
     'Welcome to our privacy policy ("privacy policy"), which outlines how we handle and safeguard your personal data when participating in {{activityTitle}} organised by ELSA {{groupName}}.',
+  /** deviation: neutral-audience-adaptation — used when no audience is chosen (user decision 2026-07-12). */
+  welcomeNeutral:
+    'Welcome to our privacy policy ("privacy policy"), which outlines how we handle and safeguard your personal data in connection with {{activityTitle}} organised by ELSA {{groupName}}.',
   /** Verbatim. */
   managedByController:
     'The data processing is managed by the European Law Students’ Association (ELSA) {{groupName}}, located at {{address}} (referred to as "the Association", "we", "our", or "us"). The Association is responsible for the data processing activities detailed in this policy and acts as the data controller.',
@@ -138,12 +141,18 @@ export const S2_COLLECTION = {
   /** deviation: audience-adaptation. */
   catIntroParticipants:
     'We gather and receive personal information for various purposes associated with the organisation of {{activityTitle}} and the management of its participants. Specifically, we process the following categories of personal data:',
+  /** deviation: neutral-audience-adaptation — used when no audience is chosen (user decision 2026-07-12). */
+  catIntroNeutral:
+    'We gather and receive personal information for various purposes associated with {{activityTitle}}. Specifically, we process the following categories of personal data:',
   /** Verbatim Annex 4 (volunteer audience) — also covers GDPR Art. 13(2)(e) consequences of not providing. */
   noObligationVolunteers:
     'You are under no obligation to provide your personal data. Nonetheless, it’s important to be aware that we cannot recruit you or work with you without the essential personal data required to fulfil the contractual obligations between you and us.',
   /** deviation: audience-adaptation. */
   noObligationParticipants:
     'You are under no obligation to provide your personal data. Nonetheless, it’s important to be aware that we cannot register you for or provide you with {{activityTitle}} without the essential personal data required to fulfil the contractual obligations between you and us.',
+  /** deviation: neutral-audience-adaptation — used when no audience is chosen (user decision 2026-07-12). */
+  noObligationNeutral:
+    'You are under no obligation to provide your personal data. Nonetheless, it’s important to be aware that without the essential personal data we may be unable to fulfil the contractual obligations between you and us in connection with {{activityTitle}}.',
   howHeading: 'How we collect personal data',
   /**
    * deviation: neutral-internal-adaptation — Annex 4 reads "starting from the
@@ -157,6 +166,9 @@ export const S2_COLLECTION = {
   /** deviation: audience-adaptation. */
   howIntroParticipants:
     'We collect personal data about you in different ways, starting from your registration to your participation in {{activityTitle}}.',
+  /** deviation: neutral-audience-adaptation — safest, most widely applicable phrasing (user decision 2026-07-12). */
+  howIntroNeutral:
+    'We collect personal data about you in different ways, as described within this privacy policy.',
   /** Verbatim. */
   howIntro2: 'In particular, we collect personal data either directly or indirectly from you.',
   directHeading: 'Direct Collection',
@@ -174,6 +186,9 @@ export const S3_LEGAL_BASIS = {
   /** deviation: audience-adaptation. */
   contractParticipants:
     'Contractual Obligations: We collect and process personal data about you as a participant to register you and manage your participation. In particular, we rely on contractual obligations, to:',
+  /** deviation: neutral-audience-adaptation — used when no audience is chosen (user decision 2026-07-12). */
+  contractNeutral:
+    'Contractual Obligations: We collect and process personal data about you to fulfil the agreement between you and us. In particular, we rely on contractual obligations, to:',
   consent:
     'Consent: We may rely on your voluntary consent, which you provided to us when sharing your personal data. In particular, we rely on your consent, to the extent agreed in the declaration of consent, to:',
   // Label singular ("Legitimate Interest") — one legal basis, however many purposes rest
