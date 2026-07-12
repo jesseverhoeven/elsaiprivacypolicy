@@ -271,7 +271,10 @@ def parse_policy(path: Path, root: Path):
             if matched:
                 current = matched
                 continue
-            if current and (is_list or t.startswith("To ") or t.startswith("to ")) and 5 < len(t) < 300:
+            # Cap raised to 600: some purposes are long single sentences, e.g. the AHRC
+            # Spotlight "To share these photos to ELSA International … promotional materials"
+            # (user report 2026-07-12) was dropped by the old 300-char cap.
+            if current and (is_list or t.startswith("To ") or t.startswith("to ")) and 5 < len(t) < 600:
                 if re.match(r"^(you may|the withdrawal|in particular|we |where you)", t, re.I):
                     continue
                 purposes.append({"text": t.rstrip(";.").strip(), "basis": current})

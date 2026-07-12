@@ -51,6 +51,10 @@
     "basis": "consent"
    },
    {
+    "text": "To share these photos to ELSA International in order to use the above photographs for promotional purposes related to ELSA for up to 7 years. In particular to use and publish the above photographs and videos of you in various media outlets, including but not limited to, websites, social media (e.g. AHRC Spotlight Post), and promotional materials",
+    "basis": "consent"
+   },
+   {
     "text": "Notify you about changes to our Privacy Policy",
     "basis": "legalObligation"
    },
@@ -1071,7 +1075,7 @@
   "area": "BEE",
   "lastUpdated": "2024-08-28",
   "rank": 1,
-  "audience": "participants",
+  "audience": "volunteers",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
@@ -1210,6 +1214,10 @@
   "purposes": [
    {
     "text": "To register and manage your participation in LeCercle Supporters",
+    "basis": "contract"
+   },
+   {
+    "text": "To process and manage your contribution, including one-off and recurring payments, subscriptions, cancellations and related administrative matters. Where you select a recurring contribution, the recurring charge is performed by our payment service provider on the basis of the payment mandate you grant during registration",
     "basis": "contract"
    },
    {
@@ -1378,7 +1386,7 @@
   "area": "Competitions",
   "lastUpdated": "2025-08-15",
   "rank": 3,
-  "audience": "volunteers",
+  "audience": "participants",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
@@ -1485,7 +1493,7 @@
   "area": "Competitions",
   "lastUpdated": "2025-08-28",
   "rank": 3,
-  "audience": "volunteers",
+  "audience": "participants",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
@@ -1722,7 +1730,7 @@
   "area": "Competitions",
   "lastUpdated": "2025-08-15",
   "rank": 3,
-  "audience": "volunteers",
+  "audience": "participants",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
@@ -1823,7 +1831,7 @@
   "area": "Competitions",
   "lastUpdated": "2025-08-28",
   "rank": 3,
-  "audience": "volunteers",
+  "audience": "participants",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",
@@ -3410,7 +3418,7 @@
   "area": "IM",
   "lastUpdated": "2025-08-01",
   "rank": 3,
-  "audience": "participants",
+  "audience": "volunteers",
   "controller": {
    "name": "International",
    "address": "239 Boulevard Général Jacques 1050 Ixelles, Brussels, Belgium",

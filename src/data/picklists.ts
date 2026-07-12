@@ -245,9 +245,14 @@ export const PURPOSE_SUGGESTIONS: { text: string; basis: LegalBasis; group: Purp
   { text: 'To contact you', basis: 'contract', group: 'Registration & communication', keywords: ['contact you', 'send you', 'inform you'] },
   { text: 'To communicate with you regarding your participation, requests or inquiries', basis: 'contract', group: 'Registration & communication', keywords: ['inquir', 'question', 'support'] },
   { text: 'Identify qualifications and previous experiences', basis: 'contract', group: 'Registration & communication', keywords: ['qualification', 'experience', 'cv', 'motivation letter'] },
+  { text: 'To answer your inquiries and provide support', basis: 'contract', group: 'Registration & communication', keywords: ['support', 'inquir', 'help you'] },
+  { text: 'To inform you about the outcome of your application(s)', basis: 'contract', group: 'Registration & communication', keywords: ['outcome', 'selection result', 'application result'] },
+  { text: 'To offer, waitlist or decline your application', basis: 'contract', group: 'Registration & communication', keywords: ['waitlist', 'decline', 'offer', 'selection'] },
 
   { text: 'Organise the academic and social programme', basis: 'contract', group: 'Event logistics', keywords: ['programme', 'program', 'workshop', 'agenda', 'schedule'] },
   { text: 'To provide accommodation', basis: 'contract', group: 'Event logistics', keywords: ['accommodation', 'hotel', 'hostel', 'room'] },
+  { text: 'To provide participants with attendance or participation certificates', basis: 'contract', group: 'Event logistics', keywords: ['certificate', 'attendance certificate', 'diploma'] },
+  { text: 'To facilitate and resolve visa matters for international participants', basis: 'contract', group: 'Event logistics', keywords: ['visa', 'invitation letter', 'immigration'] },
 
   { text: 'To provide meals adapted to dietary restrictions and allergies', basis: 'consent', group: 'Medical & dietary', keywords: ['dietary', 'allerg', 'meal', 'food'] },
   { text: 'To process health data in order to accommodate medical, accessibility and other special requirements during the event', basis: 'consent', group: 'Medical & dietary', keywords: ['medical', 'accessibility', 'wheelchair', 'medication', 'special requirement'] },
@@ -255,20 +260,27 @@ export const PURPOSE_SUGGESTIONS: { text: string; basis: LegalBasis; group: Purp
   { text: 'To contact your emergency contact in case of emergency', basis: 'vitalInterests', group: 'Event logistics', keywords: ['emergency'] },
 
   { text: 'Publish your photos on our website and social media pages', basis: 'consent', group: 'Media & publicity', keywords: ['photo', 'picture', 'social media', 'video'] },
+  { text: 'To use and publish photographs and video recordings of you in our media outlets, including our website, social media and promotional materials', basis: 'consent', group: 'Media & publicity', keywords: ['promotional material', 'media outlet', 'publish photo'] },
   { text: 'To share relevant information about ELSA, its projects, activities or opportunities', basis: 'legitimateInterest', group: 'Media & publicity', keywords: ['newsletter', 'promote', 'opportunities'] },
 
   { text: 'To process and manage payments, including related administrative matters', basis: 'contract', group: 'Finance & administration', keywords: ['payment', 'fee', 'iban', 'invoice', 'contribution'] },
+  { text: 'To obtain payment of the participation fee', basis: 'contract', group: 'Finance & administration', keywords: ['participation fee', 'registration fee', 'deposit'] },
+  { text: 'To manage travel arrangements and reimburse expenses related to your tasks', basis: 'legitimateInterest', group: 'Finance & administration', keywords: ['reimburse', 'expenses', 'travel arrangement'] },
   { text: 'To keep records of participants and their registrations', basis: 'legitimateInterest', group: 'Finance & administration', keywords: ['records', 'administration'] },
   { text: 'Manage our human resources', basis: 'legitimateInterest', group: 'Finance & administration', keywords: ['human resources', 'recruit', 'volunteer management'] },
 
   { text: 'To transfer your personal data to international organisations with whom we collaborate', basis: 'consent', group: 'Community & network', keywords: ['council of europe', 'international organisation'] },
+  { text: 'To manage the international network of ELSA', basis: 'contract', group: 'Community & network', keywords: ['international network', 'network of elsa'] },
+  { text: 'To give access to a voting or event platform to authorised representatives', basis: 'legitimateInterest', group: 'Community & network', keywords: ['voting platform', 'voting', 'authorised representative'] },
   { text: 'To send you an invitation link to a group chat, where you have requested this', basis: 'consent', group: 'Community & network', keywords: ['whatsapp', 'group chat', 'invitation link'] },
   { text: 'To maintain and improve our events', basis: 'legitimateInterest', group: 'Community & network', keywords: ['improve', 'feedback', 'evaluation'] },
+  { text: 'To improve and establish excellent workflows within ELSA', basis: 'legitimateInterest', group: 'Community & network', keywords: ['workflow', 'internal process', 'optimise'] },
   { text: 'To keep our forms, platforms and systems secure and functioning properly', basis: 'legitimateInterest', group: 'Community & network', keywords: ['secure', 'security of our'] },
 
   { text: 'Notify you about changes to our Privacy Policy', basis: 'legalObligation', group: 'Compliance & legal', keywords: [] },
   { text: 'Comply with applicable legal, tax, accounting or regulatory obligations', basis: 'legalObligation', group: 'Compliance & legal', keywords: ['legislation', 'legal requirement', 'tax', 'accounting'] },
   { text: 'To establish, exercise or defend legal claims and protect the rights and interests of ELSA', basis: 'legalObligation', group: 'Compliance & legal', keywords: ['claims'] },
+  { text: 'The legal enforcement of claims and rights', basis: 'legalObligation', group: 'Compliance & legal', keywords: ['enforcement', 'legal claim'] },
 ];
 
 /** HB Ch. 4.3.2 — consent-banner checklist (shown with the Art. 9 safeguard and in follow-up advice). */

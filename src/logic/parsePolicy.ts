@@ -102,7 +102,11 @@ function reflowByParens(items: string[]): string[] {
   return out;
 }
 
-/** Imperative verbs an ELSA purpose can start with. */
+/**
+ * Imperative verbs an ELSA purpose can start with WITHOUT a "To " prefix (i.e. bare
+ * table cells like "Record and use…", "Notify you…"). "To …" bullets are recognised
+ * separately, so this list only needs the bare-verb forms actually seen in policies.
+ */
 const VERB_WORDS = new Set([
   'record', 'identify', 'communicate', 'assess', 'keep', 'maintain', 'comply', 'notify', 'establish',
   'provide', 'organise', 'organize', 'manage', 'process', 'contact', 'publish', 'send', 'share', 'transfer',
@@ -111,32 +115,38 @@ const VERB_WORDS = new Set([
   'support', 'enable', 'inform', 'create', 'develop', 'conduct', 'review', 'report', 'update', 'track',
   'allow', 'grant', 'issue', 'prepare', 'receive', 'obtain', 'protect', 'prevent', 'detect', 'carry',
   'fulfil', 'fulfill', 'meet', 'administer', 'run', 'host', 'award', 'select', 'assign',
+  'participate', 'answer', 'photograph', 'gather', 'apply', 'attend', 'cover', 'feature', 'post', 'take',
 ]);
 
-/**
- * A line STARTS a new purpose when it begins with an imperative verb. The verb must
- * be capitalised (real purpose starts are — "Record…", "Communicate…"), unless the
- * line opens with "To …". This is what separates a genuine new purpose from a
- * wrapped continuation such as "contact person, where…" (lower-case noun) or a
- * lead-in fragment such as "comply with legal…" (lower-case, mid-sentence).
- */
-function startsPurpose(line: string): boolean {
-  const m = /^(to\s+)?([A-Za-z]+)/.exec(line.trim());
-  if (!m) return false;
-  if (!m[1] && !/^[A-Z]/.test(m[2])) return false;
-  return VERB_WORDS.has(m[2].toLowerCase());
+/** A "To …" bullet (capital T) — the infinitive form used for most ELSA purposes. */
+function toPrefixed(line: string): boolean {
+  return /^To\s+\S/.test(line.trim());
 }
 
-/** A line ending in a conjunction/article/preposition/comma is clearly unfinished. */
-const DANGLING = /(\b(and|or|the|of|to|their|its|our|your|a|an|for|with|in|on|at|by|from|as)|,)$/i;
+/** A bare imperative-verb start ("Record …", "Notify …") — must be capitalised. */
+function verbStart(line: string): boolean {
+  const m = /^([A-Z][a-z]+)/.exec(line.trim());
+  return !!m && VERB_WORDS.has(m[1].toLowerCase());
+}
+
+/**
+ * Does this line begin a NEW purpose (vs. continue the previous one)? True when it
+ * is a "To …" bullet, a capitalised imperative verb, or the previous purpose already
+ * ended in terminal punctuation (";" / "."). This handles both prose §3 (one bullet
+ * per paragraph, e.g. "To share these photos…") and wrapped PDF tables (a purpose
+ * spread over several visual lines that carry no terminal punctuation).
+ */
+function isPurposeStart(line: string, prevText: string | undefined): boolean {
+  if (toPrefixed(line) || verbStart(line)) return true;
+  if (prevText !== undefined && /[;.]$/.test(prevText)) return true;
+  return false;
+}
 
 function reflowVerbBullets(items: string[]): string[] {
   const out: string[] = [];
   for (const line of items) {
     const prev = out[out.length - 1];
-    // Join a continuation line onto the previous purpose when it doesn't itself start
-    // a new purpose OR the previous line is clearly unfinished (ends "…and" / "…," etc.).
-    if (prev !== undefined && (!startsPurpose(line) || DANGLING.test(prev))) out[out.length - 1] = `${prev} ${line}`;
+    if (prev !== undefined && !isPurposeStart(line, prev)) out[out.length - 1] = `${prev} ${line}`;
     else out.push(line);
   }
   return out.map((s) => s.trim());
@@ -207,11 +217,17 @@ function basisLabel(line: string): string | null {
 const S3_STOP = /^(you may|you have|the withdrawal|please note|for more|we will|we may withdraw|if you)/i;
 
 /**
- * Parse the §3 "Legal Basis and Purposes" table/section into {text, basis} pairs,
- * reading the basis 1-on-1 from the uploaded document (user request 2026-07-12).
- * pdf.js emits the table cell-by-cell in reading order — basis label, its lead-in
- * prose (starts "We", ends "…to:"), then its purposes — so we skip the lead-in and
- * collect verb-led purposes (reflowing wrapped lines) under the current basis.
+ * Parse the §3 "Legal Basis and Purposes" section into {text, basis} pairs, reading
+ * the basis 1-on-1 from the uploaded document (user request 2026-07-12). Handles both
+ * layouts:
+ *  - PROSE (DOCX): the lead-in is on the basis-label paragraph itself, which ends
+ *    with ":" ("Contractual Obligations: We … obligations:"), and each purpose is its
+ *    own paragraph ("To participate…;", "To share these photos…;").
+ *  - TABLE (PDF): pdf.js emits the cell contents in order — a bare basis label
+ *    ("Consent"), then a separate lead-in block ("We … to:"), then the purposes wrapped
+ *    across visual lines.
+ * So: when the label line ends in ":" collect immediately; otherwise skip the lead-in
+ * block until the first purpose. A line starts a new purpose per isPurposeStart().
  */
 function parseLegalBasisTable(lines: string[], start: number, end: number): { text: string; basis: string }[] {
   const res: { text: string; basis: string }[] = [];
@@ -221,15 +237,15 @@ function parseLegalBasisTable(lines: string[], start: number, end: number): { te
     const line = raw.trim();
     if (!line) continue;
     const b = basisLabel(line);
-    if (b) { current = b; collecting = false; continue; }
+    if (b) { current = b; collecting = /:\s*$/.test(line); continue; } // prose lead-in ends ":" → purposes follow
     if (!current) continue;
     if (S3_STOP.test(line)) { current = null; collecting = false; continue; } // end of table
     if (!collecting) {
-      if (!startsPurpose(line)) continue; // skip label remainder + lead-in prose
+      if (!(toPrefixed(line) || verbStart(line))) continue; // skip label remainder + lead-in prose
       collecting = true;
     }
     const prev = res[res.length - 1];
-    if (prev && prev.basis === current && (!startsPurpose(line) || DANGLING.test(prev.text))) {
+    if (prev && prev.basis === current && !isPurposeStart(line, prev.text)) {
       prev.text = `${prev.text} ${line}`;
     } else {
       res.push({ text: line, basis: current });
@@ -332,7 +348,7 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
     const end = idx['summary_rights'] ?? idx['about'] ?? lines.length;
     const raw = rangeLines(lines, idx['summary_purposes'] + 1, end);
     for (const b of reflowVerbBullets(raw)) {
-      if (startsPurpose(b)) addPurpose(b, guessBasis(b));
+      if (toPrefixed(b) || verbStart(b)) addPurpose(b, guessBasis(b));
     }
   }
 
