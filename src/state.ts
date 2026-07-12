@@ -152,10 +152,9 @@ export function mergeAnalysis(a: Answers, r: AnalysisResult): Answers {
     const label = EXTERNAL_RECIPIENT_OPTIONS.find((s) => s.id === id)?.label;
     if (label && !next.recipientsExternal.includes(label)) next.recipientsExternal.push(label);
   }
-  for (const text of r.purposeTexts) {
-    const p = next.purposes.find((p) => p.text === text);
-    if (p) p.enabled = true;
-  }
+  // Purposes are NOT auto-ticked from free text — keyword guesses were too easily
+  // wrong (user bug report 2026-07-12: template boilerplate ticked "Manage our
+  // human resources"). They appear as a ⚠ suggestion note in the purposes section.
   if (r.thirdCountries.length > 0) {
     next.transfersOutsideEEA = true;
     for (const c of r.thirdCountries) {

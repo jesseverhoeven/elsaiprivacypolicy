@@ -265,6 +265,13 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           ? { status: 'ok', text: 'Checked against the information you provided — every data category it mentions is ticked.' }
           : { status: 'warn', text: `Your information mentions: ${missing.map((id) => DATA_CATEGORY_DEFS.find((d) => d.id === id)?.label ?? id).join(', ')} — deliberately not pre-ticked; tick the ones you actually collect.` });
       }
+      if (section === 'purposes' && analysis.purposeTexts.length > 0) {
+        // Purposes are never auto-ticked from free text — suggested here instead.
+        const missing = analysis.purposeTexts.filter((t) => !answers.purposes.some((p) => p.enabled && p.text === t));
+        checks.push(missing.length === 0
+          ? { status: 'ok', text: 'Checked against the information you provided — the purposes it suggests are all ticked.' }
+          : { status: 'warn', text: `Your information suggests these purposes (deliberately not pre-ticked): ${missing.map((t) => `“${t}”`).join('; ')} — tick the ones that apply.` });
+      }
       if (section === 'recipients' && analysis.externalRecipientIds.length > 0) {
         const labels = analysis.externalRecipientIds
           .map((id) => EXTERNAL_RECIPIENT_OPTIONS.find((o) => o.id === id)?.label)
@@ -345,6 +352,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
         analysis.groupNames.length > 0 && `ELSA group “${analysis.groupNames[0]}”`,
         analysis.activityTitleGuess && `event “${analysis.activityTitleGuess}”`,
         analysis.dataCategoryIds.length > 0 && `${analysis.dataCategoryIds.length} data categories`,
+        analysis.purposeTexts.length > 0 && `${analysis.purposeTexts.length} likely purposes`,
         analysis.sourceIds.length > 0 && `${analysis.sourceIds.length} data sources`,
         analysis.externalRecipientIds.length > 0 && `${analysis.externalRecipientIds.length} third-party recipients`,
         analysis.art9Signals.length > 0 && `⚠ possible sensitive (Art. 9) data`,

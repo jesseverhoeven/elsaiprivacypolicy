@@ -10,6 +10,52 @@ import {
   INTERNAL_RECIPIENT_OPTIONS, EXTERNAL_RECIPIENT_OPTIONS,
   PURPOSE_SUGGESTIONS, ART9_SIGNALS, COMMON_THIRD_COUNTRIES, EEA_COUNTRIES,
 } from '../data/picklists';
+import {
+  SUMMARY, S1_ABOUT_US, S2_COLLECTION, S3_LEGAL_BASIS, S4_RETENTION,
+  S5_TRANSFERS, S6_SECURITY, S7_RIGHTS, S8_CHANGES, S9_CONTACT,
+} from '../data/clauses';
+
+/**
+ * Officers often upload a PREVIOUS PRIVACY POLICY as the information source. Its
+ * fixed template prose must never count as evidence — e.g. the Annex 4 boilerplate
+ * "…associated with recruitment and management of the volunteers…" matched the
+ * keyword "recruit" and wrongly ticked "Manage our human resources" (user bug
+ * report 2026-07-12). Every fixed clause sentence (and known legacy template
+ * wording no longer in the clause library) is stripped from the text before any
+ * keyword scanning; only the event-specific, variable parts remain as signal.
+ */
+const TEMPLATE_FRAGMENTS: string[] = (() => {
+  const sections: Record<string, unknown>[] = [
+    SUMMARY, S1_ABOUT_US, S2_COLLECTION, S3_LEGAL_BASIS, S4_RETENTION,
+    S5_TRANSFERS, S6_SECURITY, S7_RIGHTS, S8_CHANGES, S9_CONTACT,
+  ];
+  const legacy = [
+    // Pre-2026 Annex 4 wording, replaced by neutral phrasing in the clause library
+    'We collect personal data about you in different ways, starting from the recruitment phase to your subsequent inclusion in our team.',
+  ];
+  const out: string[] = [];
+  const texts = sections
+    .flatMap((sec) => Object.values(sec))
+    .flatMap((v) => (Array.isArray(v) ? v : typeof v === 'string' ? [v] : []))
+    .concat(legacy);
+  for (const t of texts) {
+    // Split on placeholders and apostrophes (PDF extraction can garble the latter)
+    for (const frag of t.split(/\{\{[^}]*\}\}|[’']/)) {
+      const f = frag.replace(/\s+/g, ' ').trim().toLowerCase();
+      if (f.length >= 30 && !out.includes(f)) out.push(f);
+    }
+  }
+  return out;
+})();
+
+/** Remove every fixed template sentence from the (lower-cased) text. */
+function stripTemplateBoilerplate(lower: string): string {
+  let result = lower;
+  for (const f of TEMPLATE_FRAGMENTS) {
+    if (result.includes(f)) result = result.split(f).join(' ');
+  }
+  return result;
+}
 
 export interface AnalysisResult {
   emails: string[];
@@ -73,7 +119,9 @@ function findKeyword(text: string, keywords: string[]): string | null {
 
 export function analyzeText(raw: string): AnalysisResult {
   const text = raw.replace(/\s+/g, ' ');
-  const lower = text.toLowerCase();
+  // Keyword scans run on boilerplate-free text; `text` keeps everything for the
+  // extraction of variable data (names, e-mails, links, the event title).
+  const lower = stripTemplateBoilerplate(text.toLowerCase().replace(/[’‘]/g, "'"));
   const evidence: Record<string, string> = {};
 
   const emails = [...new Set(text.match(EMAIL_RE) ?? [])];
