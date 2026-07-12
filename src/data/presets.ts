@@ -255,12 +255,16 @@ export function presetToPrefill(p: PresetEvent): Partial<Answers> {
   for (const c of p.thirdCountries) {
     if (INTERNATIONAL_ORG_RE.test(c) && !orgs.includes(c)) orgs.push(c);
   }
+  // Blank unfilled template placeholders (e.g. "[Address]", "[Country]") so a field
+  // shows as empty-to-fill instead of literal brackets in the policy (user note 2026-07-12).
+  const noPlaceholder = (v: string) => (/^\[.*\]$/.test(v.trim()) ? '' : v);
+  const c = p.controller;
   return {
     activityTitle: titleWithExpansion(p.name.split(' — ')[0]),
     // audience deliberately NOT prefilled — never preselected; neutral wording is
     // used until the officer chooses (user decision 2026-07-12)
     controllerKind: 'controller',
-    controller: { ...p.controller },
+    controller: { name: noPlaceholder(c.name), address: noPlaceholder(c.address), email: noPlaceholder(c.email), phone: noPlaceholder(c.phone) },
     controllerCountry: 'BE', // ELSA International policies; officer can change
     directSources: p.directSources,
     indirectSources: p.indirectSources,
