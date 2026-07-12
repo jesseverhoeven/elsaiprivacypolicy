@@ -361,6 +361,24 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
       if (s && !subjects.some((x) => x.toLowerCase() === s.toLowerCase())) subjects.push(s);
     }
   }
+  // ELSA event policies almost never enumerate their data subjects in the text — the
+  // audience is encoded in the file name instead ("Privacy Policy - Coaches _ …",
+  // "… — Participants"). Derive the subject from there when the body gave nothing, so
+  // "Whose data do you process?" is still pre-filled (audit 2026-07-12).
+  if (subjects.length === 0) {
+    // Normalise separators first — file names use "_" and "-", which block \b matches.
+    const m = /\b(participants?|coaches|judges|panell?ists?|trainers?|facilitators?|national coordinators?|coordinators?|officers?|alumni|applicants?|submissions?|providers?|delegates?|speakers?|members?|guests?|representatives?)\b/i
+      .exec(filename.replace(/[_\-.]+/g, ' '));
+    if (m) {
+      const w = m[1].toLowerCase();
+      const cap = w.charAt(0).toUpperCase() + w.slice(1);
+      subjects.push(cap);
+      // The descriptor is the audience, not part of the event title — drop it from the
+      // front of the derived name ("Coaches Helga Pedersen…" → "Helga Pedersen…").
+      const lead = new RegExp(`^${cap}\\s+`, 'i');
+      if (lead.test(name) && name.replace(lead, '').trim().length >= 3) name = name.replace(lead, '').trim();
+    }
+  }
 
   // ---- recipients
   let recipients: string[] = [];
