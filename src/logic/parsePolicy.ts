@@ -102,13 +102,30 @@ function reflowByParens(items: string[]): string[] {
   return out;
 }
 
+/** Imperative verbs an ELSA purpose can start with. */
+const VERB_WORDS = new Set([
+  'record', 'identify', 'communicate', 'assess', 'keep', 'maintain', 'comply', 'notify', 'establish',
+  'provide', 'organise', 'organize', 'manage', 'process', 'contact', 'publish', 'send', 'share', 'transfer',
+  'register', 'collect', 'handle', 'use', 'ensure', 'facilitate', 'verify', 'store', 'analyse', 'analyze',
+  'improve', 'respond', 'monitor', 'evaluate', 'coordinate', 'promote', 'distribute', 'arrange', 'deliver',
+  'support', 'enable', 'inform', 'create', 'develop', 'conduct', 'review', 'report', 'update', 'track',
+  'allow', 'grant', 'issue', 'prepare', 'receive', 'obtain', 'protect', 'prevent', 'detect', 'carry',
+  'fulfil', 'fulfill', 'meet', 'administer', 'run', 'host', 'award', 'select', 'assign',
+]);
+
 /**
- * ELSA purposes start with an imperative verb ("Record…", "Identify…", "To
- * contact…"). A wrapped continuation line does not, so join any non-verb line onto
- * the previous purpose — recovering each purpose verbatim from wrapped PDF text.
+ * A line STARTS a new purpose when it begins with an imperative verb. The verb must
+ * be capitalised (real purpose starts are — "Record…", "Communicate…"), unless the
+ * line opens with "To …". This is what separates a genuine new purpose from a
+ * wrapped continuation such as "contact person, where…" (lower-case noun) or a
+ * lead-in fragment such as "comply with legal…" (lower-case, mid-sentence).
  */
-const PURPOSE_VERB =
-  /^(to\s+)?(record|identify|communicate|assess|keep|maintain|comply|notify|establish|provide|organi[sz]e|manage|process|contact|publish|send|share|transfer|register|collect|handle|use|ensure|facilitate|verify|store|analy[sz]e|improve|respond|monitor|evaluate|coordinate|promote|distribute|arrange|deliver|support|enable|inform|create|develop|conduct|review|report|update|track|allow|grant|issue|prepare|receive|obtain|protect|prevent|detect|carry out|fulfil|meet|administer|run|host|award|select|assign|record)\b/i;
+function startsPurpose(line: string): boolean {
+  const m = /^(to\s+)?([A-Za-z]+)/.exec(line.trim());
+  if (!m) return false;
+  if (!m[1] && !/^[A-Z]/.test(m[2])) return false;
+  return VERB_WORDS.has(m[2].toLowerCase());
+}
 
 /** A line ending in a conjunction/article/preposition/comma is clearly unfinished. */
 const DANGLING = /(\b(and|or|the|of|to|their|its|our|your|a|an|for|with|in|on|at|by|from|as)|,)$/i;
@@ -118,9 +135,8 @@ function reflowVerbBullets(items: string[]): string[] {
   for (const line of items) {
     const prev = out[out.length - 1];
     // Join a continuation line onto the previous purpose when it doesn't itself start
-    // a new purpose (no imperative verb) OR the previous line is clearly unfinished
-    // (ends "…and" / "…," etc.) — the latter guards nouns like "contact persons".
-    if (prev !== undefined && (!PURPOSE_VERB.test(line) || DANGLING.test(prev))) out[out.length - 1] = `${prev} ${line}`;
+    // a new purpose OR the previous line is clearly unfinished (ends "…and" / "…," etc.).
+    if (prev !== undefined && (!startsPurpose(line) || DANGLING.test(prev))) out[out.length - 1] = `${prev} ${line}`;
     else out.push(line);
   }
   return out.map((s) => s.trim());
@@ -164,13 +180,63 @@ function splitCategory(b: string): { id?: string; custom?: string; items: string
   return { custom: label, items: items.trim() };
 }
 
-/** Basis lead-ins — prose ("Consent: We may rely…") or bare table label ("Consent"). */
-const BASIS_HEADS: [string, RegExp][] = [
-  ['contract', /^contractual obligations?\s*(:|$|we\b)/i],
-  ['consent', /^consent\s*(:|$|we\b)/i],
-  ['legitimateInterest', /^legitimate interests?\s*(:|$|we\b)/i],
-  ['legalObligation', /^legal (compliance|obligations?)\s*(:|$|we\b)/i],
-];
+/**
+ * Detect the legal-basis of a §3 line — prose header ("Consent: We may rely…"),
+ * full table label ("Legitimate Interests"), or the first word of a wrapped table
+ * label ("Legitimate" / "Legal" / "Contractual"). Returns null for the "Legal basis
+ * | Purposes" header row and for anything that isn't a basis.
+ */
+function basisLabel(line: string): string | null {
+  const l = line.toLowerCase().trim();
+  if (/^legal basis\b/.test(l)) return null; // "Legal basis   Purposes" header
+  const m = /^(contractual obligations?|consent|legitimate interests?|legal (?:compliance|obligations?))\b/.exec(l);
+  if (m) {
+    if (m[1].startsWith('contractual')) return 'contract';
+    if (m[1].startsWith('consent')) return 'consent';
+    if (m[1].startsWith('legitimate')) return 'legitimateInterest';
+    return 'legalObligation';
+  }
+  // Wrapped table label: first word only on its own short line
+  if (l === 'legitimate') return 'legitimateInterest';
+  if (l === 'legal') return 'legalObligation';
+  if (l === 'contractual') return 'contract';
+  return null;
+}
+
+/** Post-table LeCercle paragraphs / prose that must end purpose collection in §3. */
+const S3_STOP = /^(you may|you have|the withdrawal|please note|for more|we will|we may withdraw|if you)/i;
+
+/**
+ * Parse the §3 "Legal Basis and Purposes" table/section into {text, basis} pairs,
+ * reading the basis 1-on-1 from the uploaded document (user request 2026-07-12).
+ * pdf.js emits the table cell-by-cell in reading order — basis label, its lead-in
+ * prose (starts "We", ends "…to:"), then its purposes — so we skip the lead-in and
+ * collect verb-led purposes (reflowing wrapped lines) under the current basis.
+ */
+function parseLegalBasisTable(lines: string[], start: number, end: number): { text: string; basis: string }[] {
+  const res: { text: string; basis: string }[] = [];
+  let current: string | null = null;
+  let collecting = false;
+  for (const raw of lines.slice(start, Math.min(end, lines.length))) {
+    const line = raw.trim();
+    if (!line) continue;
+    const b = basisLabel(line);
+    if (b) { current = b; collecting = false; continue; }
+    if (!current) continue;
+    if (S3_STOP.test(line)) { current = null; collecting = false; continue; } // end of table
+    if (!collecting) {
+      if (!startsPurpose(line)) continue; // skip label remainder + lead-in prose
+      collecting = true;
+    }
+    const prev = res[res.length - 1];
+    if (prev && prev.basis === current && (!startsPurpose(line) || DANGLING.test(prev.text))) {
+      prev.text = `${prev.text} ${line}`;
+    } else {
+      res.push({ text: line, basis: current });
+    }
+  }
+  return res.map((p) => ({ text: p.text.replace(/[;.]+$/, '').trim(), basis: p.basis }));
+}
 
 /**
  * Best-effort legal basis for a purpose taken from the Summary list (which has no
@@ -249,32 +315,24 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
     }
   }
 
-  // ---- purposes: prefer the Summary "Purposes of the Processing" list — it is a
-  // clean single-column list in both PDF and DOCX; the §3 basis TABLE is unreadable
-  // once a PDF flattens its columns. Basis is guessed and confirmed by the officer.
+  // ---- purposes: read the §3 "Legal Basis and Purposes" table so each purpose keeps
+  // the EXACT legal basis from the uploaded document (user request 2026-07-12). The
+  // Summary "Purposes of the Processing" list (basis guessed) is only a fallback for
+  // policies whose §3 could not be parsed.
   const purposes: { text: string; basis: string }[] = [];
   const addPurpose = (textIn: string, basis: string) => {
     const v = textIn.replace(/[;.]+$/, '').trim();
     if (v.length > 4 && !purposes.some((p) => p.text.toLowerCase() === v.toLowerCase())) purposes.push({ text: v, basis });
   };
-  if ('summary_purposes' in idx) {
+  if ('legal' in idx) {
+    const end = idx['retention'] ?? idx['transfers'] ?? lines.length;
+    for (const p of parseLegalBasisTable(lines, idx['legal'], end)) addPurpose(p.text, p.basis);
+  }
+  if (purposes.length === 0 && 'summary_purposes' in idx) {
     const end = idx['summary_rights'] ?? idx['about'] ?? lines.length;
     const raw = rangeLines(lines, idx['summary_purposes'] + 1, end);
     for (const b of reflowVerbBullets(raw)) {
-      if (PURPOSE_VERB.test(b)) addPurpose(b, guessBasis(b));
-    }
-  }
-  if (purposes.length === 0 && 'legal' in idx) {
-    // Fallback: §3 as prose (clean DOCX layouts) — basis from its lead-in headings.
-    const end = idx['retention'] ?? idx['transfers'] ?? lines.length;
-    let current: string | null = null;
-    for (const t of lines.slice(idx['legal'], end)) {
-      const head = BASIS_HEADS.find(([, pat]) => pat.test(t));
-      if (head) { current = head[0]; continue; }
-      if (!current || t.length <= 5 || t.length >= 300) continue;
-      if (/^(you may|the withdrawal|in particular|we |where you|no automated|our justification|legal basis$|purposes$)/i.test(t)) continue;
-      if (/to:$/.test(t)) continue;
-      addPurpose(t, current);
+      if (startsPurpose(b)) addPurpose(b, guessBasis(b));
     }
   }
 

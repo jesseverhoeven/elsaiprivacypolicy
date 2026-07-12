@@ -164,13 +164,17 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
         : CATEGORY_TIPS[id] ?? 'Still collected this edition? Check the listed items match this edition’s form.')
       : undefined;
 
+  // Neutral, event-connected basis tips — they must fit any activity, internal or
+  // external, not just event participants (user feedback 2026-07-12). Phrased as
+  // "is this basis still in place for <this activity>?".
+  const ev = answers.activityTitle.trim() || 'this activity';
   const PURPOSE_TIPS: Record<string, string> = {
-    consent: 'Consent-based: is the matching opt-in tick-box on this edition’s registration form, unticked by default?',
-    contract: 'Part of what participants sign up for — still applicable to this edition?',
-    legitimateInterest: 'Legitimate-interest based: still applicable and proportionate this edition?',
-    legalObligation: 'Standard legal purpose — usually unchanged between editions.',
-    publicInterest: 'No template wording exists for this basis — it will be flagged; contact dataprotection@elsa.org.',
-    vitalInterests: 'Used for emergencies (e.g. emergency contacts) — still applicable this edition?',
+    contract: `Contractual basis: is this still needed to perform an agreement with the people involved in ${ev} — e.g. a registration, participation, a voluntary agreement, or a service you provide? If that agreement still applies, keep it.`,
+    consent: `Consent basis: wherever this data is collected for ${ev}, is a matching opt-in still offered — unticked by default and just as easy to refuse or withdraw?`,
+    legitimateInterest: `Legitimate-interest basis: is the interest behind this still real for ${ev} and proportionate, without overriding the rights of the people involved? If so, it still holds.`,
+    legalObligation: `Legal-obligation basis: does a law or regulation still require this for ${ev}? Usually unchanged, but confirm it still applies.`,
+    publicInterest: 'Public-interest basis: no template wording exists for it — it will be flagged; check with dataprotection@elsa.org that it still applies.',
+    vitalInterests: `Vital-interests basis: used to protect someone’s life or safety (e.g. contacting an emergency contact) — is that still relevant for ${ev}?`,
   };
   const purposeTip = (id: string, basis: string): string | undefined =>
     presetMarks.has(`purpose:${id}`) ? PURPOSE_TIPS[basis] : undefined;
