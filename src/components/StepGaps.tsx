@@ -409,7 +409,7 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
               </label>
               <label>Whom is the policy mainly for?
                 <select value={answers.audience} onChange={(e) => set({ audience: e.target.value as Answers['audience'] })}>
-                  <option value="">— not chosen: neutral wording, fits both (safest) —</option>
+                  <option value="">Default option (safest): neutral wording, fits both</option>
                   <option value="participants">External — event participants / guests (incl. ELSA members attending)</option>
                   <option value="volunteers">Internal — ELSA officers, volunteers or ELSA groups (recruitment, management, internal reporting)</option>
                 </select>
