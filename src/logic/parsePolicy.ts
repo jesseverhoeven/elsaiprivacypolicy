@@ -355,18 +355,46 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
   // ---- data subjects: "processing of personal data of X"
   const subjects: string[] = [];
   const scanEnd = idx['collection'] ?? Math.min(lines.length, 80);
+  const region = lines.slice(idx['about'] ?? 0, scanEnd);
   const addSubject = (raw: string) => {
-    const s = clean(raw).replace(/^[\s[\];.]+|[\s[\];.]+$/g, '');
-    if (s.length >= 3 && s.length <= 90 && !subjects.some((x) => x.toLowerCase() === s.toLowerCase())) subjects.push(s);
+    const s = clean(raw)
+      .replace(/^[\s[\];.]+|[\s[\];.]+$/g, '')
+      .replace(/^and\s+/i, '') // last item is often "; and The processing of…"
+      .replace(/^(the )?processing of personal data of\s*/i, ''); // strip the list wrapper
+    // Cap raised to 200 so long descriptive subject phrases survive (user report 2026-07-12).
+    if (s.length >= 3 && s.length <= 200 && subjects.length < 20
+      && !subjects.some((x) => x.toLowerCase() === s.toLowerCase())) subjects.push(s);
   };
-  for (const t of lines.slice(idx['about'] ?? 0, scanEnd)) {
-    // Most common: "This Policy applies to: The processing of personal data of X;"
-    for (const m of t.matchAll(/(?:the )?processing of personal data of\s*\[?([^;.\]]{3,80})\]?/gi)) addSubject(m[1]);
-    // Also seen: "This privacy policy is aimed at / applies to / is intended for: X, Y and Z"
-    const aim = /(?:this (?:privacy )?policy (?:is )?(?:aimed at|applies to|is intended for|is directed (?:at|to)|concerns))\s*:?\s*(.+)/i.exec(t);
-    if (aim && !/processing of personal data/i.test(aim[1])) {
-      for (const part of aim[1].split(/;|,| and /i)) addSubject(part);
+  // The data-subjects list usually WRAPS across several lines and is a semicolon-
+  // separated list after "This Policy applies to:" / "…aimed at:", or a
+  // "The processing of personal data of …; …; …" sentence. Find where it starts,
+  // join the wrapped lines into one blob, then split it so every subject is captured
+  // (user report 2026-07-12: only the first of five was picked up).
+  const introRe = /(?:this (?:privacy )?policy (?:is )?(?:applies to|aimed at|is intended for|is directed (?:at|to)|concerns))\s*:?\s*(.*)$/i;
+  let startI = -1; let blob = '';
+  for (let i = 0; i < region.length; i++) {
+    const m = introRe.exec(region[i]);
+    if (m) { startI = i; blob = m[1]; break; }
+    if (/processing of personal data of/i.test(region[i])) { startI = i; blob = region[i]; break; }
+  }
+  if (startI >= 0) {
+    for (let j = startI + 1; j < region.length; j++) {
+      const t = region[j];
+      if (/^\d\s*[-–]/.test(t)) break; // next section heading
+      if (/^(you can reach|for certain purposes|unless otherwise|the data processing|we\b|our\b|in particular)/i.test(t)) break;
+      blob += ` ${t}`;
+      if (/[.]$/.test(t) && !/[;,]$/.test(t)) break; // list ended with a full stop
     }
+    // Split rules:
+    //  - a ";"-separated list → one subject per item (items may contain " and ");
+    //  - a "processing of personal data of <phrase>" with no ";" → a SINGLE descriptive
+    //    subject (keep it whole — its internal commas/"and" are part of the phrase, e.g.
+    //    "participants, coaches, judges/panellists of the JHJMCC and the HPMCC");
+    //  - a pure "aimed at: X, Y and Z" inline list → split on comma / "and".
+    const parts = blob.includes(';') ? blob.split(';')
+      : /processing of personal data of/i.test(blob) ? [blob]
+      : blob.split(/,| and /i);
+    for (const part of parts) if (part.trim()) addSubject(part);
   }
   // Whether the data subjects came from the document body (above) — if not, whatever we
   // set below is a calculated guess, and step 2 warns the officer to check it.
