@@ -40,12 +40,17 @@ export interface PresetEvent {
   directSources: string[];
   indirectSources: string[];
   attentionPoints: AttentionPoint[];
+  /** True when the data subjects were NOT clearly stated in the source policy and had
+   *  to be guessed (from the file name or the audience) — surfaces a warning in step 2. */
+  subjectsGuessed: boolean;
 }
 
 export interface GeneratedPreset {
   file: string; name: string; area: string; lastUpdated: string; audience: string;
   controller: { name: string; address: string; email: string; phone: string };
   subjects: string[];
+  /** parsePolicy sets this when subjects came from the file name, not the document body. */
+  subjectsGuessed?: boolean;
   categories: { id: string; items: string }[];
   customCategories: { label: string; items: string }[];
   purposes: { text: string; basis: string }[];
@@ -124,7 +129,7 @@ function buildAttention(p: GeneratedPreset): AttentionPoint[] {
   }
   points.push({
     section: 'categories',
-    text: `Prefilled from the previous ${short} policy — scroll the list and untick anything no longer collected. Ask yourself: has anything changed on this edition’s registration form (photos or recordings, health or dietary questions, payment or travel details)? Hover a ↻ item for what typically changes for that category.`,
+    text: `Prefilled from the previous ${short} policy — go through the list in both directions: untick anything no longer collected, and tick or add any category you now collect that the previous edition did not. Ask yourself: has anything changed on this edition’s registration form (new questions, photos or recordings, health or dietary questions, payment or travel details)? Hover a ↻ item for what typically changes for that category.`,
   });
   const consentCount = p.purposes.filter((x) => x.basis === 'consent').length;
   points.push({
@@ -221,6 +226,9 @@ export function toPresetEvent(p: GeneratedPreset): PresetEvent {
     directSources: p.directSources,
     indirectSources: p.indirectSources,
     attentionPoints: buildAttention(p),
+    // Guessed when the parser flagged it, or when the source listed no subjects at all
+    // (built-in presets from JSON have no flag → empty subjects means guessed).
+    subjectsGuessed: p.subjectsGuessed ?? p.subjects.length === 0,
   };
 }
 

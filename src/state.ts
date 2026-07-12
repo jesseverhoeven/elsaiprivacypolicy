@@ -117,6 +117,10 @@ function applyPresetEvent(
     answers.dataSubjects.push(fallback);
     marks.add(`ds:${fallback}`);
   }
+  // The subjects were not clearly stated in the source policy (guessed from the file
+  // name or the audience) — flag it so step 2 warns the officer to check them, closing
+  // the gap between guessing and inaccuracy (user request 2026-07-12).
+  if (preset.subjectsGuessed) marks.add('warn:subjects');
 
   for (const cat of preset.categories) {
     const entry = answers.dataCategories.find((c) => c.id === cat.id);

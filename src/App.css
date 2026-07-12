@@ -240,6 +240,12 @@ select.basis-select {
   background: #EAF6EE; border: 1px solid var(--ok); color: #1E5537; border-radius: 6px;
   padding: 0.45rem 0.7rem; margin: 0.35rem 0; font-size: 0.85rem; font-weight: 600;
 }
+/* Stronger "you must check this" warning (e.g. guessed data subjects) */
+.note-warn {
+  background: #FDF6F3; border: 1px solid var(--warn); border-left: 4px solid var(--warn);
+  color: var(--ink); border-radius: 6px; padding: 0.5rem 0.75rem; margin: 0.4rem 0; font-size: 0.85rem;
+}
+.note-warn b { color: var(--warn); }
 
 /* ---------- Handbook 📖 boxes & category 💡 boxes (click, not hover) ---------- */
 .info-book, .bulb {

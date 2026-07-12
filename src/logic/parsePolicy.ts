@@ -355,14 +355,24 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
   // ---- data subjects: "processing of personal data of X"
   const subjects: string[] = [];
   const scanEnd = idx['collection'] ?? Math.min(lines.length, 80);
+  const addSubject = (raw: string) => {
+    const s = clean(raw).replace(/^[\s[\];.]+|[\s[\];.]+$/g, '');
+    if (s.length >= 3 && s.length <= 90 && !subjects.some((x) => x.toLowerCase() === s.toLowerCase())) subjects.push(s);
+  };
   for (const t of lines.slice(idx['about'] ?? 0, scanEnd)) {
-    for (const m of t.matchAll(/(?:the )?processing of personal data of\s*\[?([^;.\]]{3,70})\]?/gi)) {
-      const s = clean(m[1]).replace(/^[\s[\];.]+|[\s[\];.]+$/g, '');
-      if (s && !subjects.some((x) => x.toLowerCase() === s.toLowerCase())) subjects.push(s);
+    // Most common: "This Policy applies to: The processing of personal data of X;"
+    for (const m of t.matchAll(/(?:the )?processing of personal data of\s*\[?([^;.\]]{3,80})\]?/gi)) addSubject(m[1]);
+    // Also seen: "This privacy policy is aimed at / applies to / is intended for: X, Y and Z"
+    const aim = /(?:this (?:privacy )?policy (?:is )?(?:aimed at|applies to|is intended for|is directed (?:at|to)|concerns))\s*:?\s*(.+)/i.exec(t);
+    if (aim && !/processing of personal data/i.test(aim[1])) {
+      for (const part of aim[1].split(/;|,| and /i)) addSubject(part);
     }
   }
-  // ELSA event policies almost never enumerate their data subjects in the text — the
-  // audience is encoded in the file name instead ("Privacy Policy - Coaches _ …",
+  // Whether the data subjects came from the document body (above) — if not, whatever we
+  // set below is a calculated guess, and step 2 warns the officer to check it.
+  const subjectsFromDoc = subjects.length > 0;
+  // ELSA event policies often do NOT enumerate their data subjects in the text — the
+  // audience is then encoded in the file name instead ("Privacy Policy - Coaches _ …",
   // "… — Participants"). Derive the subject from there when the body gave nothing, so
   // "Whose data do you process?" is still pre-filled (audit 2026-07-12).
   if (subjects.length === 0) {
@@ -446,5 +456,6 @@ export function parseUploadedPolicy(text: string, filename: string): GeneratedPr
     internationalOrgs,
     directSources,
     indirectSources,
+    subjectsGuessed: !subjectsFromDoc,
   };
 }

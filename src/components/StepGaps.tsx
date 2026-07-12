@@ -549,6 +549,13 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
           <div className="card">
             <h3>Whose data do you process? (data subjects) <InfoBook topic="subjects" /></h3>
             <SectionNote section="subjects" />
+            {presetMarks.has('warn:subjects') && (
+              <p className="note-warn" role="note">
+                ⚠ <b>Check whose data you process.</b> The previous policy did not clearly state its data subjects, so
+                this is a <b>calculated guess</b> (from the event name and audience) rather than something copied from the
+                document. Please confirm or correct the selection below before generating.
+              </p>
+            )}
             <div className="checkgrid">
               {DATA_SUBJECT_OPTIONS.map((d) => (
                 <label className={`checkline${mk(`ds:${d.label}`)}`} key={d.id} data-tip={dsTip(d.label)}>
