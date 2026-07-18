@@ -434,10 +434,20 @@ button.cut.inline {
   .print-only { display: block !important; }
   html, body { background: #fff; }
   main { max-width: none; padding: 0; }
-  /* Zero page margins remove the browser's own print header/footer (date top-left,
-     URL bottom-left, tiny title); our repeating thead/tfoot take over instead,
-     and horizontal margins are handled by the frame's cell padding. */
-  @page { margin: 0; }
+  /* Top/side margins stay 0 so the browser's own print header (date, title) is
+     suppressed and horizontal spacing is handled by the frame's cell padding.
+     A small bottom margin hosts a CSS page-number box: defining @bottom-center
+     also suppresses the browser's native bottom footer (URL / its own page
+     number), so the output stays clean while gaining "Page N of M" — matching
+     the Word footer (verified in Chromium print engine, 2026-07-18). */
+  @page {
+    margin: 0 0 12mm 0;
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-family: "Segoe UI", system-ui, Arial, sans-serif;
+      font-size: 8pt; color: #4A5468;
+    }
+  }
   .print-frame > thead td, .print-frame > tbody td, .print-frame > tfoot td {
     padding-left: 16mm; padding-right: 16mm;
   }
@@ -471,7 +481,7 @@ button.cut.inline {
     position: absolute; top: 0; left: 0; width: 168mm; height: 14mm;
     background: #fff; z-index: 5;
   }
-  .print-frame > tfoot td { padding-top: 3mm; padding-bottom: 7mm; }
+  .print-frame > tfoot td { padding-top: 3mm; padding-bottom: 3mm; }
   .print-footer {
     text-align: center; font-size: 8pt; color: var(--ink-soft);
     border-top: 1px solid var(--orange); padding-top: 2mm;
