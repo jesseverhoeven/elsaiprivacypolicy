@@ -181,18 +181,22 @@ select.basis-select {
   background: var(--navy); color: #fff; text-align: left; padding: 0.45rem 0.8rem;
   font-size: 0.95rem; border: 1px solid var(--navy);
 }
-.basis-table td { border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top; text-align: left; }
+/* Table content is justified, but with automatic hyphenation so the narrow
+   columns don't stretch inter-word spacing into ugly gaps (words break at line
+   ends instead). Needs lang="en" on <html>, which is set. Verified in Chrome
+   that this keeps justify clean in the PDF (user request 2026-07-18). */
+.basis-table td {
+  border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top;
+  text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+}
 .basis-table td:first-child { width: 38%; }
 .basis-name {
   display: inline-block; color: var(--navy); font-weight: 700;
   border: 2px solid var(--navy); border-radius: 4px; padding: 0.05rem 0.45rem; margin-bottom: 0.35rem;
 }
-.basis-leadtext { display: block; font-size: 0.85em; text-align: left; }
+.basis-leadtext { display: block; font-size: 0.85em; }
 .basis-table ul { margin: 0; padding-left: 1.2rem; }
-/* Table content is left-aligned (not justified): the narrow columns made justify
-   stretch inter-word spacing into ugly gaps, especially in PDF/Google Docs
-   (user request 2026-07-18). Body paragraphs stay justified. */
-.basis-table li { margin: 0.2rem 0; text-align: left; }
+.basis-table li { margin: 0.2rem 0; }
 
 /* ---------- ELSA logo on the policy ---------- */
 .policy-logo { display: block; margin-left: auto; width: 130px; height: auto; }
