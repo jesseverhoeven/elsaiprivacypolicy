@@ -55,7 +55,7 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
         <div className="card">
           <h3>Google Docs</h3>
           <p className="hint">Copies the formatted policy — open a new Google Doc and paste (Ctrl/Cmd+V). Formatting,
-            ELSA colours, the logo and contact line are kept.</p>
+            ELSA colours and the contact line are kept.</p>
           <button className="primary" onClick={() => {
             void copyForGoogleDocs(finalBlocks, docxContact).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); });
           }}>

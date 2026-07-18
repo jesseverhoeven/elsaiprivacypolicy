@@ -6,14 +6,13 @@
  *
  * Google Docs cannot receive page headers/footers or page numbers through a
  * clipboard paste (those live outside the document body), so — unlike Word/PDF —
- * the ELSA logo and the controller contact line are pasted inline: the logo at
- * the very top and the contact block at the very bottom. That keeps the branding
- * and the closing contact details that would otherwise be lost (user request
- * 2026-07-18).
+ * the controller contact line is pasted inline at the very bottom, keeping the
+ * closing contact details that would otherwise be lost. No logo is added: a
+ * single big logo in the body looked wrong, and a paste can't put it in the page
+ * header on every page (user request 2026-07-18).
  */
 
 import type { PolicyBlock } from '../types';
-import logoUrl from '../assets/elsa-logo.png';
 import type { DocxContact } from './docxExport';
 
 const esc = (s: string) =>
@@ -87,23 +86,6 @@ export function blocksToPlainText(blocks: PolicyBlock[]): string {
   return parts.join('\n');
 }
 
-/** Fetch the bundled logo and inline it as a base64 data URI so the pasted image
- *  survives in Google Docs without an external request. */
-async function logoDataUri(): Promise<string> {
-  const blob = await fetch(logoUrl).then((r) => r.blob());
-  return await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(blob);
-  });
-}
-
-/** Logo pinned top-right, matching the Word/PDF header placement. */
-function logoHtml(dataUri: string): string {
-  return `<p style="text-align:right;margin:0 0 8px 0;"><img src="${dataUri}" alt="ELSA" style="width:130px;height:auto;" /></p>`;
-}
-
 /** Closing contact line, matching the Word/PDF footer (page numbers can only be
  *  added from the Google Docs Insert menu, so they are not included here). */
 function footerHtml(contact: DocxContact): string {
@@ -120,14 +102,13 @@ function footerText(contact: DocxContact): string {
 }
 
 export async function copyForGoogleDocs(blocks: PolicyBlock[], contact: DocxContact): Promise<void> {
-  const dataUri = await logoDataUri();
   const inner = blocksToHtml(blocks);
-  // Splice the logo just inside the wrapping <div> and the footer just before it
-  // closes. Function replacers avoid any `$` in the data URI / contact being read
-  // as a replacement pattern.
-  const html = inner
-    .replace(/^(<div[^>]*>)/, (m) => m + logoHtml(dataUri))
-    .replace(/<\/div>$/, () => footerHtml(contact) + '</div>');
+  // Append the contact line just before the wrapping <div> closes. No logo at the
+  // top: a paste can't put it in the page header on every page (a Docs page
+  // setting), and a single big logo in the body looked wrong (user request
+  // 2026-07-18). The function replacer avoids any `$` in the contact text being
+  // read as a replacement pattern.
+  const html = inner.replace(/<\/div>$/, () => footerHtml(contact) + '</div>');
   const text = blocksToPlainText(blocks) + footerText(contact);
   await navigator.clipboard.write([
     new ClipboardItem({
