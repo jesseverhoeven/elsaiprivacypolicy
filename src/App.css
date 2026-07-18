@@ -406,6 +406,8 @@ button.cut.inline {
 
 /* ================= Export ================= */
 .export-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.9rem; }
+/* Two-output layout (Word + Copy): keep the pair from stretching too wide. */
+.export-grid.two { max-width: 780px; }
 .export-grid .primary {
   background: var(--navy); color: #fff; border: none; border-radius: 8px;
   padding: 0.6rem 1.2rem; font-weight: 600; width: 100%;
@@ -432,70 +434,4 @@ button.cut.inline {
 .app-footer .dev-credit {
   text-align: right; font-size: 0.72rem; color: var(--ink-soft); opacity: 0.75;
   margin: 0.6rem 0 0; font-style: italic;
-}
-
-/* ================= Print (PDF export) ================= */
-.print-only { display: none; }
-@media print {
-  .no-print, main > .step > *:not(.print-only) { display: none !important; }
-  .print-only { display: block !important; }
-  html, body { background: #fff; }
-  main { max-width: none; padding: 0; }
-  /* Top/side margins stay 0 so the browser's own print header (date, title) is
-     suppressed and horizontal spacing is handled by the frame's cell padding.
-     A small bottom margin hosts a CSS page-number box: defining @bottom-center
-     also suppresses the browser's native bottom footer (URL / its own page
-     number), so the output stays clean while gaining "Page N of M" — matching
-     the Word footer (verified in Chromium print engine, 2026-07-18). */
-  @page {
-    margin: 0 0 12mm 0;
-    @bottom-center {
-      content: "Page " counter(page) " of " counter(pages);
-      font-family: "Segoe UI", system-ui, Arial, sans-serif;
-      font-size: 8pt; color: #4A5468;
-    }
-  }
-  .print-frame > thead td, .print-frame > tbody td, .print-frame > tfoot td {
-    padding-left: 16mm; padding-right: 16mm;
-  }
-  .policy { font-size: 11pt; }
-  .policy-title { font-size: 20pt; margin-top: 2mm; }
-  .policy-h1 { font-size: 15pt; break-after: avoid; }
-  .policy-h2 { font-size: 13pt; break-after: avoid; }
-  .policy-h3 { font-size: 11.5pt; break-after: avoid; }
-  .policy-notice { break-inside: avoid; }
-  .policy-ul li { break-inside: avoid; }
-  .basis-table tr { break-inside: avoid; }
-  .basis-table th { background: var(--navy) !important; color: #fff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  /* The repeating table frame (thead/tfoot repeat per printed page) carries the
-     logo and contact footer — body text can never collide with them. */
-  .policy-logo { display: none; }
-  .print-frame { width: 100%; border-collapse: collapse; }
-  .print-frame > thead td { padding-top: 8mm; padding-bottom: 5mm; }
-  .print-head { display: flex; align-items: center; justify-content: space-between; gap: 6mm; }
-  .print-head-title {
-    flex: 1; text-align: center; font-family: Georgia, serif; font-size: 9pt;
-    color: var(--ink-soft); letter-spacing: 0.03em;
-  }
-  .print-logo { width: 58px; height: auto; flex: none; }
-  /* Page 1 carries the big policy title, so the small running title in the repeating
-     thead is redundant there (user feedback 2026-07-11). The thead repeats identically
-     on every printed page and cannot be styled per page — instead a white rectangle,
-     absolutely positioned over the page-1 header area (absolute boxes do not repeat),
-     hides the title on the first page only. It stops left of the logo, which stays. */
-  .print-only { position: relative; }
-  .print-head-cover {
-    position: absolute; top: 0; left: 0; width: 168mm; height: 14mm;
-    background: #fff; z-index: 5;
-  }
-  .print-frame > tfoot td { padding-top: 3mm; padding-bottom: 3mm; }
-  .print-footer {
-    text-align: center; font-size: 8pt; color: var(--ink-soft);
-    border-top: 1px solid var(--orange); padding-top: 2mm;
-  }
-  .print-footer b { color: var(--navy); }
-  .policy-toc a { color: var(--navy); text-decoration: none; }
-}
-@media not print {
-  .print-footer, .print-frame { display: none; }
 }

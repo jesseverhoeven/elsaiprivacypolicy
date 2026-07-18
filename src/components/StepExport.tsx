@@ -2,8 +2,6 @@ import { useState } from 'react';
 import type { Answers, PolicyBlock } from '../types';
 import { buildAdvice } from '../logic/gaps';
 import { copyForGoogleDocs } from '../export/clipboard';
-import { PolicyPreview } from './PolicyPreview';
-import logoUrl from '../assets/elsa-logo.png';
 
 interface Props {
   answers: Answers;
@@ -26,46 +24,37 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
     phone: answers.controller.phone,
   };
 
-  function printPdf() {
-    // The browser uses document.title for the PDF's default file name and the
-    // printed page header — it must be the policy name, never the tool's name.
-    const original = document.title;
-    document.title = filename;
-    window.addEventListener('afterprint', () => { document.title = original; }, { once: true });
-    window.print();
-  }
-
   return (
     <section className="step">
       <h2>Step 5 · Download your privacy policy</h2>
 
-      <div className="export-grid">
+      {/* Two outputs only: the Word file (which carries the full layout — logo on
+          every page, page numbers, justified legal-basis table) and a rich-text
+          copy for pasting elsewhere. A PDF is just Word → Save as PDF, so there is
+          no separate PDF button (user request 2026-07-18). */}
+      <div className="export-grid two">
         <div className="card">
           <h3>Word (.docx)</h3>
-          <p className="hint">Opens in Microsoft Word — and in Google Docs: drag the file into Google Drive and open it.</p>
+          <p className="hint">The complete policy with the ELSA logo, page numbers and footer on every page. Opens in
+            Microsoft Word or Google Docs (drag the file into Google Drive and open it). <b>For a PDF</b>, open it and
+            choose <i>Save / Download as PDF</i> — that keeps the exact layout.</p>
           <button className="primary" onClick={() => {
             void import('../export/docxExport').then(({ exportDocx }) => exportDocx(finalBlocks, `${filename}.docx`, docxContact));
           }}>Download Word</button>
         </div>
         <div className="card">
-          <h3>PDF</h3>
-          <p className="hint">Opens your browser’s print dialog — choose “Save as PDF” as the destination.</p>
-          <button className="primary" onClick={printPdf}>Download PDF</button>
-        </div>
-        <div className="card">
-          <h3>Google Docs</h3>
-          <p className="hint">Copies the formatted policy — open a new Google Doc and paste (Ctrl/Cmd+V). Formatting,
-            ELSA colours and the contact line are kept.</p>
+          <h3>Copy (text &amp; layout)</h3>
+          <p className="hint">Copies the formatted policy so you can paste it (Ctrl/Cmd+V) straight into Google Docs,
+            an e-mail or any editor. Formatting, ELSA colours and the contact line are kept.</p>
           <button className="primary" onClick={() => {
             void copyForGoogleDocs(finalBlocks, docxContact).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); });
           }}>
-            {copied ? '✓ Copied' : 'Copy for Google Docs'}
+            {copied ? '✓ Copied' : 'Copy text & layout'}
           </button>
           <p className="hint note">Note: a paste can’t add page numbers or repeat the logo in the top corner of every
-            page (those are Google Docs page settings, not text). For the full layout — logo on every page and page
-            numbers — download <b>Word</b> above and open that file in Google Docs (drag the .docx into Google Drive
-            and open it); Google Docs keeps them. Otherwise add them in Docs via <i>Insert → Header</i> and
-            <i> Insert → Page numbers</i>.</p>
+            page (those are page settings, not text). For the full layout — logo on every page and page numbers —
+            use the <b>Word</b> file instead (in Google Docs, add them via <i>Insert → Header</i> and
+            <i> Insert → Page numbers</i> if you paste).</p>
         </div>
       </div>
 
@@ -108,38 +97,6 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
       <div className="actions">
         <button onClick={onBack}>← Back to editing</button>
         <button onClick={onStartOver}>Start a new policy</button>
-      </div>
-
-      {/* Print-only rendering (PDF export path). A table's thead/tfoot repeat on every
-          printed page, giving the LeCercle layout — logo top-right, contact footer —
-          without ever overlapping the body text. */}
-      <div className="print-only">
-        {/* Hides the small running title on page 1 only — the big policy title is
-            already there. Absolute boxes don't repeat with the thead (see App.css). */}
-        <div className="print-head-cover" aria-hidden="true" />
-        <table className="print-frame">
-          <thead>
-            <tr><td>
-              <div className="print-head">
-                <span className="print-head-title">{filename}</span>
-                <img src={logoUrl} alt="" className="print-logo" />
-              </div>
-            </td></tr>
-          </thead>
-          <tfoot>
-            <tr><td>
-              <div className="print-footer">
-                <b>{docxContact.controllerName}</b>&nbsp;&nbsp; e-mail: {docxContact.email}
-                {docxContact.phone ? <>&nbsp;&nbsp; tel.: {docxContact.phone}</> : null}
-              </div>
-            </td></tr>
-          </tfoot>
-          <tbody>
-            <tr><td>
-              <PolicyPreview blocks={finalBlocks} edits={{}} editable={false} showSources={false} />
-            </td></tr>
-          </tbody>
-        </table>
       </div>
     </section>
   );
