@@ -54,13 +54,18 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
         </div>
         <div className="card">
           <h3>Google Docs</h3>
-          <p className="hint">Copies the formatted policy — open a new Google Doc and paste (Ctrl/Cmd+V). Formatting and
-            ELSA colours are kept.</p>
+          <p className="hint">Copies the formatted policy — open a new Google Doc and paste (Ctrl/Cmd+V). Formatting,
+            ELSA colours, the logo and contact line are kept.</p>
           <button className="primary" onClick={() => {
             void copyForGoogleDocs(finalBlocks, docxContact).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); });
           }}>
             {copied ? '✓ Copied' : 'Copy for Google Docs'}
           </button>
+          <p className="hint note">Note: a paste can’t add page numbers or repeat the logo in the top corner of every
+            page (those are Google Docs page settings, not text). For the full layout — logo on every page and page
+            numbers — download <b>Word</b> above and open that file in Google Docs (drag the .docx into Google Drive
+            and open it); Google Docs keeps them. Otherwise add them in Docs via <i>Insert → Header</i> and
+            <i> Insert → Page numbers</i>.</p>
         </div>
       </div>
 

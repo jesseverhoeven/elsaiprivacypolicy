@@ -112,10 +112,11 @@ function blockToChildren(b: PolicyBlock): (Paragraph | Table)[] {
             margins: { top: 100, bottom: 100, left: 120, right: 120 },
             children: [
               new Paragraph({ children: [new TextRun({ text: row.label, bold: true, color: NAVY, size: 22 })] }),
-              // Left-aligned (not justified): the narrow column made justify stretch
-              // spaces into ugly gaps in Word/PDF (user request 2026-07-18).
+              // Word uses justify here (Word's justify spacing is fine); the PDF/HTML
+              // path stays left-aligned because the browser's justify stretched the
+              // narrow column into ugly gaps (user request 2026-07-18).
               new Paragraph({
-                alignment: AlignmentType.LEFT,
+                alignment: AlignmentType.JUSTIFIED,
                 children: [new TextRun({ text: row.lead, size: 18, color: INK })],
               }),
             ],
@@ -126,7 +127,7 @@ function blockToChildren(b: PolicyBlock): (Paragraph | Table)[] {
             children: row.purposes.map((p) => new Paragraph({
               bullet: { level: 0 },
               spacing: { after: 40 },
-              alignment: AlignmentType.LEFT,
+              alignment: AlignmentType.JUSTIFIED,
               children: [new TextRun({ text: p, size: 22, color: INK })],
             })),
           }),

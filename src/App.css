@@ -63,6 +63,8 @@ main { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 1.2re
   font-size: 0.85rem; margin-right: 0.45rem;
 }
 .hint { color: var(--ink-soft); font-size: 0.85rem; }
+.hint.note { font-size: 0.78rem; margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed var(--line); }
+.hint.note i { font-style: italic; }
 .fieldlabel { display: block; font-size: 0.85rem; font-weight: 600; color: var(--navy); margin: 0.6rem 0 0.2rem; }
 
 /* Question labels bold black for a cleaner scan; inputs/hints stay regular */
