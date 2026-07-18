@@ -181,13 +181,14 @@ select.basis-select {
   background: var(--navy); color: #fff; text-align: left; padding: 0.45rem 0.8rem;
   font-size: 0.95rem; border: 1px solid var(--navy);
 }
-/* Table content is justified, but with automatic hyphenation so the narrow
-   columns don't stretch inter-word spacing into ugly gaps (words break at line
-   ends instead). Needs lang="en" on <html>, which is set. Verified in Chrome
-   that this keeps justify clean in the PDF (user request 2026-07-18). */
+/* Table content is LEFT-aligned (ragged right), never justified: justify is what
+   stretched the inter-word spacing into visible gaps in the narrow columns, and
+   even hyphenation only reduces it. Left alignment keeps a clean single space
+   between every word in the HTML preview and the PDF. The Word download keeps
+   justify (user is happy with Word's spacing) (user request 2026-07-18). */
 .basis-table td {
   border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top;
-  text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+  text-align: left;
 }
 .basis-table td:first-child { width: 38%; }
 .basis-name {
