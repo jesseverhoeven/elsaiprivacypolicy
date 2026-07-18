@@ -59,7 +59,7 @@ export const LEGAL_DISCLAIMER =
   'fitness for a particular purpose or non-infringement. The Tool generates draft documents by mechanically combining ' +
   'user input with pre-approved template text; its output does not constitute legal advice, and no lawyer–client or ' +
   'other advisory relationship is created by its use. To the fullest extent permitted by applicable law, neither ' +
-  'Jesse Verhoeven, the author and developer of the Tool, nor the European Law Students’ Association (ELSA), ELSA International, any ELSA ' +
+  'the developer of the Tool, nor the European Law Students’ Association (ELSA), ELSA International, any ELSA ' +
   'National or Local Group, nor any of their respective officers, members, employees or volunteers accepts any ' +
   'liability or responsibility for any loss or damage of any kind — whether direct, indirect, incidental or ' +
   'consequential — arising from or in connection with the use of the Tool, reliance on its output, or the publication ' +

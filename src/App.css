@@ -179,16 +179,18 @@ select.basis-select {
   background: var(--navy); color: #fff; text-align: left; padding: 0.45rem 0.8rem;
   font-size: 0.95rem; border: 1px solid var(--navy);
 }
-.basis-table td { border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top; text-align: justify; }
+.basis-table td { border: 1px solid var(--navy); padding: 0.55rem 0.8rem; vertical-align: top; text-align: left; }
 .basis-table td:first-child { width: 38%; }
 .basis-name {
   display: inline-block; color: var(--navy); font-weight: 700;
   border: 2px solid var(--navy); border-radius: 4px; padding: 0.05rem 0.45rem; margin-bottom: 0.35rem;
 }
-.basis-leadtext { display: block; font-size: 0.85em; text-align: justify; }
+.basis-leadtext { display: block; font-size: 0.85em; text-align: left; }
 .basis-table ul { margin: 0; padding-left: 1.2rem; }
-/* Table content justified like the body paragraphs (Word "justify", user request 2026-07-11) */
-.basis-table li { margin: 0.2rem 0; text-align: justify; }
+/* Table content is left-aligned (not justified): the narrow columns made justify
+   stretch inter-word spacing into ugly gaps, especially in PDF/Google Docs
+   (user request 2026-07-18). Body paragraphs stay justified. */
+.basis-table li { margin: 0.2rem 0; text-align: left; }
 
 /* ---------- ELSA logo on the policy ---------- */
 .policy-logo { display: block; margin-left: auto; width: 130px; height: auto; }
@@ -419,6 +421,11 @@ button.cut.inline {
   cursor: pointer; font-weight: 600; color: var(--navy); font-size: 0.82rem; text-align: center;
 }
 .disclaimer p { font-size: 0.78rem; color: var(--ink-soft); margin: 0.4rem 0 0; }
+/* Small developer credit, pinned bottom-right of the footer (user request 2026-07-18) */
+.app-footer .dev-credit {
+  text-align: right; font-size: 0.72rem; color: var(--ink-soft); opacity: 0.75;
+  margin: 0.6rem 0 0; font-style: italic;
+}
 
 /* ================= Print (PDF export) ================= */
 .print-only { display: none; }

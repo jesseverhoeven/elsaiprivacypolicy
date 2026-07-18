@@ -188,6 +188,7 @@ export default function App() {
           <summary>Legal disclaimer</summary>
           <p>{LEGAL_DISCLAIMER}</p>
         </details>
+        <p className="dev-credit">Developed by: Jesse Verhoeven</p>
       </footer>
     </div>
   );

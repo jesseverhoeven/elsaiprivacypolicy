@@ -57,7 +57,7 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
           <p className="hint">Copies the formatted policy — open a new Google Doc and paste (Ctrl/Cmd+V). Formatting and
             ELSA colours are kept.</p>
           <button className="primary" onClick={() => {
-            void copyForGoogleDocs(finalBlocks).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); });
+            void copyForGoogleDocs(finalBlocks, docxContact).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); });
           }}>
             {copied ? '✓ Copied' : 'Copy for Google Docs'}
           </button>
@@ -93,7 +93,7 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
 
       <div className="card">
         <p className="hint">
-          Every generated policy is a draft: have it checked by your Data Protection team before publishing. Questions or
+          Every generated policy is a draft. Questions or
           doubts? The International Data Protection team is happy to help at{' '}
           <a href="mailto:dataprotection@elsa.org">dataprotection@elsa.org</a>. Nothing you entered was sent or stored
           anywhere — refreshing this page clears everything.
