@@ -97,6 +97,16 @@ export const SUMMARY = {
     'Right to file a complaint with a supervisory authority: you always have the right to lodge a complaint with a data protection authority if you believe that our data processing activities are unlawful.',
   ],
   moreDetailsHeading: 'More details',
+  /**
+   * Multi-party joint controllership — ELSA International together with every
+   * host (SELS, WELS, the moot courts' Regional Rounds). Wording of the approved
+   * SELS Participants policy (08.03.2025), identical in WELS (18.08.2025) and the
+   * Helga Pedersen / John H. Jackson policies, with the activity and the hosts'
+   * collective name as tokens.
+   * deviation: multi-joint-controller — Annex 4 itself has no wording for this shape.
+   */
+  jointMultiIntro:
+    'The data processing carried out in connection with {{activityTitle}} is done under the Joint-Controllership of the European Law Students’ Association and {{coController}}:',
 };
 
 /* ------------------------------------------------------------------ */
@@ -130,6 +140,17 @@ export const S1_ABOUT_US = {
   appliesToItem: 'The processing of personal data of {{dataSubjects}};',
   /** deviation: brief-item-2 — optional DPO/data-protection contact (GDPR Art. 13(1)(b)); off unless provided. */
   dpoLine: 'You can reach our data protection contact at: {{dpoContact}}.',
+  /**
+   * Multi-party joint controllership, §1 counterpart of SUMMARY.jointMultiIntro.
+   * Approved SELS/WELS/moot-court §1 wording ("…the Association and the respective
+   * SELS Organiser… The contact information of each SELS Organiser is:"), with the
+   * event-specific "SELS Organiser" generalised to "organiser". The table lists the
+   * hosts only — the Association's own details are already given above.
+   * deviation: multi-joint-controller; the last sentence is added for GDPR
+   * Art. 26(3) (rights against each controller), matching managedByJoint.
+   */
+  jointMultiAbout:
+    'When you participate in {{activityTitle}}, the data processing related thereto will be processed under the joint-responsibility of the Association and the respective organiser. Both entities are responsible for the data processing and act as joint-controllers. You can exercise your data protection rights in respect of and against each of the joint-controllers. The contact information of each organiser is:',
 };
 
 export const S2_COLLECTION = {

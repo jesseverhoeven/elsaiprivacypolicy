@@ -25,6 +25,23 @@ export interface ControllerContact {
   phone: string;
 }
 
+/**
+ * One co-controller in a multi-party joint controllership — the pattern ELSA's
+ * largest events use (SELS, WELS, ICM, the moot courts): ELSA International and
+ * every hosting group are joint controllers together, and each host is listed
+ * with its own contact address.
+ */
+export interface JointControllerEntry {
+  /** The edition this group runs, e.g. "SELS Antwerp". May be empty. */
+  activity: string;
+  /** The ELSA group, e.g. "ELSA Antwerp (The Netherlands)". */
+  group: string;
+  /** That group's contact details — an e-mail, or address/e-mail/phone lines
+   *  separated by "
+" (the moot courts' Regional Rounds list all three). */
+  contact: string;
+}
+
 /** A (sub)processor engaged by the controller — clearly distinct from a (joint) controller. */
 export interface ProcessorEntry {
   name: string;
@@ -56,6 +73,17 @@ export interface Answers {
   /** Additional controller e-mail addresses shown alongside the primary one. */
   extraEmails: string[];
   jointController: ControllerContact;
+  /**
+   * Multi-party joint controllership: every co-controller, listed in a table
+   * (SELS, WELS, ICM, the moot courts). Empty = the ordinary one- or
+   * two-controller case, and nothing changes.
+   */
+  jointControllerEntries: JointControllerEntry[];
+  /**
+   * What the co-controllers are called collectively in the policy text, e.g.
+   * "the Summer ELSA Law School Organisers". Required when entries are present.
+   */
+  coControllerName: string;
   /** (Sub)processors — listed as data recipients, never as controllers. */
   usesProcessors: boolean;
   processors: ProcessorEntry[];
@@ -109,10 +137,12 @@ export interface BasisRow {
 /** One rendered block of the assembled policy. */
 export interface PolicyBlock {
   id: string;
-  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice' | 'toc' | 'basisTable';
+  kind: 'title' | 'heading1' | 'heading2' | 'heading3' | 'paragraph' | 'bullets' | 'notice' | 'toc' | 'basisTable' | 'contactTable';
   text?: string;
   /** basisTable only: one row per legal basis (visual styling; wording unchanged). */
   rows?: BasisRow[];
+  /** contactTable only: the co-controllers of a multi-party joint controllership. */
+  contacts?: JointControllerEntry[];
   /** toc only: the section titles listed in the table of contents. */
   entries?: string[];
   bullets?: string[];

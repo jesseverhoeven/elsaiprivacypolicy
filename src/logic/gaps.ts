@@ -38,6 +38,15 @@ export function findGaps(a: Answers): Gap[] {
     if (!a.jointController.name.trim()) add('jointController.name', 'Name of the joint controller', 'You indicated joint controllership; both controllers must be named (Handbook Ch. 4.2 “About us”).');
     if (!a.jointController.address.trim()) add('jointController.address', 'Address of the joint controller', 'Joint-controller contact details (Handbook Ch. 4.2).', false);
   }
+  const hosts = a.jointControllerEntries.filter((e) => e.group.trim() || e.contact.trim());
+  if (hosts.length > 0) {
+    const noContact = hosts.filter((e) => !e.contact.trim()).length;
+    if (noContact > 0)
+      add('jointControllerEntries', `Contact details of ${noContact} host${noContact > 1 ? 's' : ''}`,
+        'Every joint controller must be listed with its contact details (Art. 13(1)(a) and Art. 26 GDPR).', false);
+    if (!a.coControllerName.trim())
+      add('coControllerName', 'What the hosts are called together', 'Completes the joint-controllership sentence in the Summary (e.g. “the Summer ELSA Law School Organisers”); without it the policy says “the organisers listed below”.', false);
+  }
   if (!a.controllerCountry) add('controllerCountry', 'Country of your group', 'Used to name your national supervisory authority in the follow-up advice.', false);
   if (a.dataSubjects.length === 0 && !a.dataSubjectsOther.trim())
     add('dataSubjects', 'Whose data is processed (data subjects)', 'Fills “This Policy applies to …” in §1 (Handbook Ch. 3.4.2).');
@@ -175,6 +184,17 @@ export function buildAdvice(a: Answers): Advice[] {
       body:
         'Link or embed this privacy policy directly in the JotForm (or other form) where the data is collected, so ' +
         'participants read it before submitting (Handbook Ch. 4.3.2).',
+    });
+  }
+
+  if (a.jointControllerEntries.some((e) => e.group.trim() || e.contact.trim())) {
+    advice.push({
+      level: 'info',
+      title: 'Joint controllership with every host (Art. 26 GDPR)',
+      body:
+        'Each listed host is a joint controller together with your group. Make sure a joint-controller agreement is in place ' +
+        'with every host this edition, and that the list matches the hosts actually running an edition — remove past hosts ' +
+        'and add new ones. Data subjects can exercise their rights against each of them; the policy states this in §1.',
     });
   }
 

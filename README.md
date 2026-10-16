@@ -29,6 +29,10 @@ Policy**, following the mapping in the **ELSA Data Protection Handbook Ch. 4.2**
 2. **Complete & check** — gap analysis (`src/logic/gaps.ts`): only missing required information is
    asked. Selecting special-category data (e.g. health/dietary) triggers the **Art. 9 safeguard**
    (explicit consent + the Handbook Ch. 4.3.2 consent-banner checklist).
+   Events with many hosts (SELS, WELS, moot-court Regional Rounds) list every host as a joint
+   controller; the Summary and §1 then show the approved SELS/WELS joint-controllership sentence
+   followed by a four-across table of hosts. Choosing such an event in step 1 pre-fills the hosts
+   from its previous policy (`scripts/build-presets.py` reads the co-host table).
 3. **Review & trim** — live preview in the exact Annex 4 order. Variable bullets can be rewritten,
    re-ordered and cut/restored like paper. Fixed sections are locked. A toggle shows each block's
    Annex 4 / Handbook source (traceability).
@@ -62,7 +66,7 @@ it is printed in every generated document's footer.
 ```bash
 npm install
 npm run dev      # local dev server
-npm run check    # determinism + Annex 4 fidelity checks (19 assertions)
+npm run check    # determinism + Annex 4 fidelity checks (52 assertions)
 npm run build    # type-check + production build → dist/
 ```
 

@@ -1600,7 +1600,25 @@
   "indirectSources": [
    "From our partner organisations and Regional/Final Round Hosts when researching judges to invite to participate in the Competition",
    "From public sources and social media (LinkedIn)"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "Regional Round Birmingham",
+    "group": "ELSA Birmingham",
+    "contact": "University of Birmingham, Edgbaston Park Rd, Birmingham B15 2TU, United Kingdom\nEmail: competitions.birmingham@uk.elsa.org\nPhone: +44 7355 616854"
+   },
+   {
+    "activity": "Regional Round Greece",
+    "group": "ELSA Greece",
+    "contact": "Korai 8 and Grigoriou Lampraki, Nikaia Attikis, Greece\nEmail: president@gr.elsa.org\nPhone: +30 6987781996"
+   },
+   {
+    "activity": "Regional Round Malta",
+    "group": "ELSA Malta",
+    "contact": "Office 1, Students’ House University of Malta Tal-Qroqq, Msida, Malta\nEmail: president@mt.elsa.org\nPhone: +356 99044502"
+   }
+  ],
+  "coControllerName": "the Regional Round Organiser"
  },
  {
   "file": "6. Competitions\\Privacy Policy - Participants _ Helga Pedersen Moot Court Competition (Last Updated 15.08.2025).docx",
@@ -1722,7 +1740,25 @@
   ],
   "indirectSources": [
    "From our judges and reviewers of the written and oral pleadings, who provide us with the scores of each team"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "Regional Round Birmingham",
+    "group": "ELSA Birmingham",
+    "contact": "University of Birmingham, Edgbaston Park Rd, Birmingham B15 2TU, United Kingdom\nEmail: competitions.birmingham@uk.elsa.org\nPhone: +44 7355 616854"
+   },
+   {
+    "activity": "Regional Round Greece",
+    "group": "ELSA Greece",
+    "contact": "Korai 8 and Grigoriou Lampraki, Nikaia Attikis, Greece\nEmail: president@gr.elsa.org\nPhone: +30 6987781996"
+   },
+   {
+    "activity": "Regional Round Malta",
+    "group": "ELSA Malta",
+    "contact": "Office 1, Students’ House University of Malta Tal-Qroqq, Msida, Malta\nEmail: president@mt.elsa.org\nPhone: +356 99044502"
+   }
+  ],
+  "coControllerName": "the Regional Round Organiser"
  },
  {
   "file": "6. Competitions\\Privacy Policy - Coaches _ John H. Jackson Moot Court Competition (Last updated 15_08_2025).docx",
@@ -1946,7 +1982,45 @@
   "indirectSources": [
    "From our Academic Board, partner organisations and Regional/Final Round Hosts when researching panellists to invite to participate in the Competition",
    "From public sources and social media (LinkedIn)"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "Regional Round Jodhpur",
+    "group": "National Law University, Jodhpur",
+    "contact": "Address: National Law University, Rajasthan 342304, India\nE-mail: bipinkumar@nlujodhpur.ac.in\nPhone: +917597218541"
+   },
+   {
+    "activity": "Regional Round Beijing",
+    "group": "University of International Business and Economics",
+    "contact": "Address: No.10, Huixin Dongjie Chaoyang District Beijing 100029 China\nE-mail: fenghui@uibe.edu.cn\nPhone: +86 13581684774"
+   },
+   {
+    "activity": "Regional Round Peru",
+    "group": "Pontificia Universidad Católica del Perú",
+    "contact": "Address: Avenida Universitaria 1801, San Miguel, 1508, Lima, Peru\nE-Mail: victor.saco@pucp.edu.pe"
+   },
+   {
+    "activity": "Regional Round Yaoundé",
+    "group": "International Relations Institute of Cameroon University of Yaoundé II",
+    "contact": "Address: 859 Kribi Street/7001 Yaoundé 3 PO Box 1637 Yaoundé Cameroon\nE-Mail: diric2017@gmail.com"
+   },
+   {
+    "activity": "Regional Round Brussels",
+    "group": "ELSA Saint Louis",
+    "contact": "Address: Rue du Marais 107, 1000 Brussels, Belgium\nE-mail: president.saintlouis@be.elsa.org\nPhone: +33 658675659"
+   },
+   {
+    "activity": "Regional Round Brussels",
+    "group": "ELSA Leuven",
+    "contact": "Address: Tiensestraat 49, 3000 Leuven, Belgium\nE-mail: president.leuven@be.elsa.org\nPhone: +32475273131"
+   },
+   {
+    "activity": "Regional Round Oslo",
+    "group": "ELSA Norway",
+    "contact": "Address: Karl Johans gate 47, 0162 Oslo, Norway\nE-mail: competitions@no.elsa.org\nPhone: +47 40469352"
+   }
+  ],
+  "coControllerName": "the Regional Round Organiser"
  },
  {
   "file": "6. Competitions\\Privacy Policy - Participants _ John H. Jackson Moot Court Competition (Last updated 17_09_2025).docx",
@@ -2087,7 +2161,45 @@
   ],
   "indirectSources": [
    "From our panellists and reviewers of the written and oral pleadings, who provide us with the scores of each team"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "Regional Round Jodhpur",
+    "group": "National Law University, Jodhpur",
+    "contact": "Address: National Law University, Rajasthan 342304, India\nE-mail: bipinkumar@nlujodhpur.ac.in\nPhone: +917597218541"
+   },
+   {
+    "activity": "Regional Round Beijing",
+    "group": "University of International Business and Economics",
+    "contact": "Address: No.10, Huixin Dongjie Chaoyang District Beijing 100029 China\nE-mail: fenghui@uibe.edu.cn\nPhone: +86 13581684774"
+   },
+   {
+    "activity": "Regional Round Peru",
+    "group": "Pontificia Universidad Católica del Perú",
+    "contact": "Address: Avenida Universitaria 1801, San Miguel, 1508, Lima, Peru\nE-Mail: victor.saco@pucp.edu.pe"
+   },
+   {
+    "activity": "Regional Round Yaoundé",
+    "group": "International Relations Institute of Cameroon University of Yaoundé II",
+    "contact": "Address: 859 Kribi Street/7001 Yaoundé 3 PO Box 1637 Yaoundé Cameroon\nE-Mail: diric2017@gmail.com"
+   },
+   {
+    "activity": "Regional Round Brussels",
+    "group": "ELSA Saint Louis",
+    "contact": "Address: Rue du Marais 107, 1000 Brussels, Belgium\nE-mail: president.saintlouis@be.elsa.org\nPhone: +33 658675659"
+   },
+   {
+    "activity": "Regional Round Brussels",
+    "group": "ELSA Leuven",
+    "contact": "Address: Tiensestraat 49, 3000 Leuven, Belgium\nE-mail: president.leuven@be.elsa.org\nPhone: +32475273131"
+   },
+   {
+    "activity": "Regional Round Oslo",
+    "group": "ELSA Norway",
+    "contact": "Address: Karl Johans gate 47, 0162 Oslo, Norway\nE-mail: competitions@no.elsa.org\nPhone: +47 40469352"
+   }
+  ],
+  "coControllerName": "the Regional Round Organiser"
  },
  {
   "file": "3. FM\\Privacy Policy EDF Application.docx",
@@ -4659,7 +4771,190 @@
   ],
   "indirectSources": [
    "When you apply to participate in the SELS in regards to emergency contact details"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "SELS Antwerp",
+    "group": "ELSA Antwerp (The Netherlands)",
+    "contact": "nikita.castelyn@elsaantwerpen.be"
+   },
+   {
+    "activity": "SELS Vienna",
+    "group": "ELSA Vienna (Austria)",
+    "contact": "vpsc.vienna@at.elsa.org"
+   },
+   {
+    "activity": "SELS Linz & Vienna",
+    "group": "ELSA Linz/ ELSA WU Wien (Austria)",
+    "contact": "sels.wuwien@at.elsa.org"
+   },
+   {
+    "activity": "SELS Barcelona",
+    "group": "ELSA Barcelona U.B. (Spain)",
+    "contact": "directorsels.barcelonaub@es.elsa.org"
+   },
+   {
+    "activity": "SELS Baku",
+    "group": "ELSA Azerbaijan",
+    "contact": "sels@az.elsa.org"
+   },
+   {
+    "activity": "SELS Bucharest",
+    "group": "ELSA Bucharest (Romania)",
+    "contact": "mergersandacquisitions.bucharest@ro.elsa.org"
+   },
+   {
+    "activity": "SELS Madrid",
+    "group": "ELSA Madrid-UAX (Spain)",
+    "contact": "sels.madriduax@es.elsa.org"
+   },
+   {
+    "activity": "SELS Lisbon & Cascais",
+    "group": "ELSA NOVA Lisboa (Portugal)",
+    "contact": "selscascais@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Thessaloniki",
+    "group": "ELSA Thessaloniki (Greece)",
+    "contact": "participants.sls.thessaloniki@gr.elsa.org"
+   },
+   {
+    "activity": "SELS Athens",
+    "group": "ELSA Athens (Greece)",
+    "contact": "lawschool.athens@gr.elsa.org"
+   },
+   {
+    "activity": "SELS Braga",
+    "group": "ELSA UMinho (Portugal)",
+    "contact": "selsbraga.uminho@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Modena",
+    "group": "ELSA More (Italy)",
+    "contact": "lawschool.more@it.elsa.org"
+   },
+   {
+    "activity": "SELS Vila Nova de Gaia",
+    "group": "ELSA Portucalense (Portugal)",
+    "contact": "selsgaia@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Lisbon",
+    "group": "ELSA U.Lisboa (Portugal)",
+    "contact": "sels.lisbon@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Tbilisi",
+    "group": "ELSA Georgia",
+    "contact": "lawschools@ge.elsa.org"
+   },
+   {
+    "activity": "SELS Ankara/Cappadocia",
+    "group": "ELSA Ankara (Türkiye)",
+    "contact": "sels.ankara@tr.elsa.org"
+   },
+   {
+    "activity": "SELS Coimbra",
+    "group": "ELSA Coimbra (Portugal)",
+    "contact": "sels.coimbra@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Cracow",
+    "group": "ELSA Cracow (Poland)",
+    "contact": "vpsc@krakow.elsa.org.pl"
+   },
+   {
+    "activity": "SELS Porto",
+    "group": "ELSA U.Porto (Portugal)",
+    "contact": "sels.lawandtech@pt.elsa.org"
+   },
+   {
+    "activity": "SELS Rijeka",
+    "group": "ELSA Rijeka (Croatia)",
+    "contact": "seminarsconferences.rijeka@hr.elsa.org"
+   },
+   {
+    "activity": "SELS Turin",
+    "group": "ELSA Turin (Italy)",
+    "contact": "foodsustainability.turin@it.elsa.org"
+   },
+   {
+    "activity": "SELS Bologna",
+    "group": "ELSA Bologna (Italy)",
+    "contact": "ocsels.bologna@it.elsa.org"
+   },
+   {
+    "activity": "SELS Sofia",
+    "group": "ELSA Bulgaria",
+    "contact": "sels.elsabulgaria@gmail.com"
+   },
+   {
+    "activity": "SELS Aarhus",
+    "group": "ELSA Aarhus (Denmark)",
+    "contact": "sels.aarhus@dk.elsa.org"
+   },
+   {
+    "activity": "SELS Frankfurt am Main",
+    "group": "ELSA Frankfurt am Main (Germany)",
+    "contact": "sels.participants@elsa-frankfurt.org"
+   },
+   {
+    "activity": "SELS Izmir",
+    "group": "ELSA Izmir (Türkiye)",
+    "contact": "sels.izmir@tr.elsa.org"
+   },
+   {
+    "activity": "SELS Zadar",
+    "group": "ELSA Zagreb (Croatia)",
+    "contact": "selszadar.zagreb@hr.elsa.org"
+   },
+   {
+    "activity": "SELS Cluj-Napoca",
+    "group": "ELSA Cluj-Napoca (Romania)",
+    "contact": "sels.cluj-napoca@ro.elsa.org"
+   },
+   {
+    "activity": "SELS Copenhagen",
+    "group": "ELSA Copenhagen (Denmark)",
+    "contact": "seminarsconferences.copenhagen@dk.elsa.org"
+   },
+   {
+    "activity": "SELS Brno",
+    "group": "ELSA Brno (Czech Republic)",
+    "contact": "sls.brno@cz.elsa.org"
+   },
+   {
+    "activity": "SELS Budapest",
+    "group": "ELSA Hungary",
+    "contact": "sels.hungary@hu.elsa.org"
+   },
+   {
+    "activity": "SELS Uppsala",
+    "group": "ELSA Uppsala (Sweden)",
+    "contact": "sels.uppsala@se.elsa.org"
+   },
+   {
+    "activity": "SELS Messina",
+    "group": "ELSA Messina (Italy)",
+    "contact": "sels.messina@it.elsa.org"
+   },
+   {
+    "activity": "SELS Adana",
+    "group": "ELSA Adana (Türkiye)",
+    "contact": "sels.adana@tr.elsa.org"
+   },
+   {
+    "activity": "SELS Trabzon",
+    "group": "ELSA Trabzon (Türkiye)",
+    "contact": "seminarsconferences.trabzon@tr.elsa.org"
+   },
+   {
+    "activity": "SELS Istanbul",
+    "group": "ELSA Istanbul (Türkiye)",
+    "contact": "seminarsconferences.istanbul@tr.elsa.org"
+   }
+  ],
+  "coControllerName": "the Summer ELSA Law School Organisers"
  },
  {
   "file": "8. Seminars & Conferences\\Privacy Policy - Participants _ WELS (Last updated 18.08.2025).docx",
@@ -4802,7 +5097,105 @@
   ],
   "indirectSources": [
    "When you apply to participate in the WELS in regards to emergency contact details"
-  ]
+  ],
+  "jointControllers": [
+   {
+    "activity": "WELS Adana-Mersin",
+    "group": "ELSA Adana (Türkiye)",
+    "contact": "sel.yk1907@gmail.com"
+   },
+   {
+    "activity": "WELS Belgrade",
+    "group": "ELSA Belgrade (Serbia)",
+    "contact": "role@rs.elsa.org"
+   },
+   {
+    "activity": "WELS Bodrum",
+    "group": "ELSA Türkiye (Türkiye)",
+    "contact": "seminarsconferences@tr.elsa.org"
+   },
+   {
+    "activity": "WELS Brussels",
+    "group": "ELSA Brussels (Belgium)",
+    "contact": "lawschools.brussels@be.elsa.org"
+   },
+   {
+    "activity": "WELS Gabala",
+    "group": "ELSA Azerbaijan",
+    "contact": "seminarsconferences@az.elsa.org"
+   },
+   {
+    "activity": "WELS Innsbruck",
+    "group": "ELSA Innsbruck (Austria)",
+    "contact": "wels.innsbruck@at.elsa.org"
+   },
+   {
+    "activity": "WELS Komotini",
+    "group": "ELSA Komotini (Greece)",
+    "contact": "winterschool.komotini@gr.elsa.org"
+   },
+   {
+    "activity": "WELS Lisbon",
+    "group": "ELSA NOVA Lisboa (Portugal)",
+    "contact": "president.nova@pt.elsa.org"
+   },
+   {
+    "activity": "WELS Manchester",
+    "group": "ELSA Manchester (UK)",
+    "contact": "president.manchester@uk.elsa.org"
+   },
+   {
+    "activity": "WELS Niš",
+    "group": "ELSA Niš (Serbia)",
+    "contact": "president.nis@rs.elsa.org"
+   },
+   {
+    "activity": "WELS Oporto",
+    "group": "ELSA UCP Porto (Portugal)",
+    "contact": "welsoporto@pt.elsa.org"
+   },
+   {
+    "activity": "WELS Osijek",
+    "group": "ELSA Osijek",
+    "contact": "wels.osijek@hr.elsa.org"
+   },
+   {
+    "activity": "WELS Prague",
+    "group": "ELSA Prague (Czech Republic)",
+    "contact": "wels.prague@cz.elsa.org"
+   },
+   {
+    "activity": "WELS Split",
+    "group": "ELSA Split",
+    "contact": "wels.split@hr.elsa.org"
+   },
+   {
+    "activity": "WELS Tbilisi",
+    "group": "ELSA Georgia (Georgia)",
+    "contact": "seminarsconferences@ge.elsa.org"
+   },
+   {
+    "activity": "WELS Tirana",
+    "group": "ELSA Albania (Albania)",
+    "contact": "seminarsconferences@al.elsa.org"
+   },
+   {
+    "activity": "WELS Trento",
+    "group": "ELSA Trento (Italy)",
+    "contact": "headwels.trento@it.elsa.org"
+   },
+   {
+    "activity": "WELS Vila Nova de Gaia",
+    "group": "ELSA Portugal (Portugal)",
+    "contact": "welsgaia@pt.elsa.org"
+   },
+   {
+    "activity": "WELS Zagreb",
+    "group": "ELSA Zagreb (Croatia)",
+    "contact": "wels.zagreb@hr.elsa.org"
+   }
+  ],
+  "coControllerName": "the Winter ELSA Law School Organisers"
  },
  {
   "file": "Privacy Policies 2024-2025\\Privacy Policy - Participants _ Webinar Summer 2025 (Last updated 19_06_2025)).docx",

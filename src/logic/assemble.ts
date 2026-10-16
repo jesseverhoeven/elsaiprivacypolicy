@@ -66,6 +66,25 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
 
   const push = (b: Omit<PolicyBlock, 'removed'>) => blocks.push(b);
 
+  /* Multi-party joint controllership (SELS, WELS, the moot courts' Regional
+     Rounds). The approved ELSA pattern is: the ordinary controller block, then the
+     joint sentence, then the table of hosts — in the Summary and again in §1.
+     An empty list is the ordinary case and changes nothing below. */
+  const jointEntries = a.jointControllerEntries.filter((e) => e.group.trim() || e.contact.trim());
+  const coController = a.coControllerName.trim() || 'the organisers listed below';
+  const jointBlocks = (idPrefix: string, lead: string, source: string) => {
+    push({
+      id: `${idPrefix}-i`, kind: 'paragraph',
+      text: fill(lead, { activityTitle: g.activityTitle, coController }),
+      locked: true, source,
+      deviation: 'multi-joint-controller (Annex 4 has no wording for this shape; taken from the approved SELS/WELS policies)',
+    });
+    push({
+      id: idPrefix, kind: 'contactTable', contacts: jointEntries, locked: true,
+      source: `${source} — co-controller table`, deviation: 'multi-joint-controller',
+    });
+  };
+
   /* The review notice and generator footer live in the app UI only (user decision
      2026-07-10): the published policy is read by data subjects, who should not see
      generator provenance. Template version + date go into DOCX metadata instead. */
@@ -107,6 +126,8 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     deviation: isJoint ? 'joint-controller-adaptation (Ch. 4.2 requires joint-controllers’ details)' : undefined,
   });
   push({ id: 'sum-who-contact', kind: 'bullets', bullets: contactBullets(a), locked: false, source: `${SRC.A4_SUMMARY} · ${SRC.HB_42} (Column F)` });
+  if (jointEntries.length > 0)
+    jointBlocks('sum-joint', SUMMARY.jointMultiIntro, 'Approved SELS Participants policy (08.03.2025) / WELS (18.08.2025), Summary');
 
   push({ id: 'sum-data-h', kind: 'heading2', text: SUMMARY.personalDataHeading, locked: true, source: SRC.A4_SUMMARY });
   push({ id: 'sum-data', kind: 'bullets', bullets: enabledCategoryBullets(a), locked: false, source: `${SRC.A4_SUMMARY} · ${SRC.HB_42} (Column I)` });
@@ -142,6 +163,8 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     locked: true, source: `${SRC.A4_S1} · ${SRC.HB_42} (Column F)`,
     deviation: isJoint ? 'joint-controller-adaptation (Ch. 4.2 “About us”; Art. 26(3) GDPR)' : undefined,
   });
+  if (jointEntries.length > 0)
+    jointBlocks('s1-joint', S1_ABOUT_US.jointMultiAbout, 'Approved SELS Participants policy (08.03.2025) / WELS (18.08.2025), §1');
   const solePurposeTexts = isJoint
     ? a.purposes.filter((p) => p.enabled && a.soleControllerPurposeIds.includes(p.id)).map((p) => p.text)
     : [];
@@ -355,6 +378,7 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
     text: b.text === undefined ? undefined : tidy(b.text),
     bullets: b.bullets?.map(tidy),
     rows: b.rows?.map((r) => ({ label: tidy(r.label), lead: tidy(r.lead), purposes: r.purposes.map(tidy) })),
+    contacts: b.contacts?.map((c) => ({ activity: tidy(c.activity), group: tidy(c.group), contact: tidy(c.contact) })),
   }));
 }
 

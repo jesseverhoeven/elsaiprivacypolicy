@@ -87,6 +87,26 @@ export function PolicyPreview({ blocks, edits, setEdits, editable, showSources }
                 {sourceTag}
               </div>
             );
+          case 'contactTable':
+            // One whole host per cell, four across — the grid the approved SELS/WELS
+            // policies use. Contact lines are kept as entered (e-mail, or address/e-mail/phone).
+            return (
+              <div key={b.id} className="contact-grid-wrap">
+                <div className="contact-grid">
+                  {(b.contacts ?? []).map((c, i) => (
+                    <div className="contact-cell" key={i}>
+                      {c.activity && <span className="contact-activity">{c.activity}</span>}
+                      {c.group && <span className="contact-group">{c.group}</span>}
+                      {c.contact.split('\n').filter((l) => l.trim()).map((l, j) => (
+                        <span className="contact-line" key={j}>{l}</span>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+                {editable && <p className="hint">The organisers are edited in the previous step (“Complete &amp; check”).</p>}
+                {sourceTag}
+              </div>
+            );
           case 'notice':
             return <div className="policy-notice" key={b.id}><p>{text}</p>{sourceTag}</div>;
           case 'title':

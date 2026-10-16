@@ -138,6 +138,35 @@ function blockToChildren(b: PolicyBlock): (Paragraph | Table)[] {
         rows: [headerRow, ...rows],
       })];
     }
+    case 'contactTable': {
+      // Hosts four across, one whole entry per cell — the approved SELS/WELS grid.
+      const PER_ROW = 4;
+      const contacts = b.contacts ?? [];
+      const cell = (c?: (typeof contacts)[number]) => new TableCell({
+        width: { size: 25, type: WidthType.PERCENTAGE },
+        verticalAlign: VerticalAlign.TOP,
+        margins: { top: 80, bottom: 80, left: 100, right: 100 },
+        children: c
+          ? [
+              ...(c.activity ? [new Paragraph({ children: [new TextRun({ text: c.activity, bold: true, color: NAVY, size: 18 })] })] : []),
+              ...(c.group ? [new Paragraph({ children: [new TextRun({ text: c.group, size: 18, color: INK })] })] : []),
+              ...c.contact.split('\n').filter((l) => l.trim()).map((l) =>
+                new Paragraph({ children: [new TextRun({ text: l, size: 18, color: INK })] })),
+            ]
+          : [new Paragraph({})], // pads the last row so every row has four cells
+      });
+      const rows: TableRow[] = [];
+      for (let i = 0; i < contacts.length; i += PER_ROW) {
+        const chunk = contacts.slice(i, i + PER_ROW);
+        rows.push(new TableRow({
+          cantSplit: true,
+          children: Array.from({ length: PER_ROW }, (_, j) => cell(chunk[j])),
+        }));
+      }
+      return rows.length
+        ? [new Table({ width: { size: 100, type: WidthType.PERCENTAGE }, rows }), new Paragraph({ spacing: { after: 120 } })]
+        : [];
+    }
     case 'notice':
       return [new Paragraph({
         spacing: { before: 200, after: 200 },

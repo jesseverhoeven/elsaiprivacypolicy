@@ -9,7 +9,7 @@
  * and commit the regenerated presets.generated.json — no database needed.
  */
 
-import type { Answers, LegalBasis } from '../types';
+import type { Answers, JointControllerEntry, LegalBasis } from '../types';
 import { EXTERNAL_RECIPIENT_OPTIONS, INTERNAL_RECIPIENT_OPTIONS, INTERNATIONAL_ORG_RE } from './picklists';
 import generated from './presets.generated.json';
 
@@ -43,6 +43,11 @@ export interface PresetEvent {
   /** True when the data subjects were NOT clearly stated in the source policy and had
    *  to be guessed (from the file name or the audience) — surfaces a warning in step 2. */
   subjectsGuessed: boolean;
+  /** Multi-party joint controllership (SELS, WELS, the moot courts): the hosts
+   *  listed in the previous policy's co-controller table. Empty for most events. */
+  jointControllers: JointControllerEntry[];
+  /** e.g. "the Summer ELSA Law School Organisers"; '' when there are no co-hosts. */
+  coControllerName: string;
 }
 
 export interface GeneratedPreset {
@@ -60,6 +65,9 @@ export interface GeneratedPreset {
   internationalOrgs: string[];
   directSources: string[];
   indirectSources: string[];
+  /** Only present for policies with a co-controller table (build-presets.py). */
+  jointControllers?: JointControllerEntry[];
+  coControllerName?: string;
 }
 
 function slug(name: string): string {
@@ -114,7 +122,9 @@ function buildAttention(p: GeneratedPreset): AttentionPoint[] {
   const short = p.name.split(' — ')[0];
   points.push({
     section: 'controller',
-    text: `The previous ${short} policy named ELSA ${p.controller.name} as sole controller. Ask yourself: is that still who decides why and how the data is used this edition? Does an Organising Committee or another group co-decide (then tick joint controllers below)?`,
+    text: p.jointControllers?.length
+      ? `The previous ${short} policy named ELSA ${p.controller.name} as controller, jointly with ${p.jointControllers.length} hosts (${p.coControllerName || 'the organisers'}), copied into the co-controller list below. Hosts change every edition: remove those not hosting this time, add the new ones, and check each contact address is current.`
+      : `The previous ${short} policy named ELSA ${p.controller.name} as sole controller. Ask yourself: is that still who decides why and how the data is used this edition? Does an Organising Committee or another group co-decide (then tick joint controllers below)?`,
   });
   if (p.subjects.length > 0) {
     points.push({
@@ -229,6 +239,8 @@ export function toPresetEvent(p: GeneratedPreset): PresetEvent {
     // Guessed when the parser flagged it, or when the source listed no subjects at all
     // (built-in presets from JSON have no flag → empty subjects means guessed).
     subjectsGuessed: p.subjectsGuessed ?? p.subjects.length === 0,
+    jointControllers: p.jointControllers ?? [],
+    coControllerName: p.coControllerName ?? '',
   };
 }
 
@@ -274,6 +286,8 @@ export function presetToPrefill(p: PresetEvent): Partial<Answers> {
     thirdCountries: countries,
     internationalOrgs: orgs,
     sccContactEmail: p.controller.email,
+    jointControllerEntries: p.jointControllers,
+    coControllerName: p.coControllerName,
     noticeDays: 14,
   };
 }

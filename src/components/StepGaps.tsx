@@ -126,6 +126,8 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
   const set = (patch: Partial<Answers>) => setAnswers({ ...answers, ...patch });
   const [recipientError, setRecipientError] = useState('');
   const [openBulb, setOpenBulb] = useState<string | null>(null);
+  // Multi-party joint controllership panel: open when hosts are already listed.
+  const [multiHosts, setMultiHosts] = useState(answers.jointControllerEntries.length > 0);
   const preset = presetById(answers.presetId);
 
   /** Orange marking for values pre-filled from the chosen preset (previous approved policy). */
@@ -506,6 +508,49 @@ export function StepGaps({ answers, setAnswers, analysis, presetMarks, onBack, o
                       ))
                     )}
                   </div>
+                </div>
+              )}
+
+              <label className="checkline">
+                <input type="checkbox" checked={multiHosts}
+                  onChange={(e) => {
+                    setMultiHosts(e.target.checked);
+                    if (!e.target.checked) set({ jointControllerEntries: [], coControllerName: '' });
+                  }} />
+                <span>Several hosts each organise an edition or round with us — every host is a <b>joint
+                  controller</b> (e.g. SELS, WELS, moot-court Regional Rounds)</span>
+              </label>
+              {multiHosts && (
+                <div className="subpanel">
+                  <label className={mk('field:coControllerName')}>What are the hosts called together in the policy?
+                    <input value={answers.coControllerName} onChange={(e) => set({ coControllerName: e.target.value })}
+                      placeholder="e.g. the Summer ELSA Law School Organisers / the Regional Round Organisers" />
+                  </label>
+                  <span className={'fieldlabel' + mk('field:jointControllerEntries')}>Hosts ({answers.jointControllerEntries.length})</span>
+                  {answers.jointControllerEntries.map((h, i) => {
+                    const edit = (patch: Partial<typeof h>) =>
+                      set({ jointControllerEntries: answers.jointControllerEntries.map((x, j) => (j === i ? { ...x, ...patch } : x)) });
+                    return (
+                      <div className="cohost-row" key={i}>
+                        <input value={h.activity} placeholder="Edition / round (e.g. SELS Antwerp)" aria-label={`Host ${i + 1} edition`}
+                          onChange={(e) => edit({ activity: e.target.value })} />
+                        <input value={h.group} placeholder="Host (e.g. ELSA Antwerp (Belgium))" aria-label={`Host ${i + 1} name`}
+                          onChange={(e) => edit({ group: e.target.value })} />
+                        <textarea value={h.contact} rows={Math.max(1, h.contact.split('\n').length)}
+                          placeholder="E-mail (optionally address and phone, one per line)" aria-label={`Host ${i + 1} contact`}
+                          onChange={(e) => edit({ contact: e.target.value })} />
+                        <button className="cut" title="Remove host" aria-label={`Remove host ${i + 1}`}
+                          onClick={() => set({ jointControllerEntries: answers.jointControllerEntries.filter((_, j) => j !== i) })}>✕</button>
+                      </div>
+                    );
+                  })}
+                  <button className="ghost-navy" onClick={() => set({ jointControllerEntries: [...answers.jointControllerEntries, { activity: '', group: '', contact: '' }] })}>
+                    + Add host
+                  </button>
+                  <p className="hint">The hosts appear as a table in the Summary and in §1, after a sentence stating
+                    that the data processing is done under the joint-controllership of ELSA and the hosts (the wording
+                    of the approved SELS and WELS policies). Use this instead of the single joint-controller option
+                    above when there are many hosts. Each host needs a joint-controller agreement with you.</p>
                 </div>
               )}
             </div>

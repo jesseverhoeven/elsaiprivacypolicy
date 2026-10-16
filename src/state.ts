@@ -16,6 +16,12 @@ export function defaultAnswers(): Answers {
     controller: { name: '', address: '', email: '', phone: '' },
     extraEmails: [],
     jointController: { name: '', address: '', email: '', phone: '' },
+    // Multi-party joint controllership (SELS, WELS, ICM, the moot courts). The
+    // questionnaire does not collect these yet, so the list stays empty here and
+    // the policy renders exactly as before; the assembler only adds the
+    // co-controller table when entries are present.
+    jointControllerEntries: [],
+    coControllerName: '',
     usesProcessors: false,
     processors: [],
     soleControllerPurposeIds: [],

@@ -117,6 +117,82 @@ def docx_lines(path: Path):
     return out
 
 
+JOINT_SENTENCE_RE = re.compile(
+    r"joint-controllership of the european law students[’'] association and (.+?):?$", re.I)
+EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+")
+CONTACT_LABEL_RE = re.compile(r"(address|e-?mail|phone|tel)\b", re.I)
+# Spelling slips in the approved co-host tables, corrected so they do not carry
+# into every new edition's policy (reviewed by dataprotection@elsa.org, 2026-10-16).
+HOST_TYPOS = {"Türkyie": "Türkiye", "Tarbzon": "Trabzon", "Madird": "Madrid"}
+
+
+def joint_controllers_from_docx(path: Path):
+    """Multi-party joint controllership (SELS, WELS, the moot courts' Regional
+    Rounds): ELSA International plus every host, each host in its own cell of a
+    grid table — "SELS Baku / ELSA Azerbaijan / sels@az.elsa.org", or for the moot
+    courts the round, the host, then address/e-mail/phone lines.
+
+    Returns (entries, collective_name); ([], "") when the policy has no such
+    table. doc.paragraphs never sees table content, so the tables are read
+    directly. The policy repeats the table in the Summary and in §1; the first
+    one wins. Contact lines are kept verbatim, one per line."""
+    from docx import Document
+    with open(path, "rb") as fh:  # file object: also works with \\?\ long paths
+        doc = Document(fh)
+    co_name = ""
+    for p in doc.paragraphs[:60]:
+        m = JOINT_SENTENCE_RE.search(clean(p.text))
+        if m:
+            co_name = clean(m.group(1))
+            break
+    if not co_name:
+        return [], ""
+    for table in doc.tables:
+        entries, seen = [], set()
+        for row in table.rows:
+            for cell in row.cells:
+                lines = []
+                for para in cell.paragraphs:
+                    for raw in para.text.split("\n"):
+                        t = clean(raw.replace("‪", "").replace("‬", ""))  # bidi marks around phone numbers
+                        for wrong, right in HOST_TYPOS.items():
+                            t = t.replace(wrong, right)
+                        if not t:
+                            continue
+                        if lines and lines[-1].endswith(","):  # address wrapped over two lines
+                            lines[-1] += " " + t
+                        else:
+                            lines.append(t)
+                if not any(EMAIL_RE.search(l) for l in lines) or len(lines) < 2:
+                    continue
+                activity, group, contact = lines[0], lines[1], lines[2:]
+                m = EMAIL_RE.search(group)  # "ELSA Albania (Albania) seminarsconferences@al.elsa.org"
+                if m:
+                    contact = [m.group(0)] + contact
+                    group = clean(group.replace(m.group(0), ""))
+                # A round can have two hosts in one cell ("Regional Round Brussels":
+                # ELSA Saint Louis + ELSA Leuven): an unlabelled line after the e-mail
+                # starts the next host, listed as its own entry under the same round.
+                hosts, cur, had_mail = [], [group, []], False
+                for l in contact:
+                    if had_mail and "@" not in l and not CONTACT_LABEL_RE.match(l):
+                        hosts.append(cur)
+                        cur, had_mail = [l, []], False
+                        continue
+                    cur[1].append(l)
+                    had_mail = had_mail or "@" in l
+                hosts.append(cur)
+                for host, lines_ in hosts:
+                    entry = {"activity": activity, "group": host, "contact": "\n".join(lines_)}
+                    key = tuple(entry.values())
+                    if key not in seen:  # merged cells repeat in python-docx
+                        seen.add(key)
+                        entries.append(entry)
+        if len(entries) >= 2:
+            return entries, co_name
+    return [], ""
+
+
 def pdf_lines(path: Path):
     from pypdf import PdfReader
     r = PdfReader(str(path))
@@ -337,6 +413,9 @@ def parse_policy(path: Path, root: Path):
     if not controller["email"]:
         controller["email"] = "secgen@elsa.org"
 
+    # ---- multi-party joint controllership (co-host table + collective name)
+    joint, co_name = joint_controllers_from_docx(path) if path.suffix.lower() == ".docx" else ([], "")
+
     audience = derive_audience(name, subjects, purposes)
 
     rel = path.relative_to(root)
@@ -361,6 +440,7 @@ def parse_policy(path: Path, root: Path):
         "internationalOrgs": orgs,
         "directSources": direct,
         "indirectSources": indirect,
+        **({"jointControllers": joint, "coControllerName": co_name} if joint else {}),
     }
 
 

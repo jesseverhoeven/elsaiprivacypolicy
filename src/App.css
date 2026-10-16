@@ -199,6 +199,25 @@ select.basis-select {
 .basis-table ul { margin: 0; padding-left: 1.2rem; }
 .basis-table li { margin: 0.2rem 0; }
 
+/* ---------- Co-controller grid (multi-party joint controllership) ---------- */
+/* Four across like the approved SELS/WELS policies; fewer columns on narrow screens. */
+.contact-grid-wrap { margin: 0.6rem 0 1rem; }
+.contact-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--navy); border-left: 1px solid var(--navy);
+}
+.contact-cell {
+  border-right: 1px solid var(--navy); border-bottom: 1px solid var(--navy);
+  padding: 0.45rem 0.6rem; font-size: 0.86em; text-align: left; overflow-wrap: anywhere;
+}
+.contact-cell span { display: block; }
+.contact-activity { color: var(--navy); font-weight: 700; }
+@media (max-width: 760px) { .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media print {
+  .contact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .contact-cell { break-inside: avoid; }
+}
+
 /* ---------- ELSA logo on the policy ---------- */
 .policy-logo { display: block; margin-left: auto; width: 130px; height: auto; }
 
@@ -332,6 +351,9 @@ select.basis-select {
 .quickfill .ghost-navy.active { background: var(--ground-alt); border-color: var(--ink-soft); color: var(--ink); }
 .processor-row { display: grid; grid-template-columns: 2fr 1fr 2fr auto; gap: 0.4rem; align-items: center; margin: 0.35rem 0; }
 @media (max-width: 700px) { .processor-row { grid-template-columns: 1fr; } }
+.cohost-row { display: grid; grid-template-columns: 1.2fr 1.5fr 2fr auto; gap: 0.4rem; align-items: start; margin: 0.35rem 0; }
+.cohost-row textarea { font: inherit; resize: vertical; }
+@media (max-width: 700px) { .cohost-row { grid-template-columns: 1fr; } }
 /* Processor toggle reads as one flowing sentence, not a narrow column */
 .processor-toggle { align-items: flex-start; max-width: none; line-height: 1.5; }
 .processor-toggle span { flex: 1; }

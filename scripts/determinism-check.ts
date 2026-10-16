@@ -48,6 +48,25 @@ answers.controllerCountry = 'BE';
 answers.transfersOutsideEEA = true;
 answers.explicitConsentConfirmed = true;
 
+// The officer ticks the audience and the purposes in step 2. The analyser used to
+// guess both from free text and deliberately no longer does — keyword guesses were
+// too often wrong (user feedback 2026-07-11/12: boilerplate ticked "Manage our human
+// resources", and the audience now stays neutral until chosen). So this check has to
+// supply them the way the questionnaire does, or §3 comes out empty.
+answers.audience = 'participants';
+const tick = (...texts: string[]) => {
+  answers.purposes = answers.purposes.map((p) => (texts.includes(p.text) ? { ...p, enabled: true } : p));
+  for (const t of texts)
+    if (!answers.purposes.some((p) => p.text === t))
+      throw new Error(`determinism-check: no purpose named "${t}" in the pick-list — update this list.`);
+};
+tick(
+  'Register and manage your participation in the event',                  // contract
+  'To provide meals adapted to dietary restrictions and allergies',       // consent
+  'To maintain and improve our events',                                   // legitimate interest
+  'Comply with applicable legal, tax, accounting or regulatory obligations', // legal obligation
+);
+
 const p1 = JSON.stringify(assemblePolicy(answers));
 const p2 = JSON.stringify(assemblePolicy(structuredClone(answers)));
 ok('assembly: same inputs → byte-identical policy', p1 === p2);
@@ -86,11 +105,18 @@ ok('event title not repeated as a detailed-section heading',
   !blocks.some((b) => b.kind !== 'title' && (b.text ?? '').startsWith('Privacy Policy for')));
 
 // The basis/purposes table must not alter the verbatim lead-in wording.
-const table = blocks.find((b) => b.kind === 'basisTable')!;
-const contractRow = table.rows!.find((r) => r.label.startsWith('Contractual'))!;
+// Everything below is read defensively: an undefined row used to throw here and
+// take the remaining ~20 checks down with it, hiding them instead of failing one.
+const table = blocks.find((b) => b.kind === 'basisTable');
+ok('§3 renders a basis table', Boolean(table));
+ok('§3 has one row per legal basis in use', table?.rows?.length === 4,
+  `rows: ${table?.rows?.length ?? 0} (a purpose must be ticked for a basis to appear)`);
+const contractRow = table?.rows?.find((r) => r.label.startsWith('Contractual'));
 ok('basis lead-in wording preserved inside the table',
+  contractRow !== undefined &&
   `${contractRow.label}: ${contractRow.lead}` ===
-  fill(S3_LEGAL_BASIS.contractParticipants, { activityTitle: answers.activityTitle, groupName: answers.controller.name, address: answers.controller.address }));
+  fill(S3_LEGAL_BASIS.contractParticipants, { activityTitle: answers.activityTitle, groupName: answers.controller.name, address: answers.controller.address }),
+  contractRow ? `${contractRow.label}: ${contractRow.lead}`.slice(0, 80) : 'no Contractual Obligations row');
 ok('no generator branding inside the policy blocks',
   !blocks.some((b) => JSON.stringify(b.text ?? '').toLowerCase().includes('elsaiprivacypolicy')));
 ok('notice period defaults to 14 days', defaultAnswers().noticeDays === 14);
@@ -146,6 +172,41 @@ ok('presets: no two entries share display name + date', (() => {
 })());
 
 ok('abbreviations expand in event titles (WELS)', titleWithExpansion('WELS') === 'Winter ELSA Law Schools (WELS)');
+
+// Rights intro: fixed dataprotection@ + secgen@, never the controller e-mail (user request 2026-10-16)
+ok('§7 rights intro names dataprotection@ and secgen@ exactly once each', (() => {
+  const intro = blocks.find((b) => b.id === 's7-intro')?.text ?? '';
+  return intro.includes('send an email to dataprotection@elsa.org or to secgen@elsa.org.') &&
+    intro.split('secgen@elsa.org').length === 2;
+})());
+
+// Multi-party joint controllership (SELS, WELS, moot-court Regional Rounds)
+ok('no co-host table for an ordinary policy', !blocks.some((b) => b.kind === 'contactTable'));
+const sels = PRESET_EVENTS.find((p) => p.name.startsWith('SELS'));
+ok('presets: SELS carries its co-host table from the approved policy',
+  (sels?.jointControllers.length ?? 0) >= 30 && sels?.coControllerName === 'the Summer ELSA Law School Organisers',
+  `${sels?.jointControllers.length} hosts, "${sels?.coControllerName}"`);
+ok('presets: every co-host entry has a contact with an e-mail address',
+  PRESET_EVENTS.flatMap((p) => p.jointControllers).every((e) => /@/.test(e.contact) && e.group.trim()));
+ok('presets: only the multi-host events carry co-hosts',
+  PRESET_EVENTS.filter((p) => p.jointControllers.length > 0).every((p) => /SELS|WELS|Moot Court/.test(p.name)));
+{
+  const sa = applyPreset(sels!.id).answers;
+  const sb = assemblePolicy(sa);
+  const tables = sb.filter((b) => b.kind === 'contactTable');
+  ok('SELS: co-host table appears in the Summary and in §1', tables.map((t) => t.id).join() === 'sum-joint,s1-joint');
+  ok('SELS: each table follows its joint-controllership sentence',
+    tables.every((t) => sb[sb.indexOf(t) - 1]?.id === `${t.id}-i`));
+  ok('SELS: Summary sentence uses the approved wording and collective name',
+    sb.find((b) => b.id === 'sum-joint-i')?.text ===
+    fill(SUMMARY.jointMultiIntro, { activityTitle: sa.activityTitle, coController: 'the Summer ELSA Law School Organisers' }));
+  ok('SELS: §1 states rights can be exercised against each joint controller',
+    (sb.find((b) => b.id === 's1-joint-i')?.text ?? '').includes('against each of the joint-controllers'));
+  ok('SELS: table lists every host from the approved policy', tables[0].contacts?.length === sels!.jointControllers.length);
+  ok('SELS: assembly is deterministic', JSON.stringify(sb) === JSON.stringify(assemblePolicy(applyPreset(sels!.id).answers)));
+  const emptied = assemblePolicy({ ...sa, jointControllerEntries: [{ activity: ' ', group: ' ', contact: '' }] });
+  ok('blank host rows are ignored (no empty table)', !emptied.some((b) => b.kind === 'contactTable' || b.id === 'sum-joint-i'));
+}
 
 console.log(failures === 0 ? '\nAll checks passed.' : `\n${failures} check(s) FAILED.`);
 process.exit(failures === 0 ? 0 : 1);

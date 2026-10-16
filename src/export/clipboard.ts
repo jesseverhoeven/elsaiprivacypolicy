@@ -59,6 +59,20 @@ export function blocksToHtml(blocks: PolicyBlock[]): string {
           `</table>`,
         );
         break;
+      case 'contactTable': {
+        // Hosts four across, one whole entry per cell (approved SELS/WELS grid).
+        const cells = (b.contacts ?? []).map((c) =>
+          `<td style="border:1px solid #0A3087;padding:5px 8px;vertical-align:top;width:25%;font-size:0.85em;">` +
+          (c.activity ? `<b style="color:#0A3087;">${esc(c.activity)}</b><br/>` : '') +
+          (c.group ? `${esc(c.group)}<br/>` : '') +
+          c.contact.split('\n').filter((l) => l.trim()).map(esc).join('<br/>') +
+          `</td>`);
+        while (cells.length % 4 !== 0) cells.push('<td style="border:1px solid #0A3087;"></td>');
+        const rows: string[] = [];
+        for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
+        parts.push(`<table style="border-collapse:collapse;width:100%;">${rows.join('')}</table>`);
+        break;
+      }
       case 'bullets':
         parts.push(`<ul>${(b.bullets ?? []).map((t) => `<li style="text-align:justify;">${esc(t)}</li>`).join('')}</ul>`);
         break;
@@ -79,6 +93,9 @@ export function blocksToPlainText(blocks: PolicyBlock[]): string {
     if (b.kind === 'toc') parts.push('CONTENTS\n' + (b.entries ?? []).join('\n'));
     else if (b.kind === 'basisTable')
       parts.push((b.rows ?? []).map((r) => `${r.label}: ${r.lead}\n${r.purposes.map((p) => `  • ${p}`).join('\n')}`).join('\n\n'));
+    else if (b.kind === 'contactTable')
+      parts.push((b.contacts ?? []).map((c) =>
+        [c.activity, c.group, ...c.contact.split('\n')].filter((l) => l.trim()).map((l, i) => (i === 0 ? '  • ' : '    ') + l).join('\n')).join('\n'));
     else if (b.kind === 'bullets') parts.push((b.bullets ?? []).map((t) => `  • ${t}`).join('\n'));
     else if (b.kind.startsWith('heading') || b.kind === 'title') parts.push(`\n${(b.text ?? '').toUpperCase()}\n`);
     else parts.push(b.text ?? '');
