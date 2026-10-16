@@ -26,7 +26,7 @@ export function StepExport({ answers, finalBlocks, onBack, onStartOver }: Props)
 
   return (
     <section className="step">
-      <h2>Step 5 · Download your privacy policy</h2>
+      <h2>Step 4 · Download your privacy policy</h2>
 
       {/* Two outputs only: the Word file (which carries the full layout — logo on
           every page, page numbers, justified legal-basis table) and a rich-text

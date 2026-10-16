@@ -314,9 +314,9 @@ export function assemblePolicy(a: Answers): PolicyBlock[] {
   push({ id: 's7-h', kind: 'heading2', text: S7_RIGHTS.heading, locked: true, source: SRC.A4_S7 });
   push({
     id: 's7-intro', kind: 'paragraph',
-    text: fill(S7_RIGHTS.intro, { controllerEmail: a.controller.email }),
+    text: S7_RIGHTS.intro,
     locked: true, source: `${SRC.A4_S7} (secgen@elsa.org from .docx hyperlink)`,
-    deviation: 'contact-adaptation (user decision C: controller e-mail first, secgen@ kept)',
+    deviation: 'contact-adaptation (dataprotection@elsa.org first, secgen@ kept)',
   });
   push({ id: 's7-list', kind: 'bullets', bullets: S7_RIGHTS.bullets, locked: true, source: `${SRC.A4_S7} · ${SRC.HB_42}: “Leave section as it is”` });
   push({ id: 's7-resp', kind: 'paragraph', text: S7_RIGHTS.responseTime, locked: true, source: SRC.A4_S7 });

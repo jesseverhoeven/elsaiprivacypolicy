@@ -278,10 +278,10 @@ export const S7_RIGHTS = {
   heading: '7 - Your Rights',
   /**
    * Annex 4 fixed intro embeds secgen@elsa.org (hyperlink in the .docx).
-   * deviation: contact-adaptation — controller e-mail first, secgen@ kept (user decision C).
+   * deviation: contact-adaptation — dataprotection@elsa.org first, secgen@ kept (user request 2026-10-16; previously controller e-mail, which duplicated secgen@).
    */
   intro:
-    'You possess the following data protection rights. To exercise these rights, please reach out to us at the provided address or send an email to {{controllerEmail}} or to secgen@elsa.org. Please be aware that we may ask you to verify your identity before addressing your requests.',
+    'You possess the following data protection rights. To exercise these rights, please reach out to us at the provided address or send an email to dataprotection@elsa.org or to secgen@elsa.org. Please be aware that we may ask you to verify your identity before addressing your requests.',
   /** FIXED — Ch. 4.2: leave as it is in the template. EDPB link recovered from the .docx hyperlink. */
   bullets: [
     'Right to Access: You have the right to request a copy of your personal data, which we will furnish to you in an electronic format.',
